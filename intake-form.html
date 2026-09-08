@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PAE Intake Form — SalesGency</title>
+  <meta name="description" content="Complete the SalesGency intake form to kickstart your Prospect Automation Engine build." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0284C7; --indigo: #7C3AED;
+      --bg: #F5F5F7; --surface: #FFFFFF; --surface2: #F8FAFC;
+      --border: rgba(0, 0, 0, 0.08); --text: #0F172A;
+      --muted: #64748B; --grad: linear-gradient(135deg, #0284C7, #7C3AED);
+    }
+    body {
+      font-family: 'Inter', sans-serif; background: var(--bg);
+      color: var(--text); min-height: 100vh; padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* HEADER */
+    .form-header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 28px 0; text-align: center;
+    }
+    .brand-logo {
+      display: inline-flex; align-items: baseline; font-family: 'Space Grotesk', 'Outfit', sans-serif;
+      font-weight: 750; font-size: 24px; letter-spacing: -0.028em; color: var(--text); text-decoration: none;
+      margin-bottom: 12px;
+    }
+    .brand-dot {
+      display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+      background: #00C2FF; margin-left: 2px;
+      box-shadow: 0 0 10px rgba(0, 194, 255, 0.45);
+    }
+    .form-header h1 { font-family: 'Space Grotesk', 'Outfit', sans-serif; font-weight: 750; font-size: 26px; margin-bottom: 8px; color: var(--text); }
+    .form-header p { font-size: 14px; color: var(--muted); }
+
+    /* PROGRESS */
+    .progress-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 0; position: sticky; top: 0; z-index: 50; }
+    .progress-inner { max-width: 700px; margin: 0 auto; padding: 0 24px; }
+    .progress-steps { display: flex; gap: 0; align-items: center; }
+    .progress-step { display: flex; align-items: center; flex: 1; }
+    .ps-dot {
+      width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: var(--muted); flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .ps-dot.active { border-color: var(--blue); background: rgba(0,194,255,0.15); color: var(--blue); }
+    .ps-dot.done { border-color: var(--blue); background: var(--blue); color: white; }
+    .ps-label { font-size: 12px; color: var(--muted); margin-left: 8px; white-space: nowrap; }
+    .ps-label.active { color: var(--blue); }
+    .ps-line { flex: 1; height: 2px; background: var(--border); margin: 0 8px; }
+    .ps-line.done { background: var(--blue); }
+
+    /* FORM WRAPPER */
+    .form-wrapper { max-width: 700px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* SECTIONS */
+    .form-section { display: none; }
+    .form-section.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .section-header { margin-bottom: 32px; }
+    .section-step { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--blue); margin-bottom: 8px; }
+    .section-header h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 28px; margin-bottom: 10px; }
+    .section-header p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* FIELDS */
+    .field-group { margin-bottom: 24px; }
+    .field-group label {
+      display: block; font-size: 13px; font-weight: 600; margin-bottom: 8px;
+      color: var(--text);
+    }
+    .field-group label .req { color: var(--blue); margin-left: 2px; }
+    .field-group .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    input[type="text"], input[type="email"], input[type="url"], textarea, select {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 13px 16px; color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none; -webkit-appearance: none;
+    }
+    input[type="text"]:focus, input[type="email"]:focus,
+    input[type="url"]:focus, textarea:focus, select:focus {
+      border-color: rgba(0,194,255,0.5);
+      box-shadow: 0 0 0 3px rgba(0,194,255,0.1);
+    }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    select option { background: var(--surface2); }
+    textarea { resize: vertical; min-height: 100px; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .field-row { grid-template-columns: 1fr; } }
+
+    /* CHECKBOXES */
+    .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .check-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 14px; cursor: pointer;
+      transition: border-color 0.2s; user-select: none;
+    }
+    .check-item:hover { border-color: rgba(0,194,255,0.3); }
+    .check-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
+    .check-item label { font-size: 13px; cursor: pointer; }
+    .check-item.radio-item input[type="radio"] { width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
+
+    /* DIVIDER */
+    .field-divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+    /* NAV BUTTONS */
+    .form-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border);
+    }
+    .btn {
+      padding: 13px 28px; border-radius: 10px; font-family: 'Outfit', sans-serif;
+      font-weight: 700; font-size: 15px; cursor: pointer; border: none; transition: all 0.2s;
+    }
+    .btn-next { background: var(--grad); color: white; box-shadow: 0 4px 20px rgba(91,43,255,0.35); }
+    .btn-next:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(91,43,255,0.45); }
+    .btn-back { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+    .btn-back:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+    .btn-submit { background: var(--grad); color: white; font-size: 16px; padding: 15px 36px; box-shadow: 0 4px 24px rgba(91,43,255,0.4); }
+    .btn-submit:hover { transform: translateY(-2px); }
+
+    /* SUCCESS */
+    .success-screen {
+      display: none; text-align: center; padding: 60px 24px;
+      animation: fadeIn 0.5s ease;
+    }
+    .success-screen.show { display: block; }
+    .success-icon { font-size: 64px; margin-bottom: 20px; }
+    .success-screen h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 32px; margin-bottom: 12px; }
+    .success-screen p { font-size: 16px; color: var(--muted); max-width: 460px; margin: 0 auto 32px; line-height: 1.7; }
+    .success-steps { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px 32px; max-width: 420px; margin: 0 auto; text-align: left; }
+    .success-steps h4 { font-family: 'Outfit', sans-serif; font-weight: 700; margin-bottom: 14px; }
+    .success-steps li { font-size: 14px; color: var(--muted); margin-bottom: 8px; list-style: none; }
+    .success-steps li::before { content: '→ '; color: var(--blue); font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="form-header">
+  <a href="index.html" class="brand-logo">SalesGency<span class="brand-dot"></span></a>
+  <h1>PAE Intake Form</h1>
+  <p>Help us understand your business so we can build the perfect Prospect Automation Engine for you.</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="progress-steps" id="progressSteps">
+      <div class="progress-step">
+        <div class="ps-dot active" id="dot-1">1</div>
+        <span class="ps-label active" id="label-1">Your Business</span>
+      </div>
+      <div class="ps-line" id="line-1"></div>
+      <div class="progress-step">
+        <div class="ps-dot" id="dot-2">2</div>
+        <span class="ps-label" id="label-2">Your Customers</span>
+      </div>
+      <div class="ps-line" id="line-2"></div>
+      <div class="progress-step">
+        <div class="ps-dot" id="dot-3">3</div>
+        <span class="ps-label" id="label-3">Tech Stack</span>
+      </div>
+      <div class="ps-line" id="line-3"></div>
+      <div class="progress-step">
+        <div class="ps-dot" id="dot-4">4</div>
+        <span class="ps-label" id="label-4">Automation Setup</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-wrapper">
+
+  <!-- SECTION 1: BUSINESS -->
+  <div class="form-section active" id="section-1">
+    <div class="section-header">
+      <div class="section-step">Step 1 of 4</div>
+      <h2>Tell Us About<br />Your Business</h2>
+      <p>This helps us tailor the automation to your exact offer, positioning, and sales motion.</p>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label for="firstName">First Name <span class="req">*</span></label>
+        <input type="text" id="firstName" placeholder="Jane" required />
+      </div>
+      <div class="field-group">
+        <label for="lastName">Last Name <span class="req">*</span></label>
+        <input type="text" id="lastName" placeholder="Smith" required />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field-group">
+        <label for="email">Work Email <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="jane@company.com" required />
+      </div>
+      <div class="field-group">
+        <label for="company">Company Name <span class="req">*</span></label>
+        <input type="text" id="company" placeholder="Acme Inc." required />
+      </div>
+    </div>
+    <div class="field-group">
+      <label for="website">Company Website</label>
+      <input type="url" id="website" placeholder="https://yourcompany.com" />
+    </div>
+    <div class="field-group">
+      <label for="whatYouSell">What do you sell? <span class="req">*</span></label>
+      <textarea id="whatYouSell" placeholder="Describe your product or service, who it helps, and the core value it delivers..."></textarea>
+    </div>
+    <div class="field-row">
+      <div class="field-group">
+        <label for="dealSize">Average Deal Size</label>
+        <select id="dealSize">
+          <option value="">Select range...</option>
+          <option>Under $1,000</option>
+          <option>$1,000 – $5,000</option>
+          <option>$5,000 – $25,000</option>
+          <option>$25,000 – $100,000</option>
+          <option>$100,000+</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label for="salesCycle">Sales Cycle Length</label>
+        <select id="salesCycle">
+          <option value="">Select range...</option>
+          <option>Under 2 weeks</option>
+          <option>2–4 weeks</option>
+          <option>1–3 months</option>
+          <option>3–6 months</option>
+          <option>6+ months</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-group">
+      <label for="differentiators">What makes you different from competitors?</label>
+      <textarea id="differentiators" style="min-height: 80px;" placeholder="Key differentiators, proof points, customer wins..."></textarea>
+    </div>
+
+    <div class="form-nav">
+      <span></span>
+      <button class="btn btn-next" onclick="goToSection(2)">Next: Your Customers →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 2: CUSTOMERS (ICP) -->
+  <div class="form-section" id="section-2">
+    <div class="section-header">
+      <div class="section-step">Step 2 of 4</div>
+      <h2>Your Ideal<br />Customer Profile</h2>
+      <p>The more specific you are, the more targeted your automation will be. Bad targeting = bad results. Good targeting = booked meetings.</p>
+    </div>
+
+    <div class="field-group">
+      <label>Target Industries <span class="req">*</span></label>
+      <input type="text" id="industries" placeholder="e.g. SaaS, Fintech, Healthcare IT, E-commerce..." />
+      <p class="hint">Separate multiple industries with commas</p>
+    </div>
+    <div class="field-row">
+      <div class="field-group">
+        <label>Company Size (Employees)</label>
+        <input type="text" id="companySize" placeholder="e.g. 50–500 employees" />
+      </div>
+      <div class="field-group">
+        <label>Revenue Range (Optional)</label>
+        <input type="text" id="revenueRange" placeholder="e.g. $5M – $100M ARR" />
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Target Geographies</label>
+      <input type="text" id="geos" placeholder="e.g. United States, Canada, UK, DACH..." />
+    </div>
+    <div class="field-group">
+      <label>Primary Target Job Titles <span class="req">*</span></label>
+      <input type="text" id="titles" placeholder="e.g. VP of Sales, Head of RevOps, CRO..." />
+      <p class="hint">These are the decision-makers we'll target. Be specific.</p>
+    </div>
+    <div class="field-group">
+      <label>Secondary / Influencer Titles (Optional)</label>
+      <input type="text" id="titles2" placeholder="e.g. Director of Sales Operations, Sales Manager..." />
+    </div>
+    <div class="field-group">
+      <label>What buying signals or triggers indicate a good prospect?</label>
+      <textarea id="signals" placeholder="e.g. Recently hired a VP of Sales, raised funding in last 6 months, actively hiring SDRs, using Salesforce..."></textarea>
+    </div>
+    <div class="field-group">
+      <label>Who should we NOT contact? (Disqualifiers)</label>
+      <textarea id="dqs" style="min-height: 80px;" placeholder="e.g. Existing customers, competitors, companies under 10 employees, government/non-profit..."></textarea>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn btn-back" onclick="goToSection(1)">← Back</button>
+      <button class="btn btn-next" onclick="goToSection(3)">Next: Tech Stack →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 3: TECH STACK -->
+  <div class="form-section" id="section-3">
+    <div class="section-header">
+      <div class="section-step">Step 3 of 4</div>
+      <h2>Your Tools<br />&amp; Tech Stack</h2>
+      <p>We'll build your PAE to integrate with the platforms you already use. If you're not sure what to use, we can recommend the best stack for your goals.</p>
+    </div>
+
+    <div class="field-group">
+      <label>CRM Platform <span class="req">*</span></label>
+      <div class="checkbox-grid">
+        <label class="check-item radio-item"><input type="radio" name="crm" value="HubSpot" /><label>HubSpot</label></label>
+        <label class="check-item radio-item"><input type="radio" name="crm" value="Salesforce" /><label>Salesforce</label></label>
+        <label class="check-item radio-item"><input type="radio" name="crm" value="Attio" /><label>Attio</label></label>
+        <label class="check-item radio-item"><input type="radio" name="crm" value="Pipedrive" /><label>Pipedrive</label></label>
+        <label class="check-item radio-item"><input type="radio" name="crm" value="Zoho" /><label>Zoho CRM</label></label>
+        <label class="check-item radio-item"><input type="radio" name="crm" value="Monday" /><label>Monday.com</label></label>
+        <label class="check-item radio-item"><input type="radio" name="crm" value="ClickUp" /><label>ClickUp</label></label>
+        <label class="check-item radio-item"><input type="radio" name="crm" value="None" /><label>No CRM yet</label></label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>Data / Enrichment Tool (select all that apply)</label>
+      <div class="checkbox-grid">
+        <label class="check-item"><input type="checkbox" value="Clay" /><label>Clay</label></label>
+        <label class="check-item"><input type="checkbox" value="Apollo" /><label>Apollo.io</label></label>
+        <label class="check-item"><input type="checkbox" value="ZoomInfo" /><label>ZoomInfo</label></label>
+        <label class="check-item"><input type="checkbox" value="FindyMail" /><label>FindyMail</label></label>
+        <label class="check-item"><input type="checkbox" value="Lusha" /><label>Lusha</label></label>
+        <label class="check-item"><input type="checkbox" value="Amplemarket" /><label>Amplemarket</label></label>
+        <label class="check-item"><input type="checkbox" value="Reply" /><label>Reply.io</label></label>
+        <label class="check-item"><input type="checkbox" value="None" /><label>None / Need recommendation</label></label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>Outreach / Email Sequencing Platform</label>
+      <div class="checkbox-grid">
+        <label class="check-item radio-item"><input type="radio" name="outreach" value="Instantly" /><label>Instantly</label></label>
+        <label class="check-item radio-item"><input type="radio" name="outreach" value="HubSpot Sales" /><label>HubSpot Sales</label></label>
+        <label class="check-item radio-item"><input type="radio" name="outreach" value="Salesforce" /><label>Salesforce Cadences</label></label>
+        <label class="check-item radio-item"><input type="radio" name="outreach" value="Attio" /><label>Attio</label></label>
+        <label class="check-item radio-item"><input type="radio" name="outreach" value="Zoho" /><label>Zoho</label></label>
+        <label class="check-item radio-item"><input type="radio" name="outreach" value="None" /><label>None yet</label></label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label for="n8nUrl">n8n Instance URL (if you have one)</label>
+      <input type="url" id="n8nUrl" placeholder="https://your-n8n-instance.com" />
+      <p class="hint">If you don't have n8n set up yet, we can help with that as part of the engagement.</p>
+    </div>
+    <div class="field-group">
+      <label for="slackWorkspace">Slack Workspace (for approval alerts)</label>
+      <input type="text" id="slackWorkspace" placeholder="e.g. yourcompany.slack.com" />
+    </div>
+
+    <div class="form-nav">
+      <button class="btn btn-back" onclick="goToSection(2)">← Back</button>
+      <button class="btn btn-next" onclick="goToSection(4)">Next: Automation Setup →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 4: AUTOMATION SETUP -->
+  <div class="form-section" id="section-4">
+    <div class="section-header">
+      <div class="section-step">Step 4 of 4</div>
+      <h2>Automation<br />Configuration</h2>
+      <p>Tell us how you want the automation to run and what package you're interested in.</p>
+    </div>
+
+    <div class="field-group">
+      <label>Automation Type <span class="req">*</span></label>
+      <div class="checkbox-grid">
+        <label class="check-item radio-item">
+          <input type="radio" name="autoType" value="company" />
+          <label><strong>Company Automation</strong> — I have a list of companies; system finds and contacts the right people</label>
+        </label>
+        <label class="check-item radio-item">
+          <input type="radio" name="autoType" value="contact" />
+          <label><strong>Contact Automation</strong> — I already have a contact list; skip to research and email</label>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>Preferred Trigger Method</label>
+      <div class="checkbox-grid">
+        <label class="check-item radio-item">
+          <input type="radio" name="trigger" value="daily" />
+          <label><strong>Daily Schedule</strong> — Pulls from CRM/sheet at a set time</label>
+        </label>
+        <label class="check-item radio-item">
+          <input type="radio" name="trigger" value="webhook" />
+          <label><strong>Skill to Webhook</strong> — Triggered via LLM skill manually</label>
+        </label>
+        <label class="check-item radio-item">
+          <input type="radio" name="trigger" value="agent" />
+          <label><strong>Custom Agent</strong> — Fully autonomous ICP scanning</label>
+        </label>
+        <label class="check-item radio-item">
+          <input type="radio" name="trigger" value="unsure" />
+          <label><strong>Not Sure</strong> — Help me decide</label>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label>Interested Package</label>
+      <div class="checkbox-grid">
+        <label class="check-item radio-item">
+          <input type="radio" name="package" value="3day" />
+          <label><strong>3-Day Sprint</strong> — $5,000 · Priority build in 72 hours</label>
+        </label>
+        <label class="check-item radio-item">
+          <input type="radio" name="package" value="7day" />
+          <label><strong>7-Day Sprint</strong> — $2,500 · Full build in 1 week</label>
+        </label>
+        <label class="check-item radio-item">
+          <input type="radio" name="package" value="agent" />
+          <label><strong>Custom Agent</strong> — Platform subscription (custom pricing)</label>
+        </label>
+        <label class="check-item radio-item">
+          <input type="radio" name="package" value="diy" />
+          <label><strong>DIY Package</strong> — Download and build it myself</label>
+        </label>
+      </div>
+    </div>
+
+    <div class="field-divider"></div>
+
+    <div class="field-group">
+      <label for="timeline">When do you want to get started?</label>
+      <select id="timeline">
+        <option value="">Select timeline...</option>
+        <option>Immediately (this week)</option>
+        <option>Within 2 weeks</option>
+        <option>Within a month</option>
+        <option>Just exploring for now</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="volume">Monthly Outreach Volume Goal</label>
+      <select id="volume">
+        <option value="">Select range...</option>
+        <option>Under 100 prospects/month</option>
+        <option>100–500 prospects/month</option>
+        <option>500–2,000 prospects/month</option>
+        <option>2,000+ prospects/month</option>
+        <option>Not sure yet</option>
+      </select>
+    </div>
+    <div class="field-group">
+      <label for="additionalNotes">Anything else we should know?</label>
+      <textarea id="additionalNotes" placeholder="Any specific requirements, constraints, integrations, or context that would help us build the best system for you..."></textarea>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn btn-back" onclick="goToSection(3)">← Back</button>
+      <button class="btn btn-submit" onclick="submitForm()">🚀 Submit Intake →</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🎉</div>
+    <h2>Intake Received!</h2>
+    <p>Thanks for submitting your PAE intake. The SalesGency team will review your information and reach out within <strong>24 hours</strong> to confirm your sprint start date.</p>
+    <div class="success-steps">
+      <h4>What Happens Next</h4>
+      <ul>
+        <li>SalesGency reviews your intake</li>
+        <li>We send your SOW + Kickoff Invoice</li>
+        <li>You sign and submit 50% payment</li>
+        <li>Secure keysheet link sent for credentials</li>
+        <li>Build begins Day 1</li>
+      </ul>
+    </div>
+    <p style="margin-top: 24px; font-size: 14px;">Questions? <a href="mailto:hello@salesgency.com" style="color: var(--blue);">hello@salesgency.com</a></p>
+  </div>
+
+</div><!-- /form-wrapper -->
+
+<script>
+  let currentSection = 1;
+  const totalSections = 4;
+
+  function updateProgress(n) {
+    for (let i = 1; i <= totalSections; i++) {
+      const dot = document.getElementById('dot-' + i);
+      const label = document.getElementById('label-' + i);
+      const line = document.getElementById('line-' + i);
+      if (i < n) {
+        dot.className = 'ps-dot done';
+        dot.textContent = '✓';
+        label.className = 'ps-label';
+        if (line) line.className = 'ps-line done';
+      } else if (i === n) {
+        dot.className = 'ps-dot active';
+        dot.textContent = i;
+        label.className = 'ps-label active';
+        if (line) line.className = 'ps-line';
+      } else {
+        dot.className = 'ps-dot';
+        dot.textContent = i;
+        label.className = 'ps-label';
+        if (line) line.className = 'ps-line';
+      }
+    }
+  }
+
+  function goToSection(n) {
+    document.getElementById('section-' + currentSection).classList.remove('active');
+    currentSection = n;
+    document.getElementById('section-' + n).classList.add('active');
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitForm() {
+    document.getElementById('section-4').classList.remove('active');
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.getElementById('successScreen').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

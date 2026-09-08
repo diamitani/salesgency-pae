@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalesGency — Effortless Outbound for Startups & Modern B2B</title>
+<meta name="description" content="SalesGency builds autonomous Prospect Automation Engines (PAE) for B2B startups and sales leaders. Scale recurring outbound pipeline with clarity, speed, and no drama.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="SalesGency — Effortless Outbound for Startups & Modern B2B">
+<meta property="og:description" content="Build, launch, and scale recurring outbound pipeline with autonomous AI agents and deterministic n8n workflows. No manual scraping, no deal collision, no drama.">
+<meta property="og:image" content="assets/salesgency-wordmark-light.jpg">
+
+<!-- Google Fonts: Space Grotesk, Inter & Geist Mono -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/salesgency-theme.css">
+
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     AGERO LIGHT MODE DESIGN SYSTEM (CSS VARIABLES & TOKENS)
+     ───────────────────────────────────────────────────────────── */
+  :root {
+    --bg-main: #F5F5F7;
+    --bg-surface: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFAFB;
+    --bg-subtle: #F0F2F5;
+
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.14);
+    --border-glow: rgba(0, 194, 255, 0.4);
+
+    --text-primary: #0F172A; /* Deep Obsidian Slate */
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --text-dim: #94A3B8;
+
+    --cyan: #00C2FF;
+    --cyan-dim: rgba(0, 194, 255, 0.1);
+    --cyan-glow: rgba(0, 194, 255, 0.4);
+    --indigo: #4F46E5;
+    --purple: #7C3AED;
+    --green-status: #16A34A;
+    --grad-primary: linear-gradient(135deg, #0284C7 0%, #7C3AED 100%);
+
+    --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius-pill: 9999px;
+    --radius-card: 22px;
+    --radius-sm: 12px;
+  }
+
+  /* RESET & BASE */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* SUBTLE ARCHITECTURAL PAPER GRAIN / GRID */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: 
+      radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     NAVBAR (AGERO LIGHT FLOATING PILL)
+     ───────────────────────────────────────────────────────────── */
+  nav.agero-nav {
+    position: fixed;
+    top: 20px; left: 0; right: 0;
+    z-index: 999;
+    padding: 0 24px;
+    pointer-events: none;
+  }
+  .nav-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    padding: 10px 18px 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .nav-inner:hover {
+    border-color: var(--border-light);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Wordmark (Light Mode) */
+  .brand-logo {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: 21px;
+    letter-spacing: -0.028em;
+    color: var(--text-primary);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .brand-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--cyan);
+    margin-left: 2px;
+    box-shadow: 0 0 10px var(--cyan-glow);
+    animation: cyanPulse 2.8s infinite ease-in-out;
+  }
+  @keyframes cyanPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.9); }
+  }
+
+  /* Nav Links */
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-menu a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-menu a:hover {
+    color: var(--text-primary);
+  }
+
+  /* Nav Right CTA */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    background: rgba(22, 163, 74, 0.08);
+    border: 1px solid rgba(22, 163, 74, 0.22);
+    font-size: 11.5px;
+    color: #15803D;
+    font-weight: 600;
+  }
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-status);
+    box-shadow: 0 0 6px var(--green-status);
+    animation: statusPulse 2s infinite ease-in-out;
+  }
+  @keyframes statusPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.65); opacity: 0.4; }
+  }
+
+  .btn-nav {
+    background: var(--text-primary);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-nav:hover {
+    background: #1E293B;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Mobile menu button */
+  .mobile-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     HERO SECTION
+     ───────────────────────────────────────────────────────────── */
+  section.hero {
+    padding: 170px 0 90px;
+    text-align: center;
+    position: relative;
+  }
+  .hero-glow {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 340px;
+    background: radial-gradient(ellipse, rgba(0, 194, 255, 0.12) 0%, rgba(124, 58, 237, 0.05) 50%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 16px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  }
+  .avatar-stack {
+    display: flex;
+    align-items: center;
+  }
+  .avatar-stack span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    margin-left: -6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+  }
+  .avatar-stack span:first-child { margin-left: 0; background: #00C2FF; color: #000; }
+  .avatar-stack span:nth-child(2) { background: #7C3AED; color: #FFF; }
+  .avatar-stack span:nth-child(3) { background: #10B981; color: #FFF; }
+
+  h1.hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 7.5vw, 84px);
+    font-weight: 750;
+    line-height: 1.04;
+    letter-spacing: -0.038em;
+    color: var(--text-primary);
+    max-width: 960px;
+    margin: 0 auto 24px;
+  }
+  h1.hero-headline span.gradient-word {
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p.hero-sub {
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--text-secondary);
+    max-width: 660px;
+    margin: 0 auto 38px;
+    line-height: 1.55;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+  .btn-primary {
+    background: var(--text-primary);
+    color: #FFFFFF;
+    padding: 14px 28px;
+    border-radius: var(--radius-pill);
+    font-size: 14.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover {
+    background: #1E293B;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  }
+  .btn-secondary {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    padding: 14px 26px;
+    border-radius: var(--radius-pill);
+    font-size: 14.5px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .btn-secondary:hover {
+    background: #F8FAFC;
+    border-color: var(--border-light);
+  }
+
+  /* HERO CREDENTIAL CHIPS */
+  .hero-credentials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .cred-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+  }
+  .cred-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .cred-check {
+    color: #0284C7;
+    font-weight: bold;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     CONTINUOUS TICKER MARQUEE (AGERO LIGHT STYLE)
+     ───────────────────────────────────────────────────────────── */
+  .ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    padding: 24px 0;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    background: #FFFFFF;
+    position: relative;
+    margin: 40px 0 80px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.015);
+  }
+  .ticker-wrap::before, .ticker-wrap::after {
+    content: '';
+    position: absolute; top: 0; bottom: 0; width: 120px;
+    z-index: 2; pointer-events: none;
+  }
+  .ticker-wrap::before { left: 0; background: linear-gradient(to right, #FFFFFF, transparent); }
+  .ticker-wrap::after { right: 0; background: linear-gradient(to left, #FFFFFF, transparent); }
+
+  .ticker-content {
+    display: flex;
+    width: max-content;
+    gap: 28px;
+    animation: marquee 34s linear infinite;
+  }
+  .ticker-wrap:hover .ticker-content {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .ticker-pill .pill-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--cyan);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     IMPACT / PHILOSOPHY STATEMENT
+     ───────────────────────────────────────────────────────────── */
+  section.impact {
+    padding: 70px 0 100px;
+    text-align: center;
+  }
+  .impact-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #0284C7;
+    margin-bottom: 24px;
+    display: block;
+  }
+  h2.impact-statement {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4.5vw, 52px);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    color: var(--text-secondary);
+    max-width: 980px;
+    margin: 0 auto 36px;
+  }
+  h2.impact-statement strong {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+  .impact-tags {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .impact-tag {
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     METRICS & TESTIMONIALS (AGERO LIGHT STYLE)
+     ───────────────────────────────────────────────────────────── */
+  section.testimonials {
+    padding: 80px 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .section-eyebrow {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+  }
+
+  /* Big stat numbers */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .metric-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 32px 28px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.025);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+  }
+  .metric-val {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+  .metric-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* Testimonial cards */
+  .testi-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .testi-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 260px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.025);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .testi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  }
+  .testi-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .testi-quote {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    font-weight: 450;
+  }
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .author-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #0F172A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #FFF;
+  }
+  .author-info h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .author-info p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     SELECTED WORKS (AGERO SHOWCASE GRID)
+     ───────────────────────────────────────────────────────────── */
+  section.works {
+    padding: 80px 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .works-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .work-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.03);
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .work-card:hover {
+    box-shadow: 0 16px 40px rgba(0,0,0,0.07);
+    transform: translateY(-2px);
+  }
+  .work-image-box {
+    position: relative;
+    overflow: hidden;
+    background: #0A0D14;
+    min-height: 380px;
+  }
+  .work-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .work-card:hover .work-image-box img {
+    transform: scale(1.02);
+  }
+  .work-content {
+    padding: 44px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .work-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .work-meta span.badge-year {
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: #F1F5F9;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .work-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+  .work-desc {
+    color: var(--text-secondary);
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .work-results {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+  .work-results h5 {
+    font-size: 11px;
+    color: #0284C7;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .work-results p {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .work-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .work-tag {
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+    background: #F1F5F9;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     WHAT WE DO / THE 5 PAE PILLARS
+     ───────────────────────────────────────────────────────────── */
+  section.services {
+    padding: 80px 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+  }
+  .service-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.025);
+    transition: all 0.25s ease;
+  }
+  .service-card:hover {
+    border-color: rgba(0, 194, 255, 0.4);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+  .service-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .service-number {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: #0284C7;
+  }
+  .service-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: rgba(0, 194, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .service-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 750;
+    letter-spacing: -0.025em;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+  .service-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .service-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 18px;
+  }
+  .service-bullets li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .service-bullets li::before {
+    content: '•';
+    color: var(--cyan);
+    font-size: 16px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     MEET THE FOUNDER (LIGHT EDITORIAL CARD)
+     ───────────────────────────────────────────────────────────── */
+  section.founder {
+    padding: 80px 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .founder-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.035);
+  }
+  .founder-photo {
+    background: #000;
+    position: relative;
+    min-height: 420px;
+  }
+  .founder-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .founder-content {
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .founder-header h3 {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+  .founder-header span.role {
+    font-size: 13px;
+    color: #0284C7;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .founder-bio {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 32px;
+  }
+  .timeline {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .timeline-item {
+    font-size: 13px;
+  }
+  .timeline-item strong {
+    color: var(--text-primary);
+    display: block;
+    font-weight: 600;
+  }
+  .timeline-item span {
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     CERTIFIED STACK
+     ───────────────────────────────────────────────────────────── */
+  section.stack {
+    padding: 80px 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .stack-item {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .stack-item:hover {
+    border-color: var(--border-light);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  }
+  .stack-item-title {
+    font-weight: 600;
+    font-size: 14.5px;
+    color: var(--text-primary);
+  }
+  .stack-item-badge {
+    font-size: 11px;
+    color: #0284C7;
+    background: rgba(0, 194, 255, 0.08);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     PRICING PLANS (AGERO LIGHT STYLE)
+     ───────────────────────────────────────────────────────────── */
+  section.pricing {
+    padding: 90px 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+  .pricing-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.03);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.07);
+  }
+  .pricing-card.featured {
+    border-color: #00C2FF;
+    box-shadow: 0 16px 40px rgba(0, 194, 255, 0.12);
+  }
+  .badge-featured {
+    position: absolute;
+    top: -12px;
+    left: 32px;
+    background: var(--grad-primary);
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+  }
+  .plan-name {
+    font-size: 18px;
+    font-weight: 750;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+  .plan-desc {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    min-height: 44px;
+    margin-bottom: 24px;
+  }
+  .plan-price-box {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .plan-price {
+    font-family: var(--font-display);
+    font-size: 46px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+  }
+  .plan-period {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .plan-timing {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #0284C7;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 36px;
+    flex-grow: 1;
+  }
+  .plan-features li {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.45;
+  }
+  .plan-features li .chk {
+    color: #0284C7;
+    font-weight: bold;
+  }
+  .btn-plan {
+    width: 100%;
+    padding: 14px;
+    text-align: center;
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    display: block;
+  }
+  .btn-plan-primary {
+    background: var(--text-primary);
+    color: #FFFFFF;
+  }
+  .btn-plan-primary:hover {
+    background: #1E293B;
+  }
+  .btn-plan-secondary {
+    background: #F8FAFC;
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+  }
+  .btn-plan-secondary:hover {
+    background: #EDF2F7;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     FAQ ACCORDION
+     ───────────────────────────────────────────────────────────── */
+  section.faqs {
+    padding: 80px 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .faq-list {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    transition: border-color 0.2s;
+  }
+  .faq-item.active {
+    border-color: var(--border-light);
+  }
+  .faq-question {
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    user-select: none;
+    color: var(--text-primary);
+  }
+  .faq-toggle-icon {
+    font-size: 18px;
+    transition: transform 0.25s ease;
+    color: #0284C7;
+  }
+  .faq-item.active .faq-toggle-icon {
+    transform: rotate(45deg);
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0 28px;
+    color: var(--text-secondary);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  .faq-item.active .faq-answer {
+    max-height: 240px;
+    padding-bottom: 24px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     PROJECT INQUIRY / CONTACT
+     ───────────────────────────────────────────────────────────── */
+  section.contact {
+    padding: 100px 0;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .contact-box {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    padding: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  }
+  .contact-info h2 {
+    font-family: var(--font-display);
+    font-size: clamp(34px, 4vw, 48px);
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+  .contact-info p {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+  .contact-email-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: #F8FAFC;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    color: #0284C7;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .contact-email-pill:hover {
+    border-color: #0284C7;
+    background: rgba(0, 194, 255, 0.08);
+  }
+
+  /* Form */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group label {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .form-input, .form-select, .form-textarea {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--cyan);
+  }
+  .form-textarea { resize: vertical; min-height: 90px; }
+  .btn-submit {
+    background: var(--text-primary);
+    color: #FFFFFF;
+    padding: 14px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 14.5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .btn-submit:hover {
+    background: #1E293B;
+    transform: translateY(-1px);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     FOOTER (LIGHT AGERO FOOTER)
+     ───────────────────────────────────────────────────────────── */
+  footer.agero-footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--border-subtle);
+    background: #EAECEF;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+  .footer-brand-col p {
+    color: var(--text-muted);
+    font-size: 13.5px;
+    max-width: 300px;
+    margin-top: 14px;
+  }
+  .footer-col h5 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer-col a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover {
+    color: var(--text-primary);
+  }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 28px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .live-clock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .btn-backtotop {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-backtotop:hover {
+    color: var(--text-primary);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     RESPONSIVE BREAKPOINTS
+     ───────────────────────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .metrics-grid, .testi-cards-container, .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+    .work-card {
+      grid-template-columns: 1fr;
+    }
+    .founder-card {
+      grid-template-columns: 1fr;
+    }
+    .contact-box {
+      grid-template-columns: 1fr;
+      padding: 36px;
+    }
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-menu, .status-pill {
+      display: none;
+    }
+    .mobile-toggle {
+      display: block;
+    }
+    .timeline {
+      grid-template-columns: 1fr;
+    }
+    .footer-top {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────────────────────────────────────────────────────────
+     FLOATING NAVBAR (AGERO LIGHT PILL)
+     ───────────────────────────────────────────────────────────── -->
+<nav class="agero-nav">
+  <div class="nav-inner">
+    <!-- SalesGency Wordmark in Light Mode -->
+    <a href="index.html" class="brand-logo" id="navLogo">
+      SalesGency<span class="brand-dot"></span>
+    </a>
+
+    <!-- Nav Links -->
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html" style="color:var(--text-primary); font-weight:600;">Home</a></li>
+      <li><a href="agents.html">Agents</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="workflows.html">Workflows</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="#roi-calculator">ROI Engine</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+    </ul>
+
+    <!-- Right: Controls + Status + Auth + CTA -->
+    <div class="nav-right">
+      <div class="nav-controls">
+        <button class="ctrl-btn theme-toggle-btn" aria-label="Toggle theme"><span>🌙</span> Dark</button>
+        <button class="ctrl-btn sound-toggle-btn" aria-label="Toggle sound"><span>🔊</span> Sound</button>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot"></span> Available for Engagements
+      </div>
+      <a href="auth.html" style="color:var(--text-secondary); text-decoration:none; font-size:13.5px; font-weight:500;">Sign In</a>
+      <button class="btn-nav" onclick="SalesGency.BookingModal.open('Executive Consultation')">Get Started →</button>
+      <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ─────────────────────────────────────────────────────────────
+     HERO SECTION
+     ───────────────────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-badge">
+      <div class="avatar-stack">
+        <span>SG</span>
+        <span>AI</span>
+        <span>⚡</span>
+      </div>
+      <span>Trusted by high-growth B2B founders & sales leaders</span>
+    </div>
+
+    <h1 class="hero-headline">
+      Effortless Outbound<br>
+      for <span class="gradient-word">Modern B2B</span>.
+    </h1>
+
+    <p class="hero-sub">
+      We make it easy for startups and modern B2B teams to build, launch, and scale recurring outbound pipeline — no manual scraping, no deal collision, no drama.
+    </p>
+
+    <div class="hero-cta-group">
+      <button onclick="SalesGency.BookingModal.open('Tier 1 Strategy Audit')" class="btn-primary">Schedule Strategy Audit <span style="font-size:16px;">→</span></button>
+      <a href="#roi-calculator" class="btn-secondary">Calculate ROI Engine</a>
+    </div>
+
+    <!-- Credentials Bar -->
+    <div class="hero-credentials">
+      <div class="cred-item"><span class="cred-check">✓</span> <strong>Senior GTM Engineers</strong></div>
+      <div class="cred-item"><span class="cred-check">✓</span> <strong>10+ Years Experience</strong></div>
+      <div class="cred-item"><span class="cred-check">✓</span> <strong>100+ Enterprise Deployments</strong></div>
+      <div class="cred-item"><span class="cred-check">✓</span> <strong>$14M+ Pipeline Generated</strong></div>
+    </div>
+
+    <!-- ─────────────────────────────────────────────────────────────
+         LIVE PAE ENGINE SANDBOX (HERO CENTERPIECE)
+         ───────────────────────────────────────────────────────────── -->
+    <div class="pae-sandbox-container" id="engine-sandbox">
+      <div class="sandbox-header">
+        <div class="sandbox-title-wrap">
+          <span class="sandbox-indicator"></span>
+          <span class="sandbox-title">PAE Autonomous Mesh v4.2 · Live Engine Sandbox</span>
+          <span class="sandbox-engine-tag">n8n Execution Engine</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="btn-run-sim" id="runSimBtn" onclick="SalesGency.PAESimulator.runSimulation()">
+            <span>⚡</span> Run Live Simulation
+          </button>
+        </div>
+      </div>
+
+      <div class="trigger-bar">
+        <span class="trigger-label">1. Select Simulated Ingest Signal:</span>
+        <div class="trigger-tabs">
+          <button class="trigger-tab active" data-trigger="series_a" onclick="SalesGency.PAESimulator.selectTrigger('series_a')">
+            💼 Series A $14M Funded · B2B SaaS
+          </button>
+          <button class="trigger-tab" data-trigger="vp_hired" onclick="SalesGency.PAESimulator.selectTrigger('vp_hired')">
+            ⚡ VP Sales Hired · Enterprise Fintech
+          </button>
+          <button class="trigger-tab" data-trigger="tech_switch" onclick="SalesGency.PAESimulator.selectTrigger('tech_switch')">
+            🔄 Replaced Outreach with Smartlead · RevOps
+          </button>
+          <button class="trigger-tab" data-trigger="high_intent" onclick="SalesGency.PAESimulator.selectTrigger('high_intent')">
+            🎯 High-Intent Web Visit · AI DevTools
+          </button>
+        </div>
+      </div>
+
+      <div class="pipeline-flow">
+        <!-- Node 1 -->
+        <div class="node-card completed-step" id="node1">
+          <span class="node-latency">12ms</span>
+          <div class="node-step-num">Node 01 / Ingest</div>
+          <div class="node-name">⚡ Signal Ingest</div>
+          <div class="node-status-line">Webhook Authenticated · Event Parsed</div>
+        </div>
+        <!-- Node 2 -->
+        <div class="node-card completed-step" id="node2">
+          <span class="node-latency">34ms</span>
+          <div class="node-step-num">Node 02 / Shield</div>
+          <div class="node-name">🛡️ CRM Shield</div>
+          <div class="node-status-line">Salesforce & HubSpot · 0% Collision</div>
+        </div>
+        <!-- Node 3 -->
+        <div class="node-card completed-step" id="node3">
+          <span class="node-latency">88ms</span>
+          <div class="node-step-num">Node 03 / Waterfall</div>
+          <div class="node-name">🔍 Waterfall Reveal</div>
+          <div class="node-status-line">Findymail + Clay · 99.8% Verified</div>
+        </div>
+        <!-- Node 4 -->
+        <div class="node-card completed-step" id="node4">
+          <span class="node-latency">204ms</span>
+          <div class="node-step-num">Node 04 / Copy</div>
+          <div class="node-name">🧠 AI PAS Synthesis</div>
+          <div class="node-status-line">Claude 3.5 · Tailored Value Angle</div>
+        </div>
+        <!-- Node 5 -->
+        <div class="node-card completed-step" id="node5">
+          <span class="node-latency">22ms</span>
+          <div class="node-step-num">Node 05 / Dispatch</div>
+          <div class="node-name">🚀 Sequencer Pool</div>
+          <div class="node-status-line">Smartlead Warm Inbox · Scheduled</div>
+        </div>
+      </div>
+
+      <!-- Output Preview Panel -->
+      <div class="sandbox-output">
+        <div class="output-tabs">
+          <div class="tab-btn-group">
+            <button class="out-tab-btn active" data-tab="email" onclick="SalesGency.PAESimulator.switchTab('email')">✉️ Generated Sequence Copy</button>
+            <button class="out-tab-btn" data-tab="json" onclick="SalesGency.PAESimulator.switchTab('json')">{ } Raw n8n Execution Payload</button>
+          </div>
+          <div class="out-actions">
+            <button class="btn-copy-pitch" onclick="SalesGency.PAESimulator.copyPitch()">📋 Copy Pitch</button>
+          </div>
+        </div>
+        <div class="output-content" id="tabEmailContent">
+          <div class="email-meta-line" id="simEmailRecipient">
+            <strong>To:</strong> Alex Mercer &lt;<span class="var-pill">alex.mercer@cloudscale.io</span>&gt; · VP Revenue Operations, CloudScale Systems
+          </div>
+          <div class="email-meta-line" id="simEmailSubject">
+            <strong>Subject:</strong> re: CloudScale's Series A & enterprise outbound ramp
+          </div>
+          <div class="email-body" id="simEmailBody">
+            Hi Alex,
+
+Saw CloudScale just closed $14M to accelerate enterprise revenue—congrats on the milestone.
+
+Most VP RevOps scaling from Seed to Series A run into the same bottleneck: SDRs burning through domain reputations with unverified lists, resulting in 60%+ deal collision and burnt Google workspaces.
+
+SalesGency engineered the Prospect Automation Engine (PAE) to eliminate that friction: deterministic CRM deduplication paired with a 4-layer waterfall reveal (Findymail + Clay) and bespoke Problem-Agitate-Solution sequences. Teams like Archin Robotics scaled to $1.4M pipeline with 0% domain burn.
+
+Worth a 15-minute architecture walk next Tuesday at 2pm CST to see the n8n blueprint?
+          </div>
+        </div>
+        <div class="output-content" id="tabJsonContent" style="display:none;">
+          <pre class="json-view"><code id="simJsonCode"></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     CONTINUOUS TICKER MARQUEE (AGERO LIGHT)
+     ───────────────────────────────────────────────────────────── -->
+<div class="ticker-wrap">
+  <div class="ticker-content">
+    <div class="ticker-pill"><span class="pill-dot"></span> CRM Shield & Dedupe</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> Waterfall Contact Reveal</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> AI PAS Copywriting</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> Smartlead & Instantly Sequencing</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> 0% Domain Burn Architecture</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> n8n Automation Engine</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> HubSpot & Salesforce Sync</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> Execution Analyst & Hygiene</div>
+    <!-- Duplicate for infinite seamless scroll -->
+    <div class="ticker-pill"><span class="pill-dot"></span> CRM Shield & Dedupe</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> Waterfall Contact Reveal</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> AI PAS Copywriting</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> Smartlead & Instantly Sequencing</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> 0% Domain Burn Architecture</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> n8n Automation Engine</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> HubSpot & Salesforce Sync</div>
+    <div class="ticker-pill"><span class="pill-dot"></span> Execution Analyst & Hygiene</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────
+     IMPACT STATEMENT (AGERO EDITORIAL TYPOGRAPHY)
+     ───────────────────────────────────────────────────────────── -->
+<section class="impact">
+  <div class="container">
+    <span class="impact-label">(The SalesGency Philosophy)</span>
+    <h2 class="impact-statement">
+      We help fast-moving digital teams launch <strong>sharper outbound campaigns</strong> and <strong>automated pipeline</strong> — with clarity, speed, and no drama.
+    </h2>
+    <div class="impact-tags">
+      <span class="impact-tag">CRM Hygiene</span>
+      <span class="impact-tag">Waterfall Enrichment</span>
+      <span class="impact-tag">AI PAS Copy</span>
+      <span class="impact-tag">n8n Engine</span>
+      <span class="impact-tag">Cold Deliverability</span>
+      <span class="impact-tag">Predictable Pipeline</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     TESTIMONIALS & METRICS
+     ───────────────────────────────────────────────────────────── -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-eyebrow">(Why clients love SalesGency)</div>
+    <div class="section-header">
+      <h2>Proven Track Record & Client Results</h2>
+      <span style="color: var(--text-muted); font-size: 14px;">Deterministic revenue infrastructure</span>
+    </div>
+
+    <!-- Metrics Cards -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-val">18.4%</div>
+        <div class="metric-desc">Average cold outbound reply rate across enterprise B2B campaigns</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">1.2M+</div>
+        <div class="metric-desc">Verified B2B contacts enriched & deduplicated with zero CRM collisions</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">5.2x</div>
+        <div class="metric-desc">Pipeline velocity acceleration compared to manual SDR outbound</div>
+      </div>
+    </div>
+
+    <!-- 3 Testimonial Cards -->
+    <div class="testi-cards-container">
+      <div class="testi-card">
+        <div>
+          <div class="testi-card-top">
+            <span>01 / 03</span>
+            <span style="color:#0284C7">★★★★★</span>
+          </div>
+          <p class="testi-quote">"SalesGency turned our chaotic outbound into a predictable machine. Fast, easy, and right on point. We booked 42 demos in our first 60 days."</p>
+        </div>
+        <div class="testi-author">
+          <div class="author-avatar">EM</div>
+          <div class="author-info">
+            <h4>Ethan Moore</h4>
+            <p>Co-Founder, NovaTech Robotics</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div>
+          <div class="testi-card-top">
+            <span>02 / 03</span>
+            <span style="color:#0284C7">★★★★★</span>
+          </div>
+          <p class="testi-quote">"Clear, thoughtful, and fast — the CRM shield alone saved us from burning hundreds of key enterprise accounts. The deliverability is pristine."</p>
+        </div>
+        <div class="testi-author">
+          <div class="author-avatar">OT</div>
+          <div class="author-info">
+            <h4>Olivia Tran</h4>
+            <p>VP Sales, Bloom Logistics</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div>
+          <div class="testi-card-top">
+            <span>03 / 03</span>
+            <span style="color:#0284C7">★★★★★</span>
+          </div>
+          <p class="testi-quote">"Smart architecture, smooth delivery. The n8n workflows run like clockwork every morning. Best ROI of any GTM investment we've made."</p>
+        </div>
+        <div class="testi-author">
+          <div class="author-avatar">LB</div>
+          <div class="author-info">
+            <h4>Lucas Bennett</h4>
+            <p>Head of Growth, Hexa Studio</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     SELECTED WORKS (RECENT WORKS)
+     ───────────────────────────────────────────────────────────── -->
+<section class="works" id="works">
+  <div class="container">
+    <div class="section-eyebrow">(Case Studies)</div>
+    <div class="section-header">
+      <h2>Recent Works & Live Deployments</h2>
+      <span style="color: var(--text-muted); font-size: 14px;">Select GTM engineering implementations</span>
+    </div>
+
+    <div class="works-grid">
+
+      <!-- Work 01: Archin Robotics -->
+      <div class="work-card">
+        <div class="work-image-box">
+          <img src="assets/project-archin.jpg" alt="Archin Robotics Outbound Intelligence">
+        </div>
+        <div class="work-content">
+          <div>
+            <div class="work-meta">
+              <span class="badge-year">2025</span>
+              <span>Enterprise Robotics</span>
+              <span>·</span>
+              <span>Custom Engagement</span>
+            </div>
+            <h3 class="work-title">Archin Robotics</h3>
+            <p class="work-desc">
+              Complete autonomous outbound revenue engine built to prospect Tier-1 manufacturing executives. Integrated multi-source intent triggers with bi-directional Salesforce deduplication.
+            </p>
+            <div class="work-results">
+              <h5>Verified Impact</h5>
+              <p>42 Enterprise Demos Booked · $1.4M Pipeline Generated</p>
+            </div>
+            <div style="margin-top:14px;">
+              <button class="btn-secondary" style="padding:8px 16px; font-size:12.5px; border-radius:999px; cursor:pointer;" onclick="SalesGency.CaseStudyDrawer.open('archin')">Inspect Blueprint Drawer →</button>
+            </div>
+          </div>
+          <div class="work-tags">
+            <span class="work-tag">n8n Engine</span>
+            <span class="work-tag">Salesforce Sync</span>
+            <span class="work-tag">Clay Waterfall</span>
+            <span class="work-tag">Smartlead</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 02: VNTNR Global Logistics -->
+      <div class="work-card">
+        <div class="work-image-box">
+          <img src="assets/project-vntnr.jpg" alt="VNTNR CRM Shield & Routing">
+        </div>
+        <div class="work-content">
+          <div>
+            <div class="work-meta">
+              <span class="badge-year">2024</span>
+              <span>Global Freight & Supply Chain</span>
+              <span>·</span>
+              <span>CRM Shield Architecture</span>
+            </div>
+            <h3 class="work-title">VNTNR Logistics</h3>
+            <p class="work-desc">
+              Implemented a fault-tolerant CRM shield filtering 31,000 cold prospects against existing enterprise agreements. Guaranteed 0% collision with active sales pipelines and zero domain burn.
+            </p>
+            <div class="work-results">
+              <h5>Verified Impact</h5>
+              <p>99/100 Sender Reputation · 0% Domain Burn · 19.4% Reply Rate</p>
+            </div>
+            <div style="margin-top:14px;">
+              <button class="btn-secondary" style="padding:8px 16px; font-size:12.5px; border-radius:999px; cursor:pointer;" onclick="SalesGency.CaseStudyDrawer.open('vntnr')">Inspect Blueprint Drawer →</button>
+            </div>
+          </div>
+          <div class="work-tags">
+            <span class="work-tag">HubSpot Shield</span>
+            <span class="work-tag">Findymail</span>
+            <span class="work-tag">SPF/DKIM/DMARC</span>
+            <span class="work-tag">Instantly</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 03: Aeorim AI -->
+      <div class="work-card">
+        <div class="work-image-box">
+          <img src="assets/project-aeorim.jpg" alt="Aeorim AI Cold Email Copywriting">
+        </div>
+        <div class="work-content">
+          <div>
+            <div class="work-meta">
+              <span class="badge-year">2024</span>
+              <span>Generative AI Developer Tools</span>
+              <span>·</span>
+              <span>Custom Agent Cloud</span>
+            </div>
+            <h3 class="work-title">Aeorim AI</h3>
+            <p class="work-desc">
+              Engineered dynamic Problem-Agitate-Solution (PAS) cold sequences powered by deep LinkedIn and company website analysis. Autonomous cloud agent sending highly tailored messages daily.
+            </p>
+            <div class="work-results">
+              <h5>Verified Impact</h5>
+              <p>24.2% Cold C-Suite Reply Rate · 118 Meetings Booked</p>
+            </div>
+            <div style="margin-top:14px;">
+              <button class="btn-secondary" style="padding:8px 16px; font-size:12.5px; border-radius:999px; cursor:pointer;" onclick="SalesGency.CaseStudyDrawer.open('aeorim')">Inspect Blueprint Drawer →</button>
+            </div>
+          </div>
+          <div class="work-tags">
+            <span class="work-tag">Cloud Agent</span>
+            <span class="work-tag">PAS Copy Engine</span>
+            <span class="work-tag">OpenAI Guardrails</span>
+            <span class="work-tag">Automated Triage</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     WHAT WE DO / THE 5 PAE PILLARS
+     ───────────────────────────────────────────────────────────── -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-eyebrow">(Services)</div>
+    <div class="section-header">
+      <h2>The 5 Pillars of Prospect Automation</h2>
+      <span style="color: var(--text-muted); font-size: 14px;">End-to-end architecture built to scale</span>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Pillar 01 -->
+      <div class="service-card">
+        <div>
+          <div class="service-top">
+            <span class="service-number">01 / TRIGGER</span>
+            <div class="service-icon">⚡</div>
+          </div>
+          <h3 class="service-title">Trigger Ingest</h3>
+          <p class="service-desc">We ingest high-intent buying signals from job postings, executive moves, funding rounds, news alerts, and website visitors to initiate outreach at the exact right moment.</p>
+        </div>
+        <ul class="service-bullets">
+          <li>RSS & Google News Alerts</li>
+          <li>Job board hiring velocity</li>
+          <li>LinkedIn key hire notifications</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 02 -->
+      <div class="service-card">
+        <div>
+          <div class="service-top">
+            <span class="service-number">02 / SHIELD</span>
+            <div class="service-icon">🛡️</div>
+          </div>
+          <h3 class="service-title">CRM Shield & Dedupe</h3>
+          <p class="service-desc">Before any message is queued, our system cross-references your active pipeline in HubSpot or Salesforce. Prevents deal collision and saves your team from awkward overlaps.</p>
+        </div>
+        <ul class="service-bullets">
+          <li>Bi-directional CRM contact lookup</li>
+          <li>Active opportunity suppression</li>
+          <li>Global unsubscribes & do-not-contact list</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 03 -->
+      <div class="service-card">
+        <div>
+          <div class="service-top">
+            <span class="service-number">03 / REVEAL</span>
+            <div class="service-icon">🔍</div>
+          </div>
+          <h3 class="service-title">Data & Contact Reveal</h3>
+          <p class="service-desc">Waterfall enrichment querying Clay, Apollo, Prospeo, and Findymail. We verify every single work email through multi-layer SMTP handshakes to keep bounce rates under 1%.</p>
+        </div>
+        <ul class="service-bullets">
+          <li>Multi-vendor waterfall lookup</li>
+          <li>Zero-bounce SMTP validation</li>
+          <li>Direct-dial phone & mobile reveal</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 04 -->
+      <div class="service-card">
+        <div>
+          <div class="service-top">
+            <span class="service-number">04 / COPY</span>
+            <div class="service-icon">✍️</div>
+          </div>
+          <h3 class="service-title">AI PAS Copywriting</h3>
+          <p class="service-desc">No generic GPT fluff. We use custom Problem-Agitate-Solution frameworks trained on your ICP. Every email cites specific pain points, recent company wins, and relevant peer case studies.</p>
+        </div>
+        <ul class="service-bullets">
+          <li>Deep account research synthesis</li>
+          <li>Psychology-driven PAS hooks</li>
+          <li>Spam trigger & marketing word elimination</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 05 -->
+      <div class="service-card">
+        <div>
+          <div class="service-top">
+            <span class="service-number">05 / SCALE</span>
+            <div class="service-icon">🚀</div>
+          </div>
+          <h3 class="service-title">Sequencer & Analyst</h3>
+          <p class="service-desc">Enrolls prospects automatically into Smartlead or Instantly across rotating inboxes. Daily execution triage monitors warmups, reply categorization, and booked demos.</p>
+        </div>
+        <ul class="service-bullets">
+          <li>Automated sequencer enrollment</li>
+          <li>Multi-domain inbox load balancing</li>
+          <li>Daily performance & reply alerts</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 06 -->
+      <div class="service-card">
+        <div>
+          <div class="service-top">
+            <span class="service-number">06 / INFRA</span>
+            <div class="service-icon">⚙️</div>
+          </div>
+          <h3 class="service-title">n8n Orchestration</h3>
+          <p class="service-desc">Built completely on robust, transparent n8n workflows that you own. Self-host on your own servers or run in our managed cloud with zero vendor lock-in.</p>
+        </div>
+        <ul class="service-bullets">
+          <li>Deterministic webhook execution</li>
+          <li>Visual debuggable logic nodes</li>
+          <li>Full exportable JSON codebases</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     INTERACTIVE OUTBOUND ROI & PIPELINE CALCULATOR
+     ───────────────────────────────────────────────────────────── -->
+<section class="roi-calculator" id="roi-calculator">
+  <div class="container">
+    <div class="section-eyebrow">(Pipeline Economics)</div>
+    <div class="section-header">
+      <h2>Calculate Your Outbound ROI & Savings</h2>
+      <span style="color: var(--text-muted); font-size: 14px;">Deterministic revenue math based on 100+ deployments</span>
+    </div>
+
+    <div class="roi-card">
+      <div class="roi-controls">
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="calcAccounts">Target ICP Accounts Per Month</label>
+            <span class="slider-val-badge" id="valAccounts">2,500 accounts/mo</span>
+          </div>
+          <input type="range" id="calcAccounts" class="calc-slider" min="500" max="10000" step="250" value="2500" aria-label="Target Accounts">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="calcAcv">Average Contract Value (Annual ACV)</label>
+            <span class="slider-val-badge" id="valAcv">$45,000</span>
+          </div>
+          <input type="range" id="calcAcv" class="calc-slider" min="10000" max="200000" step="5000" value="45000" aria-label="Average Contract Value">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <label for="calcSdrs">Equivalent In-House SDR Team Size</label>
+            <span class="slider-val-badge" id="valSdrs">2 In-House SDRs</span>
+          </div>
+          <input type="range" id="calcSdrs" class="calc-slider" min="1" max="8" step="1" value="2" aria-label="In-House SDR count">
+        </div>
+
+        <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <span style="font-size:12.5px; color:var(--text-secondary);">Ready to lock in this outbound model?</span>
+          <button class="btn-primary" onclick="SalesGency.BookingModal.open('ROI Engine Plan')">Lock Architecture Plan →</button>
+        </div>
+      </div>
+
+      <div class="roi-results">
+        <div class="roi-metrics-grid">
+          <div class="roi-metric-item">
+            <span class="roi-metric-label">C-Suite Meetings</span>
+            <span class="roi-metric-val highlight" id="metricMeetings">+35 / mo</span>
+          </div>
+          <div class="roi-metric-item">
+            <span class="roi-metric-label">New Annual Pipeline</span>
+            <span class="roi-metric-val" id="metricPipeline">$1.89M ARR</span>
+          </div>
+          <div class="roi-metric-item">
+            <span class="roi-metric-label">Net Headcount Savings</span>
+            <span class="roi-metric-val" id="metricSavings">$142,000 / yr</span>
+          </div>
+          <div class="roi-metric-item">
+            <span class="roi-metric-label">Expected ROI</span>
+            <span class="roi-metric-val highlight" id="metricRoi">18.0x Multiple</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     DELIVERABILITY & DOMAIN SENTINEL TOOL
+     ───────────────────────────────────────────────────────────── -->
+<section class="deliverability-tool" id="deliverability">
+  <div class="container">
+    <div class="section-eyebrow">(Deliverability Sentinel)</div>
+    <div class="section-header">
+      <h2>Instant Domain Health & Spam Posture Test</h2>
+      <span style="color: var(--text-muted); font-size: 14px;">Audit your outbound domain reputation before sending cold emails</span>
+    </div>
+
+    <div class="sentinel-box">
+      <p style="color: var(--text-secondary); max-width: 680px; font-size: 14px;">
+        A single misconfigured DKIM record or a 3.5% bounce rate can permanently burn your corporate domain. Enter your sending domain below to run an instant simulated infrastructure health check.
+      </p>
+
+      <form id="sentinelForm" class="sentinel-input-wrap">
+        <input type="text" id="sentinelDomain" class="sentinel-input" placeholder="e.g. outbound.acme.co" value="outbound.acme.co" required>
+        <button type="submit" id="sentinelBtn" class="btn-primary" style="white-space:nowrap;">Run Diagnostics →</button>
+      </form>
+
+      <div class="sentinel-results" id="sentinelResults">
+        <div class="sentinel-card">
+          <div class="sentinel-card-title">Target Domain</div>
+          <div class="sentinel-status" id="resDomainName" style="color:var(--text-primary); font-size:14px;">outbound.acme.co</div>
+          <div class="sentinel-note">Isolated secondary workspace</div>
+        </div>
+        <div class="sentinel-card">
+          <div class="sentinel-card-title">DNS Security Protocols</div>
+          <div class="sentinel-status"><span>✓</span> SPF & DKIM Valid</div>
+          <div class="sentinel-note">2048-bit key alignment confirmed</div>
+        </div>
+        <div class="sentinel-card">
+          <div class="sentinel-card-title">DMARC Policy</div>
+          <div class="sentinel-status"><span>✓</span> p=reject (Strict)</div>
+          <div class="sentinel-note">Zero spoofing vulnerability</div>
+        </div>
+        <div class="sentinel-card">
+          <div class="sentinel-card-title">Inbox Health Index</div>
+          <div class="sentinel-status" style="color:#0284C7;"><span>⚡</span> 99/100 Optimal</div>
+          <div class="sentinel-note">Cap at 45 sends/day per inbox</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     MEET THE FOUNDER
+     ───────────────────────────────────────────────────────────── -->
+<section class="founder" id="founder">
+  <div class="container">
+    <div class="section-eyebrow">(Intro)</div>
+    <div class="founder-card">
+      <div class="founder-photo">
+        <img src="assets/founder.jpg" alt="SalesGency Founder">
+      </div>
+      <div class="founder-content">
+        <div>
+          <div class="founder-header">
+            <h3>Alex Chen</h3>
+            <span class="role">Founder & Principal GTM Architect</span>
+          </div>
+          <p class="founder-bio">
+            Alex is a systems engineer turned GTM architect focused on deterministic outbound systems and autonomous agentic workflows. After spending a decade scaling pipeline for high-growth enterprise startups, he founded SalesGency to replace fragile manual outbound with repeatable code. Based in Austin, Texas, he balances enterprise rigor with radical simplicity.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <strong>Founder at SalesGency</strong>
+            <span>2024 — Present</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Head of GTM Architecture at HyperScale</strong>
+            <span>2021 — 2024</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Senior Revenue Systems Lead</strong>
+            <span>2018 — 2021</span>
+          </div>
+          <div class="timeline-item">
+            <strong>Full-Stack Software Engineer</strong>
+            <span>2015 — 2018</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     CERTIFIED ECOSYSTEM & STACK
+     ───────────────────────────────────────────────────────────── -->
+<section class="stack">
+  <div class="container">
+    <div class="section-eyebrow">(Ecosystem & Standards)</div>
+    <div class="section-header">
+      <h2>Certified Architecture & Integrations</h2>
+      <span style="color: var(--text-muted); font-size: 14px;">Direct compatibility with your tech stack</span>
+    </div>
+
+    <div class="stack-grid">
+      <div class="stack-item">
+        <span class="stack-item-title">n8n Automation</span>
+        <span class="stack-item-badge">Enterprise Certified</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-item-title">HubSpot CRM</span>
+        <span class="stack-item-badge">Solutions Partner</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-item-title">Salesforce</span>
+        <span class="stack-item-badge">API Integration</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-item-title">Smartlead</span>
+        <span class="stack-item-badge">Tier-1 Deliverability</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-item-title">Instantly.ai</span>
+        <span class="stack-item-badge">Certified Partner</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-item-title">Clay.com</span>
+        <span class="stack-item-badge">Waterfall Enrichment</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-item-title">OpenAI Enterprise</span>
+        <span class="stack-item-badge">PAS Model Architecture</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-item-title">Apollo & Findymail</span>
+        <span class="stack-item-badge">Verified Accuracy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     PRICING PLANS
+     ───────────────────────────────────────────────────────────── -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-eyebrow">(Pricing Plans)</div>
+    <div class="section-header">
+      <h2>Explore Transparent Engagement Models</h2>
+      <span style="color: var(--text-muted); font-size: 14px;">3 proven channels tailored to your company's stage</span>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Plan 1: Custom Build Package -->
+      <div class="pricing-card">
+        <div>
+          <div class="plan-name">Custom Build Package</div>
+          <p class="plan-desc">For technical founders & lean internal growth teams who want the exact blueprints and code to run it themselves.</p>
+          <div class="plan-price-box">
+            <div class="plan-price">$1,500</div>
+            <div class="plan-period">one-time investment</div>
+            <div class="plan-timing">⚡ Instant Access + Setup Docs</div>
+          </div>
+          <ul class="plan-features">
+            <li><span class="chk">✓</span> Production n8n JSON workflow blueprints</li>
+            <li><span class="chk">✓</span> Complete 5-Pillar prompt library (PAS formulas)</li>
+            <li><span class="chk">✓</span> Clay waterfall enrichment templates</li>
+            <li><span class="chk">✓</span> Cold deliverability, DNS & warmup playbook</li>
+            <li><span class="chk">✓</span> Self-hosted Docker & cloud deployment guide</li>
+            <li><span class="chk">✓</span> Private community & async support</li>
+          </ul>
+        </div>
+        <a href="app-order-dashboard.html" class="btn-plan btn-plan-secondary">Get Build Package ($1,500) →</a>
+      </div>
+
+      <!-- Plan 2: Custom Agent (Featured) -->
+      <div class="pricing-card featured">
+        <div class="badge-featured">Most Popular</div>
+        <div>
+          <div class="plan-name">Custom Cloud Agent</div>
+          <p class="plan-desc">A fully autonomous AI agent deployed in our managed cloud running your daily prospecting & copywriting on autopilot.</p>
+          <div class="plan-price-box">
+            <div class="plan-price">$3,500</div>
+            <div class="plan-period">/ month (no long term lock-in)</div>
+            <div class="plan-timing">🚀 7-Day Fast Onboarding</div>
+          </div>
+          <ul class="plan-features">
+            <li><span class="chk">✓</span> <strong>Everything in Custom Build, fully managed</strong></li>
+            <li><span class="chk">✓</span> Dedicated cloud infrastructure & monitoring</li>
+            <li><span class="chk">✓</span> Continuous daily lead ingest & deduplication</li>
+            <li><span class="chk">✓</span> AI account research & custom PAS email drafting</li>
+            <li><span class="chk">✓</span> Up to 5,000 verified enriched contacts / month</li>
+            <li><span class="chk">✓</span> Weekly deliverability health audit & inbox triage</li>
+          </ul>
+        </div>
+        <a href="app-agent-dashboard.html" class="btn-plan btn-plan-primary">Deploy Your Agent ($3,500/mo) →</a>
+      </div>
+
+      <!-- Plan 3: Custom Engagement -->
+      <div class="pricing-card">
+        <div>
+          <div class="plan-name">Custom Engagement</div>
+          <p class="plan-desc">A white-glove, bespoke outbound automation engine engineered, tested, and handed over inside your company's tech stack.</p>
+          <div class="plan-price-box">
+            <div class="plan-price">$6,000</div>
+            <div class="plan-period">one-time build (+ optional retainer)</div>
+            <div class="plan-timing">⏱ 3–4 Weeks Bespoke Build</div>
+          </div>
+          <ul class="plan-features">
+            <li><span class="chk">✓</span> Deep technical audit & TAM account mapping</li>
+            <li><span class="chk">✓</span> Custom n8n workflow deployed in your environment</li>
+            <li><span class="chk">✓</span> Bi-directional HubSpot / Salesforce CRM sync</li>
+            <li><span class="chk">✓</span> Bespoke webhook triggers (jobs, funding, tech)</li>
+            <li><span class="chk">✓</span> Custom multi-inbox Smartlead setup & warmup</li>
+            <li><span class="chk">✓</span> 30-day post-launch optimization & team training</li>
+          </ul>
+        </div>
+        <a href="app-client-portal.html" class="btn-plan btn-plan-secondary">Book Strategy Audit ($1,500 Escrow) →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     FAQ ACCORDION
+     ───────────────────────────────────────────────────────────── -->
+<section class="faqs" id="faqs">
+  <div class="container">
+    <div class="section-eyebrow">(FAQs)</div>
+    <div class="section-header">
+      <h2>Your Questions, Answered</h2>
+      <span style="color: var(--text-muted); font-size: 14px;">Everything you need to know about our approach</span>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Why SalesGency instead of hiring a full-time SDR?</span>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          A full-time SDR costs $85k–$110k annually (salary, benefits, tool stack) and spends up to 70% of their time on manual copy-pasting, prospecting, and CRM data entry. SalesGency automates the entire bottom-of-the-funnel grunt work deterministically with AI agents and workflows — allowing your closers to focus 100% on high-value conversations and closed deals.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How fast does the engine launch?</span>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          The <strong>Custom Build Package</strong> is available immediately upon checkout. The <strong>Custom Agent</strong> launches in 7 days after onboarding. A full <strong>Custom Engagement</strong> takes 3–4 weeks for complete discovery, bespoke webhook builds, CRM integration, and inbox warmup.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>How do you protect domain reputation and prevent spam flags?</span>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          We never send outbound from your primary corporate email domain. We configure dedicated secondary domains with SPF, DKIM, DMARC, and Custom Tracking Domains (CTD), paired with a 21-day algorithmic warmup schedule and strict volume caps per inbox (max 30 cold emails/day per inbox).
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>What tech stack do I need to provide?</span>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          Our systems work with whatever you currently have. We natively support HubSpot, Salesforce, Pipedrive, Smartlead, Instantly, Clay, Apollo, and n8n. If you don't have these, we advise on the leanest and most cost-effective setup during onboarding.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Who owns the workflows and data?</span>
+          <span class="faq-toggle-icon">+</span>
+        </div>
+        <div class="faq-answer">
+          You own 100% of everything we build. All n8n workflows, prompt templates, sequence copies, and enriched contact lists belong exclusively to your company. No vendor lock-in ever.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     PROJECT INQUIRY / CONTACT
+     ───────────────────────────────────────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-box">
+      <div class="contact-info">
+        <div class="section-eyebrow">(Let's Connect)</div>
+        <h2>Got an outbound engine in mind?</h2>
+        <p>Let's make something happen together. Share a few details about your target market and we'll reply within 24 hours with an architecture recommendation.</p>
+        <a href="mailto:hello@salesgency.com" class="contact-email-pill">
+          <span>✉</span> hello@salesgency.com
+        </a>
+      </div>
+
+      <form class="contact-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label for="cName">Your Name</label>
+          <input type="text" id="cName" class="form-input" placeholder="e.g. Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label for="cEmail">Work Email</label>
+          <input type="email" id="cEmail" class="form-input" placeholder="sarah@company.com" required>
+        </div>
+        <div class="form-group">
+          <label for="cPlan">Engagement Channel of Interest</label>
+          <select id="cPlan" class="form-select">
+            <option value="agent">Custom Cloud Agent ($3,500/mo)</option>
+            <option value="engagement">Custom Engagement ($6,000 one-time)</option>
+            <option value="build">Custom Build Package ($1,500 one-time)</option>
+            <option value="other">General GTM Consultation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cDesc">What does your business sell & who are your ideal clients?</label>
+          <textarea id="cDesc" class="form-textarea" placeholder="Briefly describe your product, current outbound challenges, and target audience..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">Send Inquiry →</button>
+        <div id="formFeedback" style="display:none; font-size: 13.5px; color: #0284C7; text-align: center; margin-top: 8px; font-weight:600;">
+          Thank you! We received your inquiry and will reach out within 24 business hours.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────────────
+     FOOTER (AGERO LIGHT FOOTER)
+     ───────────────────────────────────────────────────────────── -->
+<footer class="agero-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand-col">
+        <a href="#" class="brand-logo">
+          SalesGency<span class="brand-dot"></span>
+        </a>
+        <p>
+          Architecting autonomous Prospect Automation Engines for modern B2B businesses. Zero manual scraping, zero domain burn, deterministic pipeline.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Platform & Portals</h5>
+        <ul>
+          <li><a href="app-agent-dashboard.html">SaaS Agent Console</a></li>
+          <li><a href="app-client-portal.html">Client Engagement Portal</a></li>
+          <li><a href="app-order-dashboard.html">Order Download Dashboard</a></li>
+          <li><a href="auth.html">Sign In / Sign Up</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Catalog</h5>
+        <ul>
+          <li><a href="agents.html">Autonomous Agents</a></li>
+          <li><a href="skills.html">Modular Skills</a></li>
+          <li><a href="workflows.html">Workflows Library</a></li>
+          <li><a href="case-studies.html">Client Case Studies</a></li>
+          <li><a href="wordmark-showcase.html">Brand Wordmarks</a></li>
+          <li><a href="#pricing">Pricing Plans</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Sales Docs</h5>
+        <ul>
+          <li><a href="one-sheeter.html" style="font-weight: 600; color: #0284C7;">Executive One-Sheeter (PDF)</a></li>
+          <li><a href="presentation-slide.html">16:9 Presentation Slide</a></li>
+          <li><a href="sell-sheet.html">Sell Sheet One-Pager</a></li>
+          <li><a href="pitch-deck.html">Interactive Pitch Deck</a></li>
+          <li><a href="proposal.html">Client Proposal Template</a></li>
+          <li><a href="intake-form.html">Client Onboarding Form</a></li>
+          <li><a href="wordmark-showcase.html">Wordmark Identity</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 SalesGency. All rights reserved.</div>
+      <div class="live-clock-pill">
+        <span>📍 Austin, TX →</span>
+        <span id="liveClock">00:00:00 CST</span>
+      </div>
+      <button class="btn-backtotop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        Back to top ↑
+      </button>
+    </div>
+  </div>
+</footer>
+
+<!-- ─────────────────────────────────────────────────────────────
+     INTERACTIVE JAVASCRIPT
+     ───────────────────────────────────────────────────────────── -->
+<script>
+  // Live Local Time Clock (Austin / CST)
+  function updateClock() {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-US', {
+      timeZone: 'America/Chicago',
+      hour12: false
+    });
+    const clockEl = document.getElementById('liveClock');
+    if (clockEl) {
+      clockEl.innerText = timeStr + ' CST';
+    }
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // FAQ Accordion
+  function toggleFaq(el) {
+    const parent = el.parentElement;
+    const wasActive = parent.classList.contains('active');
+    document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+    if (!wasActive) {
+      parent.classList.add('active');
+    }
+  }
+
+  // Mobile Navigation Drawer Toggle
+  function toggleMobileMenu() {
+    const navMenu = document.getElementById('navMenu');
+    if (navMenu.style.display === 'flex') {
+      navMenu.style.display = 'none';
+    } else {
+      navMenu.style.display = 'flex';
+      navMenu.style.flexDirection = 'column';
+      navMenu.style.position = 'absolute';
+      navMenu.style.top = '70px';
+      navMenu.style.left = '20px';
+      navMenu.style.right = '20px';
+      navMenu.style.background = 'rgba(255, 255, 255, 0.98)';
+      navMenu.style.border = '1px solid rgba(0,0,0,0.1)';
+      navMenu.style.borderRadius = '16px';
+      navMenu.style.padding = '24px';
+      navMenu.style.gap = '18px';
+      navMenu.style.boxShadow = '0 16px 40px rgba(0,0,0,0.1)';
+    }
+  }
+
+  // Form Submission Mock
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submitBtn');
+    const feedback = document.getElementById('formFeedback');
+    submitBtn.innerText = 'Transmitting...';
+    submitBtn.disabled = true;
+    setTimeout(() => {
+      submitBtn.style.display = 'none';
+      feedback.style.display = 'block';
+    }, 800);
+  }
+</script>
+
+<!-- ─────────────────────────────────────────────────────────────
+     INTERACTIVE CASE STUDY SLIDE-OVER DRAWER
+     ───────────────────────────────────────────────────────────── -->
+<div class="drawer-backdrop" id="caseStudyDrawerBackdrop" onclick="if(event.target===this)SalesGency.CaseStudyDrawer.close()">
+  <div class="case-drawer">
+    <button class="drawer-close-btn" onclick="SalesGency.CaseStudyDrawer.close()" aria-label="Close drawer">✕</button>
+    <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--cyan); font-weight:700; margin-bottom:6px;" id="drawerMeta">Case Study Blueprint</div>
+    <h2 style="font-family:var(--font-display); font-size:28px; margin-bottom:12px; color:var(--text-primary);" id="drawerTitle">Archin Robotics</h2>
+    <div style="display:inline-block; padding:6px 14px; border-radius:999px; background:rgba(22,163,74,0.1); border:1px solid rgba(22,163,74,0.25); color:#16A34A; font-weight:700; font-size:12px; margin-bottom:24px;" id="drawerResults">Verified Impact</div>
+
+    <div style="margin-bottom:24px;">
+      <h4 style="font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">The Challenge</h4>
+      <p style="color:var(--text-secondary); line-height:1.6; font-size:14px;" id="drawerOverview"></p>
+    </div>
+
+    <div style="margin-bottom:24px;">
+      <h4 style="font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">Architecture Deployed</h4>
+      <p style="color:var(--text-secondary); line-height:1.6; font-size:14px;" id="drawerArch"></p>
+    </div>
+
+    <div style="margin-bottom:32px;">
+      <h4 style="font-size:13px; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:8px;">Verified Key Outcomes</h4>
+      <ul style="color:var(--text-secondary); padding-left:18px; line-height:1.6; font-size:14px;" id="drawerTakeaways"></ul>
+    </div>
+
+    <div style="border-top:1px solid var(--border-subtle); padding-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+      <button class="btn-primary" onclick="SalesGency.CaseStudyDrawer.close(); SalesGency.BookingModal.open('Case Study Blueprint');">Deploy Similar Architecture →</button>
+      <button class="btn-secondary" onclick="SalesGency.CaseStudyDrawer.close()">Close Blueprint</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────────────────────
+     BOOKING & ARCHITECTURE AUDIT MODAL
+     ───────────────────────────────────────────────────────────── -->
+<div class="modal-backdrop" id="bookingModalBackdrop" onclick="if(event.target===this)SalesGency.BookingModal.close()">
+  <div class="booking-modal">
+    <button class="drawer-close-btn" onclick="SalesGency.BookingModal.close()" aria-label="Close modal">✕</button>
+    <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--cyan); font-weight:700; margin-bottom:6px;">Direct Engineering Consultation</div>
+    <h2 style="font-family:var(--font-display); font-size:26px; margin-bottom:8px; color:var(--text-primary);">Book 45-Min Technical Architecture Audit</h2>
+    <p style="color:var(--text-secondary); font-size:13.5px; margin-bottom:24px;">
+      Direct 1-on-1 strategy call with Alex Chen, Principal GTM Architect. We will inspect your current CRM, diagnose deliverability risks, and map your custom n8n blueprint.
+    </p>
+
+    <form id="bookingForm" onsubmit="SalesGency.BookingModal.submit(event)">
+      <input type="hidden" id="bookPlanInput" value="General Engagement">
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Your Name & Role</label>
+        <input type="text" class="form-input" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);" placeholder="e.g. Jordan Lee, Head of Growth" required>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Work Email</label>
+        <input type="email" class="form-input" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);" placeholder="jordan@company.com" required>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-group">
+          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Primary CRM</label>
+          <select class="form-select" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);">
+            <option>Salesforce</option>
+            <option>HubSpot</option>
+            <option>Pipedrive</option>
+            <option>Other / None</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Preferred Window</label>
+          <select class="form-select" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);">
+            <option>This Week (Tue / Thu)</option>
+            <option>Next Week</option>
+            <option>Urgent (Within 48h)</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" id="bookSubmitBtn" style="width:100%; justify-content:center; padding:12px; font-size:14px; margin-top:8px;">
+        Confirm Technical Audit Slot →
+      </button>
+    </form>
+
+    <div id="bookingSuccess" style="display:none; text-align:center; padding:24px 10px;">
+      <div style="font-size:36px; margin-bottom:10px;">📅</div>
+      <h3 style="font-size:18px; margin-bottom:8px; color:var(--text-primary);">Architecture Audit Requested!</h3>
+      <p style="color:var(--text-secondary); font-size:13.5px; line-height:1.5;">
+        We have reserved your consultation window. Check your inbox for a calendar invite with the Zoom architecture room link.
+      </p>
+      <button class="btn-secondary" style="margin-top:16px;" onclick="SalesGency.BookingModal.close()">Close Window</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/salesgency-interactive.js"></script>
+
+</body>
+</html>

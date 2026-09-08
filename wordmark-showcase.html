@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalesGency — Wordmark Brand Identity & Design System (Light Mode)</title>
+<meta name="description" content="SalesGency Wordmark Brand Identity inspired by the Gency AI aesthetic in Light Mode. Pure neo-grotesque typography, electric cyan terminal accent, and multi-theme variations.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-cream: #F4EDE4;
+    --bg-surface: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --card-subtle: #F9F7F4;
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.14);
+    --border-glow: rgba(0, 194, 255, 0.35);
+
+    --text-navy: #0F172A;
+    --text-navy-deep: #1A2845;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --text-dim: #94A3B8;
+
+    --cyan: #00C2FF;
+    --cyan-dim: rgba(0, 194, 255, 0.1);
+    --cyan-glow: rgba(0, 194, 255, 0.35);
+    --indigo: #5B2BFF;
+    --purple: #7C3AED;
+    --coral: #FF5733;
+
+    --font-sans: 'Geist', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Geist Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-cream);
+    color: var(--text-navy);
+    line-height: 1.6;
+    padding-bottom: 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle paper grain like gencyai.com */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 1;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV (AGERO LIGHT FLOATING PILL) */
+  nav.agero-nav {
+    position: fixed;
+    top: 20px; left: 0; right: 0;
+    z-index: 999;
+    padding: 0 24px;
+    pointer-events: none;
+  }
+  .nav-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 9999px;
+    padding: 10px 18px 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+  .brand-logo-nav {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-sans);
+    font-weight: 750;
+    font-size: 20px;
+    letter-spacing: -0.028em;
+    color: var(--text-navy);
+    text-decoration: none;
+  }
+  .brand-dot-nav {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    margin-left: 2px;
+    box-shadow: 0 0 8px var(--cyan-glow);
+  }
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-menu a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-menu a:hover, .nav-menu a.active {
+    color: var(--text-navy);
+    font-weight: 600;
+  }
+  .btn-nav {
+    background: var(--text-navy);
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 9999px;
+    transition: all 0.2s ease;
+  }
+  .btn-nav:hover {
+    background: #1E293B;
+  }
+
+  /* HEADER */
+  header.showcase-hero {
+    padding: 140px 0 40px;
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 48px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(0, 194, 255, 0.08);
+    border: 1px solid rgba(0, 194, 255, 0.25);
+    color: #0284C7;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .tag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+  }
+  h1 {
+    font-size: clamp(32px, 5vw, 54px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: var(--text-navy);
+  }
+  h1 span.grad {
+    background: linear-gradient(135deg, #0284C7, #7C3AED);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 780px;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    margin: 48px 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .section-title h2 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-navy);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title h2 .badge {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* COMPARISON GRID */
+  .comp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  @media (max-width: 860px) {
+    .comp-grid { grid-template-columns: 1fr; }
+  }
+  .comp-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  }
+  .comp-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    background: #FAFAF9;
+  }
+  .comp-canvas {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    position: relative;
+    background: #FFFFFF;
+  }
+  .comp-canvas.gency-theme {
+    background: #F4EDE4;
+  }
+  .comp-canvas.sales-light {
+    background: #FFFFFF;
+  }
+  .comp-details {
+    padding: 24px;
+    background: #FAF9F7;
+    border-top: 1px solid var(--border-subtle);
+    flex-grow: 1;
+  }
+  .comp-details ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .comp-details li {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .comp-details li strong {
+    color: var(--text-navy);
+    font-weight: 600;
+    min-width: 110px;
+  }
+
+  /* LIVE LOGO STYLES */
+  /* Gency reference */
+  .gency-logo-ref {
+    font-family: 'Geist', -apple-system, sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: #1a2845;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+  }
+  .gency-dot-ref {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #ff5733;
+    margin-left: 3px;
+  }
+
+  /* SalesGency Light Wordmark */
+  .sg-wordmark {
+    font-family: 'Geist', 'Outfit', -apple-system, sans-serif;
+    font-size: 42px;
+    font-weight: 750;
+    letter-spacing: -0.028em;
+    color: var(--text-navy);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+    transition: transform 0.2s;
+  }
+  .sg-dot {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--cyan);
+    margin-left: 3px;
+    box-shadow: 0 0 10px var(--cyan-glow);
+    animation: cyanPulse 3s infinite ease-in-out;
+  }
+  @keyframes cyanPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(0.92); }
+  }
+
+  /* SalesGency Gradient Two-Tone */
+  .sg-wordmark.twotone .sg-accent {
+    background: linear-gradient(135deg, #0284C7, #7C3AED);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* SalesGency Lowercase */
+  .sg-wordmark.lowercase {
+    font-size: 38px;
+    font-weight: 600;
+  }
+
+  /* VARIATIONS SHOWCASE CARDS */
+  .variations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .var-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
+  }
+  .var-canvas {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 24px;
+  }
+  .var-canvas.bg-white { background: #FFFFFF; }
+  .var-canvas.bg-cream { background: #F4EDE4; }
+  .var-canvas.bg-subtle { background: #F8FAFC; }
+  .var-canvas.bg-dark { background: #0A0D14; }
+
+  .var-meta {
+    padding: 20px 24px;
+    border-top: 1px solid var(--border-subtle);
+    background: #FAF9F7;
+  }
+  .var-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-navy);
+  }
+  .var-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+  .btn-sm {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid var(--border-subtle);
+    background: #FFFFFF;
+    color: var(--text-navy);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-sm:hover {
+    background: #F1F5F9;
+    border-color: rgba(0, 0, 0, 0.16);
+    color: #0284C7;
+  }
+
+  /* RENDERED HERO IMAGES SECTION */
+  .renders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .render-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  }
+  .render-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+  .render-info {
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #FFFFFF;
+  }
+  .render-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-navy);
+  }
+  .render-info span {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  /* CODE SNIPPET BOX */
+  .code-box {
+    background: #0F172A;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 22px 26px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #C0CAF5;
+    position: relative;
+    margin-bottom: 24px;
+    overflow-x: auto;
+  }
+  .code-box .copy-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 6px 12px;
+    font-size: 11px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #FFF;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .code-box .copy-btn:hover {
+    background: var(--cyan);
+    color: #000;
+  }
+
+  /* APPLIED ASSETS BAR */
+  .docs-bar {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    padding: 36px;
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  }
+  .docs-bar-text h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text-navy);
+  }
+  .docs-bar-text p {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .docs-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .doc-btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: #F8FAFC;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-navy);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .doc-btn:hover {
+    background: #0F172A;
+    color: #FFFFFF;
+  }
+
+  .interactive-bar {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  }
+  .interactive-bar label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .slider-control {
+    width: 140px;
+    accent-color: var(--cyan);
+  }
+</style>
+</head>
+<body>
+
+<nav class="agero-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand-logo-nav">SalesGency<span class="brand-dot-nav"></span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="agents.html">Agents</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="workflows.html">Workflows</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="wordmark-showcase.html" class="active">Wordmarks</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+    </ul>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <a href="auth.html" style="color:var(--text-secondary); text-decoration:none; font-size:13.5px; font-weight:500;">Sign In</a>
+      <a href="index.html" class="btn-nav">Back to Site →</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="showcase-hero">
+    <div class="tag">
+      <span class="tag-dot"></span> LIGHT MODE BRAND IDENTITY · 2026
+    </div>
+    <h1>SalesGency<span style="color: var(--cyan)">.</span> <span class="grad">Wordmark System</span></h1>
+    <p class="subtitle">
+      Architected using the minimalist typographic methodology of <strong>Gency AI (gencyai.com)</strong> and <strong>Agero</strong> in pristine <strong>Light Mode</strong>. 
+      Pure neo-grotesque typography in deep obsidian navy (#0F172A), anchored by our signature <strong>Electric Cyan terminal accent dot</strong>.
+    </p>
+  </header>
+
+  <!-- COMPARATIVE ANALYSIS -->
+  <div class="section-title">
+    <h2>01 / Side-by-Side Analysis <span class="badge">GENCY AI vs SALESGENCY (LIGHT MODE)</span></h2>
+  </div>
+
+  <div class="comp-grid">
+    <!-- Gency AI -->
+    <div class="comp-card">
+      <div class="comp-header">
+        <span>GENCYAI.COM REFERENCE</span>
+        <span>LIVE VECTOR</span>
+      </div>
+      <div class="comp-canvas gency-theme">
+        <a href="https://gencyai.com" target="_blank" class="gency-logo-ref">Gency<span class="gency-dot-ref"></span></a>
+      </div>
+      <div class="comp-details">
+        <ul>
+          <li><strong>Typography:</strong> Geist Sans (700 Bold, -0.02em letter-spacing)</li>
+          <li><strong>Color Palette:</strong> Deep Navy (#1A2845) on Cream (#F4EDE4)</li>
+          <li><strong>Accent Mark:</strong> Coral Dot (#FF5733, 8px circle directly appended)</li>
+          <li><strong>Brand Philosophy:</strong> Understated European editorial sophistication; "less is more" engineering brand.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SalesGency -->
+    <div class="comp-card">
+      <div class="comp-header">
+        <span>SALESGENCY ADAPTATION (LIGHT MODE)</span>
+        <span>PRODUCTION READY</span>
+      </div>
+      <div class="comp-canvas sales-light">
+        <div class="sg-wordmark" id="heroWordmark">SalesGency<span class="sg-dot"></span></div>
+      </div>
+      <div class="comp-details">
+        <ul>
+          <li><strong>Typography:</strong> Geist / Outfit (750 Bold, -0.028em tight kerning)</li>
+          <li><strong>Color Palette:</strong> Obsidian Navy (#0F172A) on Pure White (#FFFFFF) / Editorial Cream (#F4EDE4)</li>
+          <li><strong>Accent Mark:</strong> Electric Cyan Dot (#00C2FF with subtle luminous bloom)</li>
+          <li><strong>Brand Philosophy:</strong> High-performance AI revenue infrastructure; authoritative, modern, and razor-sharp.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE CONTROLLER -->
+  <div class="interactive-bar">
+    <label>
+      Wordmark Size:
+      <input type="range" min="20" max="72" value="42" class="slider-control" id="sizeSlider" oninput="updateSize(this.value)">
+      <span id="sizeValue" style="font-family: var(--font-mono); color: #0284C7; min-width: 40px;">42px</span>
+    </label>
+    <label>
+      Toggle Canvas:
+      <button class="btn-sm" onclick="toggleCanvasTone()">Flip White / Cream 🌓</button>
+    </label>
+    <label>
+      Cyan Glow:
+      <button class="btn-sm" onclick="toggleGlow()">Toggle Cyan Bloom ✨</button>
+    </label>
+  </div>
+
+  <!-- VARIATIONS -->
+  <div class="section-title">
+    <h2>02 / Light Mode Wordmark Variations <span class="badge">SVG & VECTOR</span></h2>
+  </div>
+
+  <div class="variations-grid">
+
+    <!-- Var 1: Primary Light (White Canvas) -->
+    <div class="var-card">
+      <div class="var-canvas bg-white">
+        <div class="sg-wordmark dynamic-size">SalesGency<span class="sg-dot"></span></div>
+      </div>
+      <div class="var-meta">
+        <div class="var-title">Concept A: Primary Light (Studio White)</div>
+        <div class="var-desc">Deep obsidian navy typography on pure crisp white canvas with vibrant electric cyan accent mark.</div>
+        <div class="btn-group">
+          <a href="assets/salesgency-wordmark-light.svg" download class="btn-sm">Download SVG</a>
+          <button class="btn-sm" onclick="copySnippet('light')">Copy HTML</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Var 2: Editorial Cream (Gency Style) -->
+    <div class="var-card">
+      <div class="var-canvas bg-cream">
+        <div class="sg-wordmark dynamic-size">SalesGency<span class="sg-dot"></span></div>
+      </div>
+      <div class="var-meta">
+        <div class="var-title">Concept B: Editorial Cream (Gency Paper)</div>
+        <div class="var-desc">Warm European editorial paper tone (#F4EDE4) matching gencyai.com with bold navy typography.</div>
+        <div class="btn-group">
+          <a href="assets/salesgency-wordmark-light.svg" download class="btn-sm">Download SVG</a>
+          <button class="btn-sm" onclick="copySnippet('cream')">Copy HTML</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Var 3: Two-Tone Electric Gradient on Light -->
+    <div class="var-card">
+      <div class="var-canvas bg-subtle">
+        <div class="sg-wordmark twotone dynamic-size">Sales<span class="sg-accent">Gency</span><span class="sg-dot"></span></div>
+      </div>
+      <div class="var-meta">
+        <div class="var-title">Concept C: Dual-Tone Electric Gradient</div>
+        <div class="var-desc">'Sales' in deep navy + 'Gency' in vibrant Electric Cyan-to-Indigo gradient (#0284C7 → #7C3AED).</div>
+        <div class="btn-group">
+          <a href="assets/salesgency-wordmark-gradient.svg" download class="btn-sm">Download SVG</a>
+          <button class="btn-sm" onclick="copySnippet('gradient')">Copy HTML</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Var 4: Lowercase Modern SaaS -->
+    <div class="var-card">
+      <div class="var-canvas bg-white">
+        <div class="sg-wordmark lowercase dynamic-size">salesgency<span class="sg-dot"></span></div>
+      </div>
+      <div class="var-meta">
+        <div class="var-title">Concept D: Lowercase Developer / SaaS</div>
+        <div class="var-desc">Developer-first aesthetic matching modern command-line and API infrastructure platforms (Linear, Stripe, Vercel).</div>
+        <div class="btn-group">
+          <button class="btn-sm" onclick="copySnippet('lower')">Copy HTML</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HIGH RESOLUTION RENDERED ASSETS -->
+  <div class="section-title">
+    <h2>03 / High-Resolution Studio Renders <span class="badge">4K MASTER FILES</span></h2>
+  </div>
+
+  <div class="renders-grid">
+    <div class="render-card">
+      <img src="assets/salesgency-wordmark-light.jpg" alt="SalesGency Light Wordmark">
+      <div class="render-info">
+        <h4>Light Studio Master (Primary)</h4>
+        <span>16:9 · 4K Editorial</span>
+      </div>
+    </div>
+
+    <div class="render-card">
+      <img src="assets/salesgency-wordmark-dark.jpg" alt="SalesGency Dark Wordmark">
+      <div class="render-info">
+        <h4>Dark Studio Master</h4>
+        <span>16:9 · 4K Matte</span>
+      </div>
+    </div>
+
+    <div class="render-card">
+      <img src="assets/salesgency-wordmark-gradient.jpg" alt="SalesGency Gradient Wordmark">
+      <div class="render-info">
+        <h4>Gradient Carbon Master</h4>
+        <span>16:9 · 4K Electric</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CODE INTEGRATION -->
+  <div class="section-title">
+    <h2>04 / Instant Light Mode Snippet <span class="badge">EMBED IN ANY PAGE</span></h2>
+  </div>
+
+  <div class="code-box">
+    <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('codeSnippet').innerText); alert('Copied CSS/HTML snippet!')">Copy Code</button>
+    <pre id="codeSnippet">&lt;!-- SalesGency Light Mode Wordmark --&gt;
+&lt;a href="/" class="salesgency-logo-light"&gt;
+  SalesGency&lt;span class="logo-dot"&gt;&lt;/span&gt;
+&lt;/a&gt;
+
+&lt;style&gt;
+.salesgency-logo-light {
+  font-family: 'Geist', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 750;
+  font-size: 22px;
+  color: #0F172A; /* Deep Obsidian Slate */
+  letter-spacing: -0.028em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+}
+.salesgency-logo-light .logo-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00C2FF;
+  margin-left: 2px;
+  box-shadow: 0 0 10px rgba(0, 194, 255, 0.45);
+}
+&lt;/style&gt;</pre>
+  </div>
+
+  <!-- APPLIED SALES ASSETS -->
+  <div class="docs-bar">
+    <div class="docs-bar-text">
+      <h3>Ready to view across the SalesGency Suite?</h3>
+      <p>Explore the flagship marketing site and client portals.</p>
+    </div>
+    <div class="docs-links">
+      <a href="index.html" class="doc-btn">Flagship Website</a>
+      <a href="agents.html" class="doc-btn">Agents Catalog</a>
+      <a href="skills.html" class="doc-btn">Skills Directory</a>
+      <a href="workflows.html" class="doc-btn">Workflows</a>
+      <a href="case-studies.html" class="doc-btn">Case Studies</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function updateSize(val) {
+    document.getElementById('sizeValue').innerText = val + 'px';
+    document.querySelectorAll('.dynamic-size, #heroWordmark').forEach(el => {
+      el.style.fontSize = val + 'px';
+      const dot = el.querySelector('.sg-dot');
+      if (dot) {
+        const dotSize = Math.max(5, Math.round(val * 0.24));
+        dot.style.width = dotSize + 'px';
+        dot.style.height = dotSize + 'px';
+      }
+    });
+  }
+
+  let isCreamCanvas = false;
+  function toggleCanvasTone() {
+    isCreamCanvas = !isCreamCanvas;
+    const canvas = document.querySelector('.comp-canvas.sales-light');
+    canvas.style.background = isCreamCanvas ? '#F4EDE4' : '#FFFFFF';
+  }
+
+  let glowActive = true;
+  function toggleGlow() {
+    glowActive = !glowActive;
+    document.querySelectorAll('.sg-dot').forEach(dot => {
+      if (glowActive) {
+        dot.style.boxShadow = '0 0 10px var(--cyan-glow)';
+        dot.style.animation = 'cyanPulse 3s infinite ease-in-out';
+      } else {
+        dot.style.boxShadow = 'none';
+        dot.style.animation = 'none';
+      }
+    });
+  }
+
+  function copySnippet(type) {
+    let text = `<a href="/" style="font-family:'Geist','Outfit',sans-serif;font-weight:750;font-size:22px;color:#0F172A;letter-spacing:-0.028em;text-decoration:none;display:inline-flex;align-items:baseline;">SalesGency<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#00C2FF;margin-left:2px;box-shadow:0 0 8px rgba(0,194,255,0.45);"></span></a>`;
+    navigator.clipboard.writeText(text);
+    alert('Copied light mode snippet to clipboard!');
+  }
+</script>
+
+</body>
+</html>

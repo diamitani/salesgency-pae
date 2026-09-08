@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In / Sign Up — SalesGency.</title>
+<meta name="description" content="Access your SalesGency autonomous agents, client engagement portal, and workflow blueprints. Powered by Supabase Auth.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/salesgency-theme.css">
+
+<style>
+  :root {
+    --bg-main: #F5F5F7;
+    --bg-surface: #FFFFFF;
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.14);
+    --border-glow: rgba(0, 194, 255, 0.4);
+
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+
+    --cyan: #00C2FF;
+    --cyan-dim: rgba(0, 194, 255, 0.08);
+    --cyan-glow: rgba(0, 194, 255, 0.4);
+    --purple: #7C3AED;
+    --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius-pill: 9999px;
+    --radius-card: 22px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-main); color: var(--text-primary); font-family: var(--font-body);
+    font-size: 15px; min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; padding: 32px 24px;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .auth-card {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card); padding: 48px 40px; width: 100%;
+    max-width: 440px; text-align: center; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+    position: relative; z-index: 1;
+  }
+
+  .brand-logo {
+    display: inline-flex; align-items: baseline; font-family: var(--font-display);
+    font-weight: 750; font-size: 26px; letter-spacing: -0.028em; color: var(--text-primary); text-decoration: none;
+    margin-bottom: 24px;
+  }
+  .brand-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cyan); margin-left: 3px; box-shadow: 0 0 12px var(--cyan-glow);
+    animation: cyanPulse 2.8s infinite ease-in-out;
+  }
+  @keyframes cyanPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.9); }
+  }
+
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+  p.auth-sub { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 28px; }
+
+  /* OAuth Buttons */
+  .oauth-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .btn-oauth {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    background: #FFFFFF; border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill); padding: 12px; color: var(--text-primary); font-size: 13.5px;
+    font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  }
+  .btn-oauth:hover { background: #F8FAFC; border-color: var(--border-light); transform: translateY(-1px); }
+
+  .divider {
+    display: flex; align-items: center; gap: 12px; margin: 20px 0;
+    color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .divider::before, .divider::after { content: ''; flex-grow: 1; height: 1px; background: var(--border-subtle); }
+
+  /* Form */
+  .auth-form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+  .form-group label { font-size: 12px; color: var(--text-secondary); font-weight: 600; display: block; margin-bottom: 6px; }
+  .form-input {
+    width: 100%; background: #F8FAFC; border: 1px solid var(--border-subtle);
+    border-radius: 12px; padding: 12px 16px; color: var(--text-primary); font-size: 14px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-input:focus { outline: none; border-color: var(--cyan); background: #FFFFFF; }
+
+  .destination-select {
+    width: 100%; background: #F8FAFC; border: 1px solid var(--border-subtle);
+    border-radius: 12px; padding: 12px 16px; color: var(--text-primary); font-size: 13.5px;
+    cursor: pointer;
+  }
+  .destination-select:focus { outline: none; border-color: var(--cyan); background: #FFFFFF; }
+
+  .btn-submit {
+    background: var(--text-primary); color: #FFFFFF; border: none; border-radius: var(--radius-pill);
+    padding: 13px; font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 8px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-submit:hover { background: #1E293B; transform: translateY(-1px); }
+
+  .auth-footer { margin-top: 24px; font-size: 12.5px; color: var(--text-muted); }
+  .auth-footer a { color: #0284C7; text-decoration: none; font-weight: 600; }
+  .auth-footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div style="position:fixed; top:20px; left:24px; right:24px; display:flex; justify-content:space-between; align-items:center; z-index:10;">
+  <a href="index.html" class="ctrl-btn" style="text-decoration:none;">← Back to Home</a>
+  <div class="nav-controls">
+    <button class="ctrl-btn theme-toggle-btn" aria-label="Toggle theme"><span>🌙</span> Dark</button>
+    <button class="ctrl-btn sound-toggle-btn" aria-label="Toggle sound"><span>🔊</span> Sound</button>
+  </div>
+</div>
+
+<div class="auth-card" style="margin-top:40px;">
+  <!-- SalesGency Wordmark -->
+  <a href="index.html" class="brand-logo">SalesGency<span class="brand-dot"></span></a>
+  <h1 id="authTitle">Sign In to Platform</h1>
+  <p class="auth-sub" id="authSub">Access your autonomous agents, client intake portal, or downloaded blueprints.</p>
+
+  <!-- Quick Demo Access Strip -->
+  <div style="background:var(--bg-subtle); border:1px solid var(--border-subtle); border-radius:12px; padding:12px; margin-bottom:20px; text-align:left;">
+    <div style="font-size:11px; font-weight:700; text-transform:uppercase; color:var(--text-muted); margin-bottom:8px; font-family:'Geist Mono', monospace;">🚀 Instant Demo Access (No Auth Required)</div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <a href="app-agent-dashboard.html" class="ctrl-btn" style="text-decoration:none; font-size:12px; background:var(--bg-card); color:#0284C7; border-color:rgba(0,194,255,0.3); font-weight:600;">⚡ Launch Agent Console</a>
+      <a href="app-client-portal.html" class="ctrl-btn" style="text-decoration:none; font-size:12px; background:var(--bg-card); color:var(--text-primary);">🛡️ View Client Portal</a>
+    </div>
+  </div>
+
+  <div class="oauth-group">
+    <button class="btn-oauth" onclick="handleOAuth('google')">
+      <span>🌐</span> Continue with Google OAuth
+    </button>
+    <button class="btn-oauth" onclick="handleOAuth('github')">
+      <span>🐙</span> Continue with GitHub
+    </button>
+  </div>
+
+  <div class="divider">or magic link</div>
+
+  <form class="auth-form" onsubmit="handleAuthSubmit(event)">
+    <div class="form-group">
+      <label for="authEmail">Work Email</label>
+      <input type="email" id="authEmail" class="form-input" placeholder="you@company.com" required>
+    </div>
+
+    <div class="form-group">
+      <label for="destPortal">Direct Destination</label>
+      <select id="destPortal" class="destination-select">
+        <option value="app-agent-dashboard.html">SaaS Agent Platform (Cloud Agent)</option>
+        <option value="app-client-portal.html">Client Engagement Portal (Audit & Escrow)</option>
+        <option value="app-order-dashboard.html">Order Download Dashboard (Templates)</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn-submit" id="authBtn">Send Magic Link →</button>
+  </form>
+
+  <div class="auth-footer">
+    <p id="toggleText">Don't have an account yet? <a href="#" onclick="toggleAuthMode(event)">Create Account</a></p>
+    <p style="margin-top:12px; font-size:11.5px;">Powered by Supabase PostgreSQL Auth & RLS</p>
+  </div>
+</div>
+
+<script src="assets/salesgency-interactive.js"></script>
+<script>
+  let isSignUp = false;
+  function toggleAuthMode(e) {
+    e.preventDefault();
+    if (window.SalesGency && window.SalesGency.AudioEngine) window.SalesGency.AudioEngine.playClick();
+    isSignUp = !isSignUp;
+    document.getElementById('authTitle').innerText = isSignUp ? 'Create Your Account' : 'Sign In to Platform';
+    document.getElementById('authSub').innerText = isSignUp ? 'Get started with autonomous GTM agents and workflows.' : 'Access your autonomous agents, client intake portal, or downloaded blueprints.';
+    document.getElementById('authBtn').innerText = isSignUp ? 'Create Account →' : 'Send Magic Link →';
+    document.getElementById('toggleText').innerHTML = isSignUp 
+      ? 'Already have an account? <a href="#" onclick="toggleAuthMode(event)">Sign In</a>'
+      : 'Don\'t have an account yet? <a href="#" onclick="toggleAuthMode(event)">Create Account</a>';
+  }
+
+  function handleOAuth(provider) {
+    if (window.SalesGency && window.SalesGency.AudioEngine) window.SalesGency.AudioEngine.playClick();
+    const dest = document.getElementById('destPortal').value;
+    if (window.SalesGency && window.SalesGency.ToastManager) {
+      window.SalesGency.ToastManager.show(`Authenticating with ${provider.toUpperCase()}...`, '🌐');
+    }
+    setTimeout(() => {
+      window.location.href = dest;
+    }, 400);
+  }
+
+  function handleAuthSubmit(e) {
+    e.preventDefault();
+    if (window.SalesGency && window.SalesGency.AudioEngine) window.SalesGency.AudioEngine.playClick();
+    const dest = document.getElementById('destPortal').value;
+    const btn = document.getElementById('authBtn');
+    btn.innerText = 'Authenticating...';
+    setTimeout(() => {
+      window.location.href = dest;
+    }, 600);
+  }
+</script>
+
+</body>
+</html>

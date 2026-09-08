@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Dashboard & Product Downloads — SalesGency.</title>
+<meta name="description" content="Access and download your purchased SalesGency n8n workflow blueprints, Clay templates, and prompt libraries.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-main: #F5F5F7;
+    --bg-surface: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFAFB;
+    --bg-subtle: #F0F2F5;
+
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.14);
+    --border-glow: rgba(0, 194, 255, 0.4);
+
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --text-dim: #94A3B8;
+
+    --cyan: #00C2FF;
+    --cyan-dim: rgba(0, 194, 255, 0.08);
+    --cyan-glow: rgba(0, 194, 255, 0.4);
+    --purple: #7C3AED;
+    --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius-pill: 9999px;
+    --radius-card: 22px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-main); color: var(--text-primary); font-family: var(--font-body);
+    font-size: 15px; line-height: 1.6; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav.dash-nav {
+    border-bottom: 1px solid var(--border-subtle); background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px); padding: 16px 0; position: sticky; top: 0; z-index: 100;
+  }
+  .dash-nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand-logo {
+    display: inline-flex; align-items: baseline; font-family: var(--font-display);
+    font-weight: 750; font-size: 20px; letter-spacing: -0.028em; color: var(--text-primary); text-decoration: none;
+  }
+  .brand-dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--cyan); margin-left: 2px; box-shadow: 0 0 10px var(--cyan-glow);
+    animation: cyanPulse 2.8s infinite ease-in-out;
+  }
+  @keyframes cyanPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.9); }
+  }
+
+  /* ORDER SUCCESS BANNER */
+  .order-banner {
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 194, 255, 0.3); border-radius: var(--radius-card);
+    padding: 36px 40px; margin: 40px 0 36px; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 24px;
+    box-shadow: 0 10px 30px rgba(0, 194, 255, 0.06);
+  }
+  .order-banner-info h1 { font-family: var(--font-display); font-size: 28px; font-weight: 750; margin-bottom: 6px; color: var(--text-primary); }
+  .order-banner-info p { color: var(--text-secondary); font-size: 14.5px; }
+  
+  .license-box {
+    background: #F8FAFC; border: 1px solid var(--border-subtle);
+    border-radius: 14px; padding: 16px 22px; text-align: right;
+  }
+  .license-box label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.08em; display: block; font-weight: 600; margin-bottom: 4px; }
+  .license-key { font-family: 'Geist Mono', monospace; font-size: 16px; color: #0284C7; font-weight: 700; }
+
+  /* DOWNLOADS GRID */
+  .section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--text-primary); }
+  .downloads-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+  
+  .dl-card {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: 18px; padding: 24px 28px; display: flex; align-items: center;
+    justify-content: space-between; transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+  }
+  .dl-card:hover { border-color: var(--border-light); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); }
+  .dl-info { display: flex; align-items: center; gap: 18px; }
+  .dl-icon {
+    width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 194, 255, 0.08);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+    border: 1px solid rgba(0, 194, 255, 0.2);
+  }
+  .dl-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--text-primary); }
+  .dl-info p { font-size: 13.5px; color: var(--text-secondary); }
+  
+  .btn-dl {
+    background: var(--text-primary); color: #FFFFFF; padding: 10px 20px; border-radius: var(--radius-pill);
+    font-size: 13px; font-weight: 600; text-decoration: none; display: inline-flex;
+    align-items: center; gap: 6px; cursor: pointer; border: none; transition: background 0.2s, transform 0.2s;
+  }
+  .btn-dl:hover { background: #1E293B; transform: translateY(-1px); }
+
+  /* SETUP GUIDE */
+  .guide-box {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card); padding: 36px 40px; margin-bottom: 60px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+  }
+  .guide-box h2 { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 18px; color: var(--text-primary); }
+  .guide-steps { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+  .guide-step { display: flex; align-items: flex-start; gap: 14px; font-size: 14.5px; color: var(--text-secondary); }
+  .step-num {
+    width: 24px; height: 24px; border-radius: 50%; background: #0284C7; color: #FFF;
+    display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<nav class="dash-nav">
+  <div class="container dash-nav-inner">
+    <!-- SalesGency Wordmark -->
+    <a href="index.html" class="brand-logo">SalesGency<span class="brand-dot"></span></a>
+    <div style="font-size: 13.5px; color: var(--text-secondary);">
+      Logged in as: <strong style="color:var(--text-primary);">founder@novatech.io</strong> &nbsp;·&nbsp; <a href="index.html" style="color:#0284C7; text-decoration:none; font-weight:600;">Exit to Home</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ORDER SUCCESS BANNER -->
+  <div class="order-banner">
+    <div class="order-banner-info">
+      <span style="font-size: 12px; color: #0284C7; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;">Order #SG-98421 Verified · Paid $1,500</span>
+      <h1>Custom Build Package Deliverables</h1>
+      <p>Your production n8n workflows, prompt packs, and setup blueprints are ready for immediate download.</p>
+    </div>
+    <div class="license-box">
+      <label>Enterprise License Key</label>
+      <div class="license-key" id="licKey">SG-BUILD-8849-NX7</div>
+      <button onclick="navigator.clipboard.writeText('SG-BUILD-8849-NX7'); alert('Copied license key!')" style="background:none; border:none; color:var(--text-muted); font-size:11px; cursor:pointer; margin-top:4px; font-weight:600;">Copy Key 📋</button>
+    </div>
+  </div>
+
+  <!-- DOWNLOADABLE ASSETS -->
+  <div class="section-title">📦 Package File Deliverables</div>
+  
+  <div class="downloads-list">
+    <!-- File 1 -->
+    <div class="dl-card">
+      <div class="dl-info">
+        <div class="dl-icon">⚡</div>
+        <div>
+          <h3>n8n Master Orchestrator Blueprint</h3>
+          <p>Full production workflow JSON with HubSpot dedupe, Clay waterfall, and Smartlead enrollment (240 KB)</p>
+        </div>
+      </div>
+      <button class="btn-dl" onclick="fakeDownload('n8n-prospect-engine-v2.4.json')">Download .JSON ↓</button>
+    </div>
+
+    <!-- File 2 -->
+    <div class="dl-card">
+      <div class="dl-info">
+        <div class="dl-icon">📋</div>
+        <div>
+          <h3>Clay Waterfall Enrichment Template</h3>
+          <p>Pre-mapped cascading waterfall table schema for Apollo, Prospeo, and Findymail (48 KB)</p>
+        </div>
+      </div>
+      <button class="btn-dl" onclick="fakeDownload('clay-waterfall-template.csv')">Download .CSV ↓</button>
+    </div>
+
+    <!-- File 3 -->
+    <div class="dl-card">
+      <div class="dl-info">
+        <div class="dl-icon">✍️</div>
+        <div>
+          <h3>Claude 3.5 Sonnet PAS Prompt Library</h3>
+          <p>5-Pillar psychology-driven copywriting prompts tested across 100k+ outbound emails (82 KB)</p>
+        </div>
+      </div>
+      <button class="btn-dl" onclick="fakeDownload('pas-prompt-library-claude.md')">Download .MD ↓</button>
+    </div>
+
+    <!-- File 4 -->
+    <div class="dl-card">
+      <div class="dl-info">
+        <div class="dl-icon">🛡️</div>
+        <div>
+          <h3>Cold Deliverability & DNS Architecture Playbook</h3>
+          <p>Step-by-step SOP for SPF, DKIM, DMARC, custom tracking domains, and 21-day inbox warmups (1.2 MB)</p>
+        </div>
+      </div>
+      <button class="btn-dl" onclick="fakeDownload('cold-deliverability-playbook.pdf')">Download .PDF ↓</button>
+    </div>
+  </div>
+
+  <!-- QUICK START GUIDE -->
+  <div class="guide-box">
+    <h2>🚀 3-Step Setup Instructions</h2>
+    <ul class="guide-steps">
+      <li class="guide-step">
+        <div class="step-num">1</div>
+        <div>
+          <strong>Import n8n Blueprint:</strong> Open your self-hosted n8n or n8n Cloud workspace, click <em>Import from File</em>, and upload <code>n8n-prospect-engine-v2.4.json</code>.
+        </div>
+      </li>
+      <li class="guide-step">
+        <div class="step-num">2</div>
+        <div>
+          <strong>Connect API Credentials:</strong> Configure your HubSpot private app token, Anthropic API key, and Smartlead API webhook in the credentials tab.
+        </div>
+      </li>
+      <li class="guide-step">
+        <div class="step-num">3</div>
+        <div>
+          <strong>Activate Workflow:</strong> Toggle the n8n orchestrator to <em>Active</em>. Your Prospect Automation Engine is now live and listening for triggers.
+        </div>
+      </li>
+    </ul>
+    <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border-subtle); display:flex; gap:16px;">
+      <a href="https://github.com" target="_blank" class="btn-dl">Access Private GitHub Repo 🐙</a>
+      <a href="https://discord.com" target="_blank" class="btn-dl" style="background:#F1F5F9; color:var(--text-primary); border:1px solid var(--border-subtle);">Join Private Discord 💬</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function fakeDownload(fileName) {
+    alert(`Starting download: ${fileName}\nLicense Verified: SG-BUILD-8849-NX7`);
+    const blob = new Blob([`/* SalesGency Production Asset: ${fileName} */\n/* Licensed to founder@novatech.io */\n/* Key: SG-BUILD-8849-NX7 */`], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName;
+    a.click();
+  }
+</script>
+
+</body>
+</html>

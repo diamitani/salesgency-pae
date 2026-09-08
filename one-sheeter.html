@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalesGency PAE — Executive One-Sheeter & Product Overview</title>
+<meta name="description" content="One-sheeter overview for SalesGency's Prospect Automation Engine (PAE). 1-page printable PDF and 16:9 executive presentation slide with official SalesGency branding.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-page: #E9ECEF;
+    --sheet-bg: #FFFFFF;
+    --sheet-subtle: #F8FAFC;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-strong: rgba(0, 0, 0, 0.14);
+    
+    --navy: #0F172A;
+    --navy-light: #1E293B;
+    --slate: #475569;
+    --muted: #64748B;
+    --light-muted: #94A3B8;
+
+    --cyan: #00C2FF;
+    --cyan-dim: rgba(0, 194, 255, 0.1);
+    --cyan-glow: rgba(0, 194, 255, 0.4);
+    --cyan-dark: #0284C7;
+    --green: #16A34A;
+    --green-bg: #F0FDF4;
+    --purple: #7C3AED;
+    --grad-primary: linear-gradient(135deg, #0284C7 0%, #7C3AED 100%);
+
+    --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Geist Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-page);
+    color: var(--navy);
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    padding: 30px 16px 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     TOP ACTION TOOLBAR (Hidden in Print)
+     ───────────────────────────────────────────────────────────── */
+  .toolbar {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    padding: 10px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+  }
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .tb-logo {
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: 16px;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: -0.028em;
+  }
+  .tb-logo span.dot {
+    color: var(--cyan);
+    font-weight: 900;
+  }
+  .tb-badge {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    background: #F1F5F9;
+    padding: 3px 8px;
+    border-radius: 6px;
+    color: var(--slate);
+    font-weight: 500;
+  }
+  .toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toggle-group {
+    background: #F1F5F9;
+    padding: 3px;
+    border-radius: 9999px;
+    display: flex;
+    gap: 2px;
+  }
+  .toggle-btn {
+    border: none;
+    background: transparent;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--slate);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .toggle-btn.active {
+    background: #FFFFFF;
+    color: var(--navy);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+  .btn-print {
+    background: var(--navy);
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 9999px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-print:hover {
+    background: #1E293B;
+    transform: translateY(-1px);
+  }
+  .btn-subtle {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-subtle:hover { background: #FFFFFF; }
+
+  /* ─────────────────────────────────────────────────────────────
+     ONE SHEETER CANVAS (8.5" x 11" Portrait or 16:9 Presentation)
+     ───────────────────────────────────────────────────────────── */
+  .sheet-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Default: 8.5in x 11in standard US Letter / A4 Portrait Ratio */
+  .one-sheet {
+    width: 8.5in;
+    min-height: 11in;
+    max-height: 11in;
+    background: var(--sheet-bg);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    padding: 0.42in 0.48in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* 16:9 Presentation Mode (PPT Slide Format) */
+  .one-sheet.mode-ppt {
+    width: 11in;
+    min-height: 6.1875in;
+    max-height: 6.1875in;
+    padding: 0.35in 0.45in;
+  }
+
+  /* Watermark Subtle Paper Grid */
+  .one-sheet::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .sheet-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     HEADER SECTION (BRAND WORDMARK + TAG + METRICS)
+     ───────────────────────────────────────────────────────────── */
+  .sheet-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1.5px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+  
+  /* SalesGency Light Wordmark */
+  .brand-wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: 26px;
+    letter-spacing: -0.028em;
+    color: var(--navy);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .brand-wordmark .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    margin-left: 2px;
+    box-shadow: 0 0 10px var(--cyan-glow);
+  }
+
+  .product-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cyan-dark);
+    font-weight: 600;
+    margin-top: 3px;
+  }
+
+  .header-summary {
+    max-width: 440px;
+    text-align: right;
+  }
+  .header-headline {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 750;
+    line-height: 1.25;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .header-subtext {
+    font-size: 11.5px;
+    color: var(--slate);
+    line-height: 1.35;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     VALUE STATEMENT & METRICS STRIP
+     ───────────────────────────────────────────────────────────── */
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    background: var(--sheet-subtle);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
+  }
+  .metric-item {
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .metric-item:last-child { border-right: none; }
+  .metric-num {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 750;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+  .metric-num span.accent { color: var(--cyan-dark); }
+  .metric-lbl {
+    font-size: 9.5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     GRID: PROBLEM VS SOLUTION
+     ───────────────────────────────────────────────────────────── */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section-label::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .prob-sol-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .prob-box {
+    background: #FFF5F5;
+    border: 1px solid #FECACA;
+    border-radius: 8px;
+    padding: 9px 12px;
+  }
+  .prob-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #DC2626;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .prob-list {
+    list-style: none;
+    font-size: 10.5px;
+    color: #4B5563;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .prob-list li::before {
+    content: '✕ ';
+    color: #EF4444;
+    font-weight: bold;
+  }
+
+  .sol-box {
+    background: var(--green-bg);
+    border: 1px solid rgba(22, 163, 74, 0.25);
+    border-radius: 8px;
+    padding: 9px 12px;
+  }
+  .sol-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #15803D;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .sol-list {
+    list-style: none;
+    font-size: 10.5px;
+    color: #374151;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .sol-list li::before {
+    content: '✓ ';
+    color: #16A34A;
+    font-weight: bold;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     5-PILLAR ARCHITECTURE FLOW STRIP
+     ───────────────────────────────────────────────────────────── */
+  .arch-strip {
+    margin-bottom: 12px;
+  }
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+  .pillar-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  }
+  .pillar-step {
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    color: var(--cyan-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .pillar-name {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    margin: 3px 0;
+  }
+  .pillar-desc {
+    font-size: 9.5px;
+    color: var(--slate);
+    line-height: 1.3;
+  }
+  .pillar-tech {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: var(--muted);
+    background: var(--sheet-subtle);
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-top: 5px;
+    display: inline-block;
+    width: fit-content;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     3 WAYS TO BUY & ENGAGEMENT PACKAGES
+     ───────────────────────────────────────────────────────────── */
+  .packages-section {
+    margin-bottom: 12px;
+  }
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .package-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  .package-card.highlight {
+    border-color: rgba(2, 132, 199, 0.4);
+    background: #F0F9FF;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+  }
+  .pkg-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 8px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #E0F2FE;
+    color: #0369A1;
+    text-transform: uppercase;
+  }
+  .pkg-title {
+    font-family: var(--font-display);
+    font-size: 12.5px;
+    font-weight: 750;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .pkg-price {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+  }
+  .pkg-price span.sub {
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .pkg-features {
+    list-style: none;
+    font-size: 9.5px;
+    color: var(--slate);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 8px;
+  }
+  .pkg-features li::before {
+    content: '• ';
+    color: var(--cyan-dark);
+    font-weight: bold;
+  }
+  .pkg-footer {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--navy);
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     BOTTOM ROW: VERIFIED CASE RESULTS & ESCROW GUARANTEE
+     ───────────────────────────────────────────────────────────── */
+  .trust-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .cases-box {
+    background: var(--sheet-subtle);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+  }
+  .cases-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .cases-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .case-mini strong {
+    font-size: 10.5px;
+    color: var(--navy);
+    display: block;
+    line-height: 1.2;
+  }
+  .case-mini span {
+    font-size: 9px;
+    color: var(--muted);
+    display: block;
+  }
+  .case-mini p {
+    font-size: 9.5px;
+    color: var(--cyan-dark);
+    font-weight: 600;
+  }
+
+  .escrow-box {
+    background: #F0FDF4;
+    border: 1px solid rgba(22, 163, 74, 0.25);
+    border-radius: 8px;
+    padding: 9px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .escrow-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .escrow-title {
+    font-size: 11px;
+    font-weight: 750;
+    color: #15803D;
+  }
+  .escrow-badge {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    background: #DCFCE7;
+    color: #16A34A;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .escrow-desc {
+    font-size: 9.5px;
+    color: #374151;
+    line-height: 1.35;
+    margin: 4px 0;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     FOOTER CALL TO ACTION & SIGNATURE BAR
+     ───────────────────────────────────────────────────────────── */
+  .sheet-footer {
+    border-top: 1.5px solid var(--border);
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--slate);
+  }
+  .footer-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cta-pill {
+    background: var(--navy);
+    color: #FFFFFF;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 5px 14px;
+    border-radius: 9999px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .cta-contacts {
+    font-size: 9.5px;
+    color: var(--slate);
+    line-height: 1.3;
+  }
+  .cta-contacts strong {
+    color: var(--navy);
+  }
+  .footer-copyright {
+    text-align: right;
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     PRINT MEDIA STYLES (EXACT 1-PAGE OUTPUT)
+     ───────────────────────────────────────────────────────────── */
+  @page {
+    size: letter portrait;
+    margin: 0;
+  }
+  @media print {
+    body {
+      background: #FFFFFF !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .toolbar {
+      display: none !important;
+    }
+    .sheet-wrapper {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    .one-sheet {
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      width: 8.5in !important;
+      height: 11in !important;
+      min-height: 11in !important;
+      max-height: 11in !important;
+      padding: 0.42in 0.48in !important;
+      page-break-after: avoid !important;
+      page-break-inside: avoid !important;
+    }
+    .one-sheet.mode-ppt {
+      width: 11in !important;
+      height: 6.1875in !important;
+      min-height: 6.1875in !important;
+      max-height: 6.1875in !important;
+    }
+  }
+
+  /* 16:9 Presentation mode tweaks */
+  .one-sheet.mode-ppt .prob-sol-grid,
+  .one-sheet.mode-ppt .trust-row {
+    margin-bottom: 8px;
+  }
+  .one-sheet.mode-ppt .packages-section {
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP ACTION TOOLBAR -->
+<div class="toolbar no-print">
+  <div class="toolbar-left">
+    <a href="index.html" class="tb-logo">SalesGency<span class="dot">.</span></a>
+    <span class="tb-badge">PAE Executive One-Sheeter v2.4</span>
+  </div>
+  <div class="toolbar-actions">
+    <div class="toggle-group">
+      <button class="toggle-btn active" id="btnLetter" onclick="setLayout('letter')">📄 Letter (8.5×11)</button>
+      <button class="toggle-btn" id="btnPPT" onclick="setLayout('ppt')">🖥️ 16:9 Slide</button>
+    </div>
+    <button class="btn-print" onclick="window.print()">
+      <span>📥 Export / Print PDF</span>
+    </button>
+    <a href="index.html" class="btn-subtle">Exit to Website →</a>
+  </div>
+</div>
+
+<!-- ONE SHEETER CONTAINER -->
+<div class="sheet-wrapper">
+  <div class="one-sheet" id="sheetCard">
+    <div class="sheet-content">
+
+      <!-- 01. HEADER SECTION -->
+      <div class="sheet-header">
+        <div>
+          <!-- Official SalesGency Wordmark -->
+          <div class="brand-wordmark">
+            SalesGency<span class="dot"></span>
+          </div>
+          <div class="product-tag">PROSPECT AUTOMATION ENGINE (PAE) · PRODUCT OVERVIEW</div>
+        </div>
+        <div class="header-summary">
+          <div class="header-headline">Autonomous Outbound Pipeline for Modern B2B</div>
+          <div class="header-subtext">Zero manual scraping · 100% CRM collision protection · 0% domain burn architecture</div>
+        </div>
+      </div>
+
+      <!-- 02. VERIFIED METRICS STRIP -->
+      <div class="metrics-strip">
+        <div class="metric-item">
+          <div class="metric-num">18.4<span class="accent">%</span></div>
+          <div class="metric-lbl">Cold Reply Rate</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-num">1.2M<span class="accent">+</span></div>
+          <div class="metric-lbl">Contacts Enriched</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-num">5.2<span class="accent">x</span></div>
+          <div class="metric-lbl">Pipeline Velocity</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-num">0<span class="accent">%</span></div>
+          <div class="metric-lbl">CRM Collisions</div>
+        </div>
+      </div>
+
+      <!-- 03. PROBLEM VS SOLUTION -->
+      <div class="section-label">01 / The Outbound Transformation</div>
+      <div class="prob-sol-grid">
+        <div class="prob-box">
+          <div class="prob-title">⚠️ Traditional Outbound Breakdown</div>
+          <ul class="prob-list">
+            <li>SDRs waste 65% of their day manually finding emails and scraping LinkedIn</li>
+            <li>Reps collide on key target accounts, destroying enterprise deal credibility</li>
+            <li>Generic AI templates get blacklisted by Google/Microsoft spam filters</li>
+          </ul>
+        </div>
+        <div class="sol-box">
+          <div class="sol-title">⚡ The SalesGency PAE Solution</div>
+          <ul class="sol-list">
+            <li>Fully autonomous n8n workflows scan market hiring & funding signals daily</li>
+            <li>Bi-directional CRM shield verifies active deals in HubSpot/Salesforce before send</li>
+            <li>Claude 3.5 Sonnet drafts bespoke, problem-agitate-solution copy in &lt;85 words</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 04. 5-PILLAR ARCHITECTURE -->
+      <div class="arch-strip">
+        <div class="section-label">02 / 5-Pillar Autonomous Architecture</div>
+        <div class="pillar-grid">
+          <div class="pillar-card">
+            <span class="pillar-step">Pillar 01</span>
+            <div class="pillar-name">Trigger Ingest</div>
+            <div class="pillar-desc">Monitors RSS, job boards & press releases for buying intent.</div>
+            <span class="pillar-tech">Vercel Edge / Cron</span>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-step">Pillar 02</span>
+            <div class="pillar-name">CRM Shield</div>
+            <div class="pillar-desc">Queries CRM opportunities to guarantee zero rep collisions.</div>
+            <span class="pillar-tech">HubSpot / SFDC API</span>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-step">Pillar 03</span>
+            <div class="pillar-name">Waterfall Reveal</div>
+            <div class="pillar-desc">Multi-vendor cascade with live SMTP handshake checks.</div>
+            <span class="pillar-tech">Clay / Apollo / Findy</span>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-step">Pillar 04</span>
+            <div class="pillar-name">AI PAS Copy</div>
+            <div class="pillar-desc">Zero buzzword, research-backed email drafts under 85 words.</div>
+            <span class="pillar-tech">Claude 3.5 Sonnet</span>
+          </div>
+          <div class="pillar-card">
+            <span class="pillar-step">Pillar 05</span>
+            <div class="pillar-name">Sequencer Sync</div>
+            <div class="pillar-desc">Automated enrollment with staggered inbox load balancing.</div>
+            <span class="pillar-tech">Smartlead / Instantly</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05. 3 WAYS TO BUY -->
+      <div class="packages-section">
+        <div class="section-label">03 / Flexible Deployment Channels</div>
+        <div class="packages-grid">
+          
+          <!-- Option 1 -->
+          <div class="package-card">
+            <span class="pkg-badge">Self-Hosted</span>
+            <div class="pkg-title">Custom Build Package</div>
+            <div class="pkg-price">$1,500 <span class="sub">one-time</span></div>
+            <ul class="pkg-features">
+              <li>Production n8n workflow JSONs</li>
+              <li>Clay waterfall enrichment schemas</li>
+              <li>Claude 3.5 Sonnet prompt packs</li>
+              <li>DNS & cold deliverability playbook</li>
+            </ul>
+            <div class="pkg-footer">Instant Asset Download</div>
+          </div>
+
+          <!-- Option 2 (Featured) -->
+          <div class="package-card highlight">
+            <span class="pkg-badge" style="background:#0284C7; color:#FFF;">Most Popular</span>
+            <div class="pkg-title">Custom Engagement</div>
+            <div class="pkg-price">$4,500 <span class="sub">/ month</span></div>
+            <ul class="pkg-features">
+              <li>Full end-to-end bespoke build</li>
+              <li>Dedicated Principal GTM Architect</li>
+              <li>Bi-directional CRM & Slack integration</li>
+              <li>$1,500 deposit protected in escrow</li>
+            </ul>
+            <div class="pkg-footer" style="background:#0284C7; color:#FFF; border-color:#0284C7;">Bespoke Implementation</div>
+          </div>
+
+          <!-- Option 3 -->
+          <div class="package-card">
+            <span class="pkg-badge">Autonomous SaaS</span>
+            <div class="pkg-title">Custom Cloud Agent</div>
+            <div class="pkg-price">$499 <span class="sub">/ month</span></div>
+            <ul class="pkg-features">
+              <li>Managed cloud agent console</li>
+              <li>Vercel AI ChatUI interaction</li>
+              <li>Live lead triage & sentiment detection</li>
+              <li>5,000 enriched contacts / month</li>
+            </ul>
+            <div class="pkg-footer">SaaS Subscription</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 06. PROVEN CASE RESULTS & ESCROW GUARANTEE -->
+      <div class="trust-row">
+        <div class="cases-box">
+          <div class="cases-title">Verified Deployments</div>
+          <div class="cases-items">
+            <div class="case-mini">
+              <strong>Archin Robotics</strong>
+              <span>Enterprise Robotics</span>
+              <p>42 Demos · $1.4M Pipeline</p>
+            </div>
+            <div class="case-mini">
+              <strong>VNTNR Logistics</strong>
+              <span>Global Freight Carrier</span>
+              <p>19.4% Reply · 0% Domain Burn</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="escrow-box">
+          <div class="escrow-top">
+            <span class="escrow-title">🛡️ Escrow Protected</span>
+            <span class="escrow-badge">$1,500 Hold</span>
+          </div>
+          <p class="escrow-desc">
+            All custom engagements begin with an escrow-backed technical audit. Funds unlock only after roadmapping meeting.
+          </p>
+          <div style="font-size: 8.5px; color: #16A34A; font-weight: 700;">100% Risk-Free Refund Guarantee</div>
+        </div>
+      </div>
+
+      <!-- 07. FOOTER BAR -->
+      <div class="sheet-footer">
+        <div class="footer-cta">
+          <a href="https://salesgency.ai" class="cta-pill">Book 45-Min Technical Audit →</a>
+          <div class="cta-contacts">
+            <div>Website: <strong>salesgency.ai</strong> · Email: <strong>alex@salesgency.ai</strong></div>
+            <div>Engineering Hub: <strong>Austin, TX & San Francisco, CA</strong></div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div>© 2026 SalesGency. All rights reserved.</div>
+          <div>Built on Vercel AI Stack & Anthropic Claude.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function setLayout(mode) {
+    const sheet = document.getElementById('sheetCard');
+    const btnLetter = document.getElementById('btnLetter');
+    const btnPPT = document.getElementById('btnPPT');
+
+    if (mode === 'ppt') {
+      sheet.classList.add('mode-ppt');
+      btnPPT.classList.add('active');
+      btnLetter.classList.remove('active');
+    } else {
+      sheet.classList.remove('mode-ppt');
+      btnLetter.classList.add('active');
+      btnPPT.classList.remove('active');
+    }
+  }
+</script>
+
+</body>
+</html>

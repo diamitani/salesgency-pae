@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills Catalog — SalesGency.</title>
+<meta name="description" content="Explore modular AI skills for outbound GTM automation: Trigger Ingest, CRM Shield, Waterfall Reveal, AI PAS Copy, and Sequencer Enrollment.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/salesgency-theme.css">
+
+<style>
+  :root {
+    --bg-main: #F5F5F7;
+    --bg-surface: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFAFB;
+    --bg-subtle: #F0F2F5;
+
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.14);
+    --border-glow: rgba(0, 194, 255, 0.4);
+
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --text-dim: #94A3B8;
+
+    --cyan: #00C2FF;
+    --cyan-dim: rgba(0, 194, 255, 0.08);
+    --cyan-glow: rgba(0, 194, 255, 0.4);
+    --purple: #7C3AED;
+    --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius-pill: 9999px;
+    --radius-card: 22px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  /* NAV (AGERO LIGHT) */
+  nav.agero-nav {
+    position: fixed; top: 20px; left: 0; right: 0; z-index: 999;
+    padding: 0 24px; pointer-events: none;
+  }
+  .nav-inner {
+    max-width: 1180px; margin: 0 auto;
+    background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle); border-radius: var(--radius-pill);
+    padding: 10px 18px 10px 24px; display: flex; align-items: center; justify-content: space-between;
+    pointer-events: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .nav-inner:hover {
+    border-color: var(--border-light);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
+  }
+
+  /* SalesGency Wordmark */
+  .brand-logo {
+    display: inline-flex; align-items: baseline; font-family: var(--font-display);
+    font-weight: 750; font-size: 21px; letter-spacing: -0.028em; color: var(--text-primary); text-decoration: none;
+  }
+  .brand-dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--cyan); margin-left: 2px; box-shadow: 0 0 10px var(--cyan-glow);
+    animation: cyanPulse 2.8s infinite ease-in-out;
+  }
+  @keyframes cyanPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.9); }
+  }
+
+  .nav-menu { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-menu a { color: var(--text-secondary); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: color 0.2s; }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--text-primary); font-weight: 600; }
+  
+  .btn-nav {
+    background: var(--text-primary); color: #FFFFFF; text-decoration: none; font-size: 13px;
+    font-weight: 600; padding: 8px 18px; border-radius: var(--radius-pill);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-nav:hover { background: #1E293B; transform: translateY(-1px); }
+
+  /* HEADER */
+  header.page-header {
+    padding: 160px 0 60px; text-align: center; border-bottom: 1px solid var(--border-subtle);
+  }
+  .badge-tag {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--radius-pill);
+    background: #FFFFFF; border: 1px solid var(--border-subtle);
+    color: #0284C7; font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  h1 {
+    font-family: var(--font-display); font-size: clamp(38px, 6vw, 64px);
+    font-weight: 750; letter-spacing: -0.035em; line-height: 1.1; margin-bottom: 18px;
+    color: var(--text-primary);
+  }
+  h1 span.grad {
+    background: linear-gradient(135deg, #0284C7 0%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.header-sub {
+    color: var(--text-secondary); font-size: 18px; max-width: 680px; margin: 0 auto;
+  }
+
+  /* SKILLS GRID */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 28px; padding: 60px 0 100px;
+  }
+  .skill-card {
+    background: var(--bg-card); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card); padding: 36px 32px; display: flex;
+    flex-direction: column; justify-content: space-between; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+  }
+  .skill-card:hover {
+    border-color: var(--border-light); transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+  }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 194, 255, 0.08);
+    display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 20px;
+    border: 1px solid rgba(0, 194, 255, 0.2);
+  }
+  .skill-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary); }
+  .skill-desc { color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+  
+  .io-box {
+    background: #F8FAFC; border: 1px solid var(--border-subtle); border-radius: 12px;
+    padding: 16px; font-size: 12.5px; font-family: 'Geist Mono', monospace; color: var(--text-secondary); margin-bottom: 24px;
+  }
+  .io-box span.lbl { color: #0284C7; font-weight: 700; text-transform: uppercase; font-size: 11px; margin-right: 6px; }
+
+  .skill-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border-subtle); padding-top: 18px; font-size: 12.5px;
+    color: var(--text-muted);
+  }
+  .btn-sm-skill {
+    background: var(--text-primary); color: #FFFFFF; padding: 6px 14px;
+    border-radius: var(--radius-pill); text-decoration: none; font-size: 12px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-sm-skill:hover { background: #1E293B; }
+
+  footer {
+    padding: 50px 0; border-top: 1px solid var(--border-subtle); background: #EAECEF;
+    text-align: center; color: var(--text-secondary); font-size: 13.5px;
+  }
+  .footer-logo {
+    display: inline-flex; align-items: baseline; font-family: var(--font-display);
+    font-weight: 750; font-size: 18px; letter-spacing: -0.028em; color: var(--text-primary); text-decoration: none;
+    margin-bottom: 12px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="agero-nav">
+  <div class="nav-inner">
+    <!-- SalesGency Wordmark -->
+    <a href="index.html" class="brand-logo">SalesGency<span class="brand-dot"></span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="agents.html">Agents</a></li>
+      <li><a href="skills.html" class="active">Skills</a></li>
+      <li><a href="workflows.html">Workflows</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="index.html#roi-calculator">ROI Engine</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+    </ul>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <div class="nav-controls">
+        <button class="ctrl-btn theme-toggle-btn" aria-label="Toggle theme"><span>🌙</span> Dark</button>
+        <button class="ctrl-btn sound-toggle-btn" aria-label="Toggle sound"><span>🔊</span> Sound</button>
+      </div>
+      <a href="auth.html" style="color:var(--text-secondary); text-decoration:none; font-size:13.5px; font-weight:500;">Sign In</a>
+      <button class="btn-nav" onclick="SalesGency.BookingModal.open('Modular Skill Integration')">Deploy Skills →</button>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="badge-tag">Modular Capabilities</span>
+    <h1>GTM Agent <span class="grad">Skills</span></h1>
+    <p class="header-sub">Pluggable, independently testable skills that empower AI agents to research, validate, enrich, and write outbound communications.</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="skills-grid">
+
+    <!-- Skill 1 -->
+    <div class="skill-card">
+      <div>
+        <div class="skill-icon">⚡</div>
+        <h2 class="skill-title">Trigger Ingest Skill</h2>
+        <p class="skill-desc">Scans real-time intent signals across news feeds, LinkedIn job posts, and corporate press releases to trigger outreach during active hiring or funding events.</p>
+        <div class="io-box">
+          <p><span class="lbl">Input:</span> Target ICP, RSS URLs, Google Alert Queries</p>
+          <p><span class="lbl">Output:</span> Validated event payload with company domain & intent score</p>
+        </div>
+      </div>
+      <div class="skill-footer">
+        <span>Runs on: Vercel Edge / Cron</span>
+        <a href="app-order-dashboard.html" class="btn-sm-skill">Get Skill JSON</a>
+      </div>
+    </div>
+
+    <!-- Skill 2 -->
+    <div class="skill-card">
+      <div>
+        <div class="skill-icon">🛡️</div>
+        <h2 class="skill-title">CRM Shield & Dedupe</h2>
+        <p class="skill-desc">Query HubSpot or Salesforce APIs in real-time to suppress existing customers, active pipeline opportunities, and opt-outs. Zero deal collisions guaranteed.</p>
+        <div class="io-box">
+          <p><span class="lbl">Input:</span> Prospect email & company domain</p>
+          <p><span class="lbl">Output:</span> Boolean approval flag + collision reason code</p>
+        </div>
+      </div>
+      <div class="skill-footer">
+        <span>HubSpot & Salesforce RLS</span>
+        <a href="app-order-dashboard.html" class="btn-sm-skill">Get Skill JSON</a>
+      </div>
+    </div>
+
+    <!-- Skill 3 -->
+    <div class="skill-card">
+      <div>
+        <div class="skill-icon">🔍</div>
+        <h2 class="skill-title">Waterfall Contact Reveal</h2>
+        <p class="skill-desc">Cascading data verification querying Clay, Apollo, Prospeo, and Findymail. Conducts real-time SMTP handshakes to ensure zero domain blacklisting.</p>
+        <div class="io-box">
+          <p><span class="lbl">Input:</span> Full name, title, target company domain</p>
+          <p><span class="lbl">Output:</span> Verified work email (&lt;1% bounce), direct mobile</p>
+        </div>
+      </div>
+      <div class="skill-footer">
+        <span>Accuracy: 99.4% Verified</span>
+        <a href="app-order-dashboard.html" class="btn-sm-skill">Get Skill JSON</a>
+      </div>
+    </div>
+
+    <!-- Skill 4 -->
+    <div class="skill-card">
+      <div>
+        <div class="skill-icon">✍️</div>
+        <h2 class="skill-title">AI PAS Copywriting</h2>
+        <p class="skill-desc">Harnesses Claude 3.5 Sonnet to draft concise Problem-Agitate-Solution cold emails. Eliminates marketing buzzwords and hallucinated claims.</p>
+        <div class="io-box">
+          <p><span class="lbl">Input:</span> Account research summary, persona pain points, case study</p>
+          <p><span class="lbl">Output:</span> 3 custom variants (&lt;85 words each) with subject line</p>
+        </div>
+      </div>
+      <div class="skill-footer">
+        <span>Engine: Anthropic Claude 3.5</span>
+        <a href="app-order-dashboard.html" class="btn-sm-skill">Get Skill JSON</a>
+      </div>
+    </div>
+
+    <!-- Skill 5 -->
+    <div class="skill-card">
+      <div>
+        <div class="skill-icon">🚀</div>
+        <h2 class="skill-title">Sequencer Enrollment</h2>
+        <p class="skill-desc">Pushes validated leads into Smartlead or Instantly campaigns with customized variable tags, staggered send schedules, and inbox load balancing.</p>
+        <div class="io-box">
+          <p><span class="lbl">Input:</span> Lead object + personalized email copy variant</p>
+          <p><span class="lbl">Output:</span> Campaign enrollment ID & tracking webhook</p>
+        </div>
+      </div>
+      <div class="skill-footer">
+        <span>Smartlead & Instantly API</span>
+        <a href="app-order-dashboard.html" class="btn-sm-skill">Get Skill JSON</a>
+      </div>
+    </div>
+
+    <!-- Skill 6 -->
+    <div class="skill-card">
+      <div>
+        <div class="skill-icon">📊</div>
+        <h2 class="skill-title">Execution Analyst & Hygiene</h2>
+        <p class="skill-desc">Monitors inbound replies, detects sentiment (Positive / Objection / Unsubscribe), updates CRM lifecycle stages, and generates daily Slack digests.</p>
+        <div class="io-box">
+          <p><span class="lbl">Input:</span> Inbound email webhook payload</p>
+          <p><span class="lbl">Output:</span> Categorized sentiment, CRM deal note, AE Slack alert</p>
+        </div>
+      </div>
+      <div class="skill-footer">
+        <span>Automated Triage: Instant</span>
+        <a href="app-order-dashboard.html" class="btn-sm-skill">Get Skill JSON</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <a href="index.html" class="footer-logo">SalesGency<span class="brand-dot"></span></a>
+    <p>© 2026 SalesGency. All rights reserved. Built on the Vercel AI Stack & Anthropic Claude.</p>
+  </div>
+</footer>
+
+<!-- BOOKING & ARCHITECTURE AUDIT MODAL -->
+<div class="modal-backdrop" id="bookingModalBackdrop" onclick="if(event.target===this)SalesGency.BookingModal.close()">
+  <div class="booking-modal">
+    <button class="drawer-close-btn" onclick="SalesGency.BookingModal.close()" aria-label="Close modal">✕</button>
+    <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--cyan); font-weight:700; margin-bottom:6px;">Direct Engineering Consultation</div>
+    <h2 style="font-family:var(--font-display); font-size:26px; margin-bottom:8px; color:var(--text-primary);">Deploy Modular Agent Skills</h2>
+    <p style="color:var(--text-secondary); font-size:13.5px; margin-bottom:24px;">
+      Direct 1-on-1 strategy call with Alex Chen, Principal GTM Architect. We will review which modular skills fit your outbound stack and generate custom n8n configurations.
+    </p>
+
+    <form id="bookingForm" onsubmit="SalesGency.BookingModal.submit(event)">
+      <input type="hidden" id="bookPlanInput" value="Modular Skills Integration">
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Your Name & Role</label>
+        <input type="text" class="form-input" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);" placeholder="e.g. Jordan Lee, Head of Growth" required>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Work Email</label>
+        <input type="email" class="form-input" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);" placeholder="jordan@company.com" required>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-group">
+          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Primary Focus</label>
+          <select class="form-select" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);">
+            <option>CRM Shield & Deduplication</option>
+            <option>Waterfall Enrichment Engine</option>
+            <option>AI PAS Copywriting Agent</option>
+            <option>Inbox Sentinel & Deliverability</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Target Platform</label>
+          <select class="form-select" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);">
+            <option>n8n Self-Hosted</option>
+            <option>SalesGency Cloud</option>
+            <option>Make / Zapier</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" id="bookSubmitBtn" style="width:100%; justify-content:center; padding:12px; font-size:14px; margin-top:8px;">
+        Confirm Technical Consultation →
+      </button>
+    </form>
+
+    <div id="bookingSuccess" style="display:none; text-align:center; padding:24px 10px;">
+      <div style="font-size:36px; margin-bottom:10px;">⚡</div>
+      <h3 style="font-size:18px; margin-bottom:8px; color:var(--text-primary);">Skills Consultation Reserved!</h3>
+      <p style="color:var(--text-secondary); font-size:13.5px; line-height:1.5;">
+        We have reserved your consultation window. Check your inbox for the calendar invite with your video room link.
+      </p>
+      <button class="btn-secondary" style="margin-top:16px;" onclick="SalesGency.BookingModal.close()">Close Window</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/salesgency-interactive.js"></script>
+
+</body>
+</html>

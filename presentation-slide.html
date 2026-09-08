@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalesGency PAE — 16:9 Executive Presentation Slide</title>
+<meta name="description" content="16:9 Executive pitch slide overview for SalesGency's Prospect Automation Engine (PAE). Formatted for keynote presentations, board decks, and PDF export.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #0F172A;
+    --navy-light: #1E293B;
+    --slate: #475569;
+    --muted: #64748B;
+    --cyan: #00C2FF;
+    --cyan-dark: #0284C7;
+    --cyan-glow: rgba(0, 194, 255, 0.4);
+    --border: rgba(0, 0, 0, 0.08);
+    --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Geist Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #E2E8F0;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--navy);
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+
+  /* Toolbar */
+  .toolbar {
+    width: 100%;
+    max-width: 1056px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    padding: 10px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+  .tb-brand {
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: 16px;
+    letter-spacing: -0.028em;
+    color: var(--navy);
+    text-decoration: none;
+  }
+  .tb-btn {
+    background: var(--navy);
+    color: #FFF;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 9999px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tb-btn:hover { background: #1E293B; }
+
+  /* 16:9 Presentation Canvas (11in x 6.1875in) */
+  .slide-canvas {
+    width: 11in;
+    height: 6.1875in;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+    padding: 0.38in 0.48in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Paper texture */
+  .slide-canvas::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+
+  /* HEADER */
+  .slide-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1.5px solid var(--border);
+    padding-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .brand-logo {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--font-display);
+    font-weight: 750;
+    font-size: 28px;
+    letter-spacing: -0.028em;
+    color: var(--navy);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .brand-logo .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--cyan);
+    margin-left: 2px;
+    box-shadow: 0 0 10px var(--cyan-glow);
+  }
+  .slide-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--cyan-dark);
+    font-weight: 600;
+    margin-top: 3px;
+  }
+  .slide-header-right {
+    text-align: right;
+  }
+  .slide-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 750;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .slide-sub {
+    font-size: 11.5px;
+    color: var(--slate);
+  }
+
+  /* BODY GRID (3 COLUMNS) */
+  .slide-body {
+    display: grid;
+    grid-template-columns: 1.15fr 1.35fr 1fr;
+    gap: 16px;
+    flex-grow: 1;
+    margin: 14px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .col-card {
+    background: #F8FAFC;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-label {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-label::after {
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Col 1: Value & Proof */
+  .stats-grid-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .stat-box {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .stat-lbl {
+    font-size: 9px;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .val-list {
+    list-style: none;
+    font-size: 11px;
+    color: var(--slate);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .val-list li::before {
+    content: '✓ ';
+    color: var(--cyan-dark);
+    font-weight: bold;
+  }
+
+  /* Col 2: 5 Pillars */
+  .pillar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .pillar-item {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pi-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pi-badge {
+    font-family: var(--font-mono);
+    font-size: 8.5px;
+    background: #E0F2FE;
+    color: #0369A1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .pi-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .pi-tech {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  /* Col 3: 3 Channels */
+  .pkg-item {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+  }
+  .pkg-item.featured {
+    border-color: rgba(2, 132, 199, 0.4);
+    background: #F0F9FF;
+  }
+  .pkg-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+  }
+  .pkg-name {
+    font-size: 11px;
+    font-weight: 750;
+    color: var(--navy);
+  }
+  .pkg-rate {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 800;
+    color: #0284C7;
+  }
+  .pkg-desc {
+    font-size: 9.5px;
+    color: var(--slate);
+    line-height: 1.3;
+  }
+
+  /* FOOTER */
+  .slide-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1.5px solid var(--border);
+    padding-top: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .foot-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .cta-badge {
+    background: var(--navy);
+    color: #FFF;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    text-decoration: none;
+  }
+  .cta-text {
+    font-size: 10px;
+    color: var(--slate);
+  }
+  .foot-copy {
+    font-size: 9.5px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* Print Media: 16:9 Landscape */
+  @page {
+    size: letter landscape;
+    margin: 0;
+  }
+  @media print {
+    body {
+      background: #FFFFFF !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .toolbar { display: none !important; }
+    .slide-canvas {
+      width: 11in !important;
+      height: 6.1875in !important;
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      page-break-inside: avoid !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div>
+    <a href="index.html" class="tb-brand">SalesGency<span style="color:var(--cyan);font-weight:900;">.</span></a>
+    <span style="font-size:11px; color:var(--muted); margin-left:8px; font-family:var(--font-mono);">16:9 Executive Pitch Slide</span>
+  </div>
+  <div style="display:flex; gap:10px;">
+    <button class="tb-btn" onclick="window.print()">📥 Export 16:9 PDF</button>
+    <a href="one-sheeter.html" class="tb-btn" style="background:#FFF; color:var(--navy); border:1px solid var(--border);">📄 Switch to Letter 8.5×11</a>
+  </div>
+</div>
+
+<!-- 16:9 PRESENTATION SLIDE -->
+<div class="slide-canvas">
+
+  <!-- Header -->
+  <div class="slide-header">
+    <div>
+      <div class="brand-logo">SalesGency<span class="dot"></span></div>
+      <div class="slide-tag">PROSPECT AUTOMATION ENGINE (PAE) · EXECUTIVE BRIEF</div>
+    </div>
+    <div class="slide-header-right">
+      <div class="slide-title">Autonomous Outbound Pipeline for Modern B2B</div>
+      <div class="slide-sub">Zero manual prospecting · 100% CRM collision protection · 0% domain burn architecture</div>
+    </div>
+  </div>
+
+  <!-- Body (3 Columns) -->
+  <div class="slide-body">
+
+    <!-- Column 1: Value & Verified Metrics -->
+    <div class="col-card">
+      <div class="card-label">01 / Verified Performance</div>
+      <div class="stats-grid-mini">
+        <div class="stat-box">
+          <div class="stat-num">18.4%</div>
+          <div class="stat-lbl">Cold Reply</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">1.2M+</div>
+          <div class="stat-lbl">Contacts</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">5.2x</div>
+          <div class="stat-lbl">Velocity</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num" style="color:#16A34A;">0%</div>
+          <div class="stat-lbl">Collisions</div>
+        </div>
+      </div>
+      <ul class="val-list">
+        <li>Automated hiring & funding trigger scanning</li>
+        <li>Bi-directional HubSpot & Salesforce opportunity lock</li>
+        <li>Bespoke Claude 3.5 Sonnet copy (&lt;85 words)</li>
+        <li>Staggered multi-domain sequencer load balancing</li>
+      </ul>
+    </div>
+
+    <!-- Column 2: 5-Pillar Architecture -->
+    <div class="col-card">
+      <div class="card-label">02 / 5-Pillar Architecture</div>
+      <div class="pillar-list">
+        <div class="pillar-item">
+          <div class="pi-left">
+            <span class="pi-badge">01</span>
+            <span class="pi-name">Trigger Ingest</span>
+          </div>
+          <span class="pi-tech">RSS / News API</span>
+        </div>
+        <div class="pillar-item">
+          <div class="pi-left">
+            <span class="pi-badge">02</span>
+            <span class="pi-name">CRM Shield</span>
+          </div>
+          <span class="pi-tech">HubSpot / SFDC</span>
+        </div>
+        <div class="pillar-item">
+          <div class="pi-left">
+            <span class="pi-badge">03</span>
+            <span class="pi-name">Waterfall Reveal</span>
+          </div>
+          <span class="pi-tech">Clay / Apollo</span>
+        </div>
+        <div class="pillar-item">
+          <div class="pi-left">
+            <span class="pi-badge">04</span>
+            <span class="pi-name">AI PAS Copywriting</span>
+          </div>
+          <span class="pi-tech">Claude 3.5 Sonnet</span>
+        </div>
+        <div class="pillar-item">
+          <div class="pi-left">
+            <span class="pi-badge">05</span>
+            <span class="pi-name">Sequencer Sync</span>
+          </div>
+          <span class="pi-tech">Smartlead / Instantly</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 3: 3 Channels to Buy -->
+    <div class="col-card">
+      <div class="card-label">03 / Deployment Channels</div>
+      
+      <div class="pkg-item featured">
+        <div class="pkg-top">
+          <span class="pkg-name">Custom Engagement</span>
+          <span class="pkg-rate">$4,500/mo</span>
+        </div>
+        <div class="pkg-desc">Turnkey build by senior architects. $1,500 held in escrow until audit roadmap delivery.</div>
+      </div>
+
+      <div class="pkg-item">
+        <div class="pkg-top">
+          <span class="pkg-name">Custom Cloud Agent</span>
+          <span class="pkg-rate">$499/mo</span>
+        </div>
+        <div class="pkg-desc">Managed SaaS platform console with Vercel AI ChatUI and live lead triage stream.</div>
+      </div>
+
+      <div class="pkg-item">
+        <div class="pkg-top">
+          <span class="pkg-name">Build Package</span>
+          <span class="pkg-rate">$1,500 once</span>
+        </div>
+        <div class="pkg-desc">Full n8n workflow JSONs, Clay templates, prompt libraries, and DNS setup guides.</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="slide-footer">
+    <div class="foot-cta">
+      <a href="https://salesgency.ai" class="cta-badge">Schedule Strategy Audit →</a>
+      <span class="cta-text">Engineering Hubs: <strong>Austin, TX & San Francisco, CA</strong> · Contact: <strong>alex@salesgency.ai</strong></span>
+    </div>
+    <div class="foot-copy">
+      © 2026 SalesGency. All rights reserved. · Powered by Vercel AI & Claude 3.5 Sonnet.
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

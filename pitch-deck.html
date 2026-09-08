@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SalesGency PAE — Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0284C7; --indigo: #7C3AED;
+      --bg: #FFFFFF; --surface: #F8FAFC; --surface2: #F1F5F9;
+      --border: rgba(0,0,0,0.08); --text: #0F172A; --muted: #64748B;
+      --grad: linear-gradient(135deg, #0284C7, #7C3AED);
+      --grad-r: linear-gradient(135deg, #7C3AED, #0284C7);
+    }
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      .controls { display: none !important; }
+      .slide { page-break-after: always; page-break-inside: avoid; }
+    }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', sans-serif; background: #E5E7EB;
+      -webkit-font-smoothing: antialiased; overflow: hidden;
+    }
+    body.scroll-mode { overflow: auto; background: #111; }
+
+    /* DECK WRAPPER */
+    .deck {
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+
+    /* SLIDE */
+    .slide {
+      width: min(960px, 95vw);
+      aspect-ratio: 16 / 9;
+      background: var(--bg);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      display: none;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .slide.active { display: flex; flex-direction: column; animation: slideIn 0.35s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+    .slide-inner { flex: 1; display: flex; flex-direction: column; padding: 48px 56px; position: relative; z-index: 1; }
+
+    /* SLIDE BACKGROUNDS */
+    .slide-cover { background: var(--bg); }
+    .slide-cover::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 20%, rgba(91,43,255,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(0,194,255,0.15) 0%, transparent 50%);
+    }
+    .slide-dark { background: var(--surface); }
+    .slide-accent {
+      background: linear-gradient(135deg, #0D0F14 0%, #1a0a3a 100%);
+    }
+
+    .corner-logo {
+      position: absolute; bottom: 28px; right: 36px; z-index: 2;
+      display: inline-flex; align-items: baseline;
+      font-family: 'Space Grotesk', 'Outfit', sans-serif; font-weight: 750; font-size: 15px; color: var(--text);
+      letter-spacing: -0.028em;
+    }
+    .corner-logo-dot {
+      display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+      background: #00C2FF; margin-left: 2px;
+      box-shadow: 0 0 6px rgba(0, 194, 255, 0.4);
+    }
+    .slide-num { position: absolute; bottom: 28px; left: 36px; font-size: 12px; color: var(--muted); font-weight: 500; z-index: 2; }
+
+    /* TYPOGRAPHY */
+    .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+    }
+    h1 { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(32px, 4.5vw, 56px); line-height: 1.05; letter-spacing: -0.03em; }
+    h2 { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(24px, 3vw, 38px); line-height: 1.1; letter-spacing: -0.02em; }
+    h3 { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: clamp(16px, 2vw, 22px); }
+    p { font-size: clamp(12px, 1.4vw, 16px); color: var(--muted); line-height: 1.7; }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* COLUMNS */
+    .cols { display: flex; gap: 32px; flex: 1; align-items: flex-start; }
+    .col { flex: 1; }
+    .col-2 { flex: 2; }
+
+    /* CARDS */
+    .card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px;
+    }
+    .card-icon { font-size: 24px; margin-bottom: 10px; }
+    .card h3 { font-size: clamp(13px, 1.5vw, 17px); margin-bottom: 6px; }
+    .card p { font-size: clamp(11px, 1.2vw, 14px); }
+
+    /* STAT */
+    .stat-num { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(36px, 5vw, 64px); letter-spacing: -0.04em; line-height: 1; }
+    .stat-label { font-size: clamp(11px, 1.3vw, 14px); color: var(--muted); margin-top: 4px; }
+
+    /* FLOW STEP */
+    .flow-node {
+      background: rgba(0,194,255,0.08); border: 1px solid rgba(0,194,255,0.2);
+      border-radius: 10px; padding: 14px 16px; margin-bottom: 10px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .flow-node .num {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 13px; flex-shrink: 0;
+    }
+    .flow-node-text { font-size: clamp(11px, 1.3vw, 14px); font-weight: 600; }
+    .flow-node-sub { font-size: clamp(10px, 1.1vw, 12px); color: var(--muted); margin-top: 2px; }
+
+    /* PRICE CARD */
+    .price-slide-card {
+      flex: 1; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px 20px; text-align: center;
+    }
+    .price-slide-card.featured { border-color: rgba(91,43,255,0.5); background: linear-gradient(160deg, rgba(91,43,255,0.12), var(--surface2)); }
+    .price-slide-card h3 { font-size: clamp(14px, 1.6vw, 18px); margin-bottom: 12px; }
+    .price-amount { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(24px, 3vw, 40px); letter-spacing: -0.03em; margin-bottom: 4px; }
+    .price-period { font-size: clamp(10px, 1.1vw, 13px); color: var(--muted); margin-bottom: 14px; }
+    .price-slide-card ul { list-style: none; text-align: left; }
+    .price-slide-card li { font-size: clamp(10px, 1.2vw, 13px); color: var(--muted); padding: 4px 0; }
+    .price-slide-card li::before { content: '✓ '; color: var(--blue); font-weight: 700; }
+
+    /* TIMELINE ROW */
+    .tl-row { display: flex; gap: 0; margin-bottom: 14px; }
+    .tl-cell { flex: 1; text-align: center; }
+    .tl-dot-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--grad); margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; }
+    .tl-day { font-size: clamp(10px, 1.1vw, 12px); font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .tl-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: clamp(12px, 1.4vw, 16px); }
+    .tl-desc { font-size: clamp(10px, 1.1vw, 12px); color: var(--muted); padding: 0 4px; }
+
+    /* TOOL PILL */
+    .pill { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: clamp(10px, 1.1vw, 12px); font-weight: 500; margin: 3px; }
+
+    /* CONTROLS */
+    .controls {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 16px; z-index: 100;
+      background: rgba(18,21,28,0.9); backdrop-filter: blur(12px);
+      padding: 10px 20px; border-radius: 40px; border: 1px solid var(--border);
+    }
+    .ctrl-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border);
+      background: var(--surface2); color: var(--text); cursor: pointer; font-size: 16px;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .ctrl-btn:hover { border-color: rgba(0,194,255,0.4); background: rgba(0,194,255,0.1); }
+    .ctrl-btn:disabled { opacity: 0.3; cursor: default; }
+    .ctrl-counter { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--muted); min-width: 48px; text-align: center; }
+    .ctrl-print { font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--border); background: none; transition: all 0.2s; }
+    .ctrl-print:hover { color: var(--blue); border-color: rgba(0,194,255,0.3); }
+  </style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide slide-cover active" id="slide-1">
+    <div class="slide-inner" style="justify-content: center;">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 28px;">
+        <div style="width: 42px; height: 42px; background: var(--grad); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px;">⚡</div>
+        <span style="font-family: Outfit; font-weight: 800; font-size: 20px;">SalesGency</span>
+      </div>
+      <div class="eyebrow">Prospect Automation Engine</div>
+      <h1>Build Pipeline.<br /><span class="grad-text">Not Spreadsheets.</span></h1>
+      <p style="margin-top: 20px; max-width: 480px; font-size: clamp(13px, 1.5vw, 17px);">The end-to-end outbound automation system that finds leads, researches prospects, and writes personalized emails — completely on autopilot.</p>
+      <div style="display: flex; gap: 16px; margin-top: 32px; align-items: center;">
+        <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--blue);"></div>
+        <span style="font-size: 13px; color: var(--muted);">hello@salesgency.com · salesgency.com</span>
+      </div>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">1 / 9</div>
+  </div>
+
+  <!-- SLIDE 2: PROBLEM -->
+  <div class="slide slide-dark" id="slide-2">
+    <div class="slide-inner">
+      <div class="eyebrow">The Problem</div>
+      <h2>Your Team Is Doing <span class="grad-text">Manual Work</span><br />That AI Can Handle.</h2>
+      <div class="cols" style="margin-top: 28px;">
+        <div class="card">
+          <div class="card-icon">😩</div>
+          <h3>Hours Lost to Prospecting</h3>
+          <p>SDRs spend 60–70% of their time on research and list-building instead of selling.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Inconsistent Outreach</h3>
+          <p>Without a system, pipeline is feast or famine. One good week, three slow ones.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📬</div>
+          <h3>Generic Copy That Gets Ignored</h3>
+          <p>Mass emails with no personalization get 2% reply rates. You can do 5–10x better.</p>
+        </div>
+      </div>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">2 / 9</div>
+  </div>
+
+  <!-- SLIDE 3: SOLUTION -->
+  <div class="slide" id="slide-3">
+    <div class="slide-inner">
+      <div class="eyebrow">The Solution</div>
+      <h2>The Prospect Automation<br /><span class="grad-text">Engine (PAE)</span></h2>
+      <div class="cols" style="margin-top: 28px; align-items: stretch;">
+        <div style="flex: 1;">
+          <p style="margin-bottom: 16px;">A fully automated, 9-node n8n workflow that runs your entire outbound motion — from trigger to booked meeting — without human input.</p>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: clamp(12px, 1.3vw, 15px);"><span style="color: var(--blue); font-weight: 700;">✓</span> Find your ICP at any company</div>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: clamp(12px, 1.3vw, 15px);"><span style="color: var(--blue); font-weight: 700;">✓</span> Reveal verified emails &amp; phones</div>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: clamp(12px, 1.3vw, 15px);"><span style="color: var(--blue); font-weight: 700;">✓</span> Research company context via AI</div>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: clamp(12px, 1.3vw, 15px);"><span style="color: var(--blue); font-weight: 700;">✓</span> Write personalized PAS emails</div>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: clamp(12px, 1.3vw, 15px);"><span style="color: var(--blue); font-weight: 700;">✓</span> Enroll into your sequence</div>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: clamp(12px, 1.3vw, 15px);"><span style="color: var(--blue); font-weight: 700;">✓</span> Update CRM automatically</div>
+          </div>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+          <div class="flow-node"><div class="num">1</div><div><div class="flow-node-text">⚡ Trigger Ingest</div><div class="flow-node-sub">Webhook · Schedule · Agent</div></div></div>
+          <div class="flow-node" style="background: rgba(91,43,255,0.08); border-color: rgba(91,43,255,0.2);"><div class="num">2–3</div><div><div class="flow-node-text">🛡️ Normalize &amp; CRM Dedupe</div><div class="flow-node-sub">Block existing contacts &amp; deals</div></div></div>
+          <div class="flow-node"><div class="num">4</div><div><div class="flow-node-text">🔍 Contact Reveal &amp; Enrich</div><div class="flow-node-sub">Clay · Apollo · ZoomInfo</div></div></div>
+          <div class="flow-node" style="background: rgba(91,43,255,0.08); border-color: rgba(91,43,255,0.2);"><div class="num">5</div><div><div class="flow-node-text">🤖 AI Research + PAS Email</div><div class="flow-node-sub">Problem · Agitate · Solve</div></div></div>
+          <div class="flow-node"><div class="num">6–9</div><div><div class="flow-node-text">📬 Approve · Upsert · Enroll</div><div class="flow-node-sub">Slack gate · CRM · Instantly</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">3 / 9</div>
+  </div>
+
+  <!-- SLIDE 4: STATS / RESULTS -->
+  <div class="slide slide-accent" id="slide-4">
+    <div class="slide-inner" style="align-items: center; justify-content: center; text-align: center;">
+      <div class="eyebrow" style="margin-bottom: 16px;">Why It Works</div>
+      <h2 style="margin-bottom: 40px;">Built for <span class="grad-text">Scale &amp; Precision</span></h2>
+      <div style="display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;">
+        <div><div class="stat-num grad-text">9</div><div class="stat-label">Nodes in the production workflow</div></div>
+        <div><div class="stat-num grad-text">5</div><div class="stat-label">Core automation pillars</div></div>
+        <div><div class="stat-num grad-text">3–7</div><div class="stat-label">Days to go live</div></div>
+        <div><div class="stat-num grad-text">8+</div><div class="stat-label">CRM &amp; data tool integrations</div></div>
+      </div>
+      <p style="margin-top: 36px; max-width: 560px;">Every prospect is validated by your CRM, enriched with real data, and messaged with a custom email — no generic blasts, no deal collision, no manual work.</p>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">4 / 9</div>
+  </div>
+
+  <!-- SLIDE 5: THREE PRODUCTS -->
+  <div class="slide slide-dark" id="slide-5">
+    <div class="slide-inner">
+      <div class="eyebrow">Three Ways to Buy</div>
+      <h2>Choose How You Want<br /><span class="grad-text">the Engine Built</span></h2>
+      <div class="cols" style="margin-top: 24px; align-items: stretch;">
+        <div class="card" style="border-top: 3px solid var(--blue);">
+          <div class="card-icon">🏗️</div>
+          <h3>Custom Engagement</h3>
+          <p>We build your complete PAE — customized to your ICP, tools, and workflow. Delivered in 3–7 days.</p>
+          <div style="margin-top: 12px; font-family: Outfit; font-weight: 800; font-size: clamp(18px, 2vw, 26px);">From $2,500</div>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--indigo);">
+          <div class="card-icon">🤖</div>
+          <h3>Custom Agent</h3>
+          <p>Subscribe to our AI platform. The agent finds companies, researches prospects, and writes emails on autopilot.</p>
+          <div style="margin-top: 12px; font-family: Outfit; font-weight: 800; font-size: clamp(18px, 2vw, 26px);">Custom Pricing</div>
+        </div>
+        <div class="card" style="border-top: 3px solid rgba(255,255,255,0.2);">
+          <div class="card-icon">📦</div>
+          <h3>DIY Build Package</h3>
+          <p>Download the n8n skill, templates, and build prompt. Build your own automation with any LLM.</p>
+          <div style="margin-top: 12px; font-family: Outfit; font-weight: 800; font-size: clamp(18px, 2vw, 26px);">Download License</div>
+        </div>
+      </div>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">5 / 9</div>
+  </div>
+
+  <!-- SLIDE 6: INTEGRATIONS -->
+  <div class="slide" id="slide-6">
+    <div class="slide-inner">
+      <div class="eyebrow">Works With Your Stack</div>
+      <h2>Plug Into the Tools<br /><span class="grad-text">You Already Use</span></h2>
+      <div class="cols" style="margin-top: 28px;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px;">📊 Data &amp; Enrichment</div>
+          <div>
+            <span class="pill">Clay</span><span class="pill">Apollo</span><span class="pill">ZoomInfo</span>
+            <span class="pill">FindyMail</span><span class="pill">Lusha</span><span class="pill">Amplemarket</span>
+            <span class="pill">Reply.io</span><span class="pill">Web Search</span>
+          </div>
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin: 20px 0 12px;">📬 Outreach</div>
+          <div>
+            <span class="pill">Instantly</span><span class="pill">HubSpot Sales</span><span class="pill">Attio</span>
+            <span class="pill">Salesforce</span><span class="pill">Zoho</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px;">🗂️ CRM</div>
+          <div>
+            <span class="pill">HubSpot</span><span class="pill">Salesforce</span><span class="pill">Attio</span>
+            <span class="pill">Pipedrive</span><span class="pill">Zoho</span><span class="pill">Monday.com</span><span class="pill">ClickUp</span>
+          </div>
+          <div class="card" style="margin-top: 20px;">
+            <div class="card-icon">🛡️</div>
+            <h3>CRM Shield — Always Active</h3>
+            <p>Every prospect is checked against your CRM before any email is sent. Open deals are never touched.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">6 / 9</div>
+  </div>
+
+  <!-- SLIDE 7: TIMELINE -->
+  <div class="slide slide-dark" id="slide-7">
+    <div class="slide-inner">
+      <div class="eyebrow">Timeline</div>
+      <h2>Live in <span class="grad-text">3–7 Days</span></h2>
+      <div style="margin-top: 36px; position: relative;">
+        <div style="position: absolute; top: 16px; left: 56px; right: 56px; height: 2px; background: var(--grad); border-radius: 2px;"></div>
+        <div class="tl-row">
+          <div class="tl-cell">
+            <div class="tl-dot-sm">1</div>
+            <div class="tl-day">Day 1</div>
+            <div class="tl-label">Intake</div>
+            <div class="tl-desc">Business · ICP · Tech stack · Credentials</div>
+          </div>
+          <div class="tl-cell">
+            <div class="tl-dot-sm">2</div>
+            <div class="tl-day">Days 2–3</div>
+            <div class="tl-label">Build</div>
+            <div class="tl-desc">9-node workflow · integrations · internal test</div>
+          </div>
+          <div class="tl-cell">
+            <div class="tl-dot-sm">3</div>
+            <div class="tl-day">Days 3–4</div>
+            <div class="tl-label">Review</div>
+            <div class="tl-desc">Live acceptance test · revisions · refinement</div>
+          </div>
+          <div class="tl-cell">
+            <div class="tl-dot-sm">✓</div>
+            <div class="tl-day">Day 5–7</div>
+            <div class="tl-label">Delivery</div>
+            <div class="tl-desc">Full package · go live · system running</div>
+          </div>
+        </div>
+      </div>
+      <div class="cols" style="margin-top: 28px;">
+        <div class="card"><div class="card-icon">⚙️</div><h3>Workflow JSON</h3><p>Production n8n file importable to your instance</p></div>
+        <div class="card"><div class="card-icon">🧠</div><h3>n8n Engineer Skill</h3><p>Edit &amp; extend your workflow with any LLM</p></div>
+        <div class="card"><div class="card-icon">🎁</div><h3>2 Bonus Workflows</h3><p>Execution analyst + daily performance report</p></div>
+      </div>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">7 / 9</div>
+  </div>
+
+  <!-- SLIDE 8: PRICING -->
+  <div class="slide" id="slide-8">
+    <div class="slide-inner">
+      <div class="eyebrow">Investment</div>
+      <h2>Simple, Transparent<br /><span class="grad-text">Pricing</span></h2>
+      <div class="cols" style="margin-top: 24px; align-items: stretch;">
+        <div class="price-slide-card">
+          <h3>7-Day Sprint</h3>
+          <div class="price-amount">$2,500</div>
+          <div class="price-period">Full build · 7 business days</div>
+          <ul>
+            <li>9-node custom workflow</li>
+            <li>All 5 deliverables</li>
+            <li>2 bonus workflows</li>
+            <li>2 revision rounds</li>
+            <li>50% / 50% payment split</li>
+          </ul>
+        </div>
+        <div class="price-slide-card featured">
+          <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); margin-bottom: 8px;">⚡ Priority</div>
+          <h3>3-Day Sprint</h3>
+          <div class="price-amount grad-text">$5,000</div>
+          <div class="price-period">Priority build · 72 hours</div>
+          <ul>
+            <li>Everything in 7-Day Sprint</li>
+            <li>Dedicated engineer</li>
+            <li>Priority queue</li>
+            <li>Fastest possible delivery</li>
+            <li>50% / 50% payment split</li>
+          </ul>
+        </div>
+        <div class="price-slide-card">
+          <h3>30-Day Maintenance</h3>
+          <div class="price-amount">$1,250<span style="font-size: 16px; font-weight: 500;">/mo</span></div>
+          <div class="price-period">Post-delivery support</div>
+          <ul>
+            <li>Monthly tune-ups</li>
+            <li>Execution monitoring</li>
+            <li>ICP &amp; copy updates</li>
+            <li>Error triage &amp; fixes</li>
+            <li>Cancel anytime</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">8 / 9</div>
+  </div>
+
+  <!-- SLIDE 9: CTA -->
+  <div class="slide slide-cover" id="slide-9">
+    <div class="slide-inner" style="justify-content: center; align-items: center; text-align: center;">
+      <div class="eyebrow" style="margin-bottom: 16px;">Ready to Build?</div>
+      <h1>Your Pipeline.<br /><span class="grad-text">On Autopilot.</span></h1>
+      <p style="margin-top: 20px; max-width: 460px; font-size: clamp(13px, 1.5vw, 17px);">Book a 30-minute intake call. We'll map your ICP, review your stack, and scope your custom system. No commitment required.</p>
+      <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 10px; align-items: center;">
+        <div style="background: var(--grad); padding: 14px 32px; border-radius: 10px; font-family: Outfit; font-weight: 800; font-size: clamp(14px, 1.6vw, 18px);">📅 Book Intake Call</div>
+        <div style="font-size: clamp(12px, 1.3vw, 15px); color: var(--muted); margin-top: 8px;">hello@salesgency.com · salesgency.com</div>
+      </div>
+    </div>
+    <div class="corner-logo">SalesGency<span class="corner-logo-dot"></span></div>
+    <div class="slide-num">9 / 9</div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- CONTROLS -->
+<div class="controls">
+  <button class="ctrl-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>←</button>
+  <span class="ctrl-counter" id="counter">1 / 9</span>
+  <button class="ctrl-btn" id="nextBtn" onclick="changeSlide(1)">→</button>
+  <button class="ctrl-print" onclick="window.print()">🖨️ Print</button>
+</div>
+
+<script>
+  let cur = 1;
+  const total = 9;
+  function changeSlide(dir) {
+    document.getElementById('slide-' + cur).classList.remove('active');
+    cur = Math.max(1, Math.min(total, cur + dir));
+    document.getElementById('slide-' + cur).classList.add('active');
+    document.getElementById('counter').textContent = cur + ' / ' + total;
+    document.getElementById('prevBtn').disabled = cur === 1;
+    document.getElementById('nextBtn').disabled = cur === total;
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SaaS Agent Console — SalesGency.</title>
+<meta name="description" content="Autonomous GTM agent command console powered by the Vercel AI Stack and Anthropic Claude.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg-main: #F5F5F7;
+    --bg-sidebar: #FFFFFF;
+    --bg-surface: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFAFB;
+    --bg-subtle: #F0F2F5;
+
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.14);
+    --border-glow: rgba(0, 194, 255, 0.4);
+
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --text-dim: #94A3B8;
+
+    --cyan: #00C2FF;
+    --cyan-dim: rgba(0, 194, 255, 0.08);
+    --cyan-glow: rgba(0, 194, 255, 0.4);
+    --green: #16A34A;
+    --purple: #7C3AED;
+    --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius-pill: 9999px;
+    --radius-card: 18px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-main); color: var(--text-primary); font-family: var(--font-body);
+    font-size: 14px; height: 100vh; overflow: hidden; display: flex;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* SIDEBAR */
+  aside.dash-sidebar {
+    width: 260px; background: var(--bg-sidebar); border-right: 1px solid var(--border-subtle);
+    display: flex; flex-direction: column; justify-content: space-between; padding: 20px 16px;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    display: inline-flex; align-items: baseline; font-family: var(--font-display);
+    font-weight: 750; font-size: 20px; letter-spacing: -0.028em; color: var(--text-primary); text-decoration: none;
+    padding: 0 8px 20px; display: block; border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 20px;
+  }
+  .brand-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--cyan); margin-left: 2px; box-shadow: 0 0 8px var(--cyan-glow);
+    animation: cyanPulse 2.8s infinite ease-in-out;
+  }
+  @keyframes cyanPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.9); }
+  }
+
+  .workspace-selector {
+    background: #F8FAFC; border: 1px solid var(--border-subtle);
+    border-radius: 10px; padding: 10px 12px; margin-bottom: 20px; display: flex;
+    align-items: center; justify-content: space-between; cursor: pointer;
+  }
+  .ws-info { display: flex; align-items: center; gap: 8px; }
+  .ws-avatar {
+    width: 24px; height: 24px; border-radius: 6px; background: #0284C7; color: #FFF;
+    display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 11px;
+  }
+  .ws-title { font-weight: 600; font-size: 13px; color: var(--text-primary); }
+
+  .side-menu { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .side-menu a {
+    display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px;
+    color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 13px;
+    transition: all 0.15s;
+  }
+  .side-menu a:hover, .side-menu a.active {
+    background: #F1F5F9; color: var(--text-primary); font-weight: 600;
+  }
+  .side-menu a.active { border-left: 3px solid #0284C7; }
+
+  .sidebar-bottom { border-top: 1px solid var(--border-subtle); padding-top: 16px; }
+  .user-profile { display: flex; align-items: center; gap: 10px; }
+  .user-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background: #E2E8F0; color: var(--text-primary);
+    display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px;
+  }
+  .user-details strong { font-size: 13px; display: block; color: var(--text-primary); }
+  .user-details span { font-size: 11px; color: var(--text-muted); }
+
+  /* MAIN WORKSPACE */
+  main.dash-main {
+    flex-grow: 1; display: flex; flex-direction: column; overflow-y: auto;
+  }
+
+  /* TOP STATUS BAR */
+  header.dash-header {
+    height: 64px; border-bottom: 1px solid var(--border-subtle); background: #FFFFFF;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 32px;
+    flex-shrink: 0;
+  }
+  .agent-status-badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+    border-radius: var(--radius-pill); background: rgba(22, 163, 74, 0.08);
+    border: 1px solid rgba(22, 163, 74, 0.2); font-size: 12px; color: #16A34A; font-weight: 600;
+  }
+  .status-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+  .btn-header {
+    padding: 7px 16px; border-radius: var(--radius-pill); font-size: 12.5px; font-weight: 600;
+    text-decoration: none; cursor: pointer; border: 1px solid var(--border-subtle);
+    background: #FFFFFF; color: var(--text-primary); transition: all 0.2s;
+  }
+  .btn-header:hover { background: #F8FAFC; border-color: var(--border-light); }
+
+  /* DASHBOARD BODY */
+  .dash-content {
+    padding: 28px 32px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px;
+    flex-grow: 1;
+  }
+
+  /* METRICS ROW */
+  .stats-row {
+    grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .stat-card {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: 14px; padding: 18px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  .stat-card span.lbl { font-size: 11.5px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  .stat-card strong { font-family: var(--font-display); font-size: 26px; display: block; margin-top: 4px; color: var(--text-primary); }
+  .stat-card span.sub { font-size: 11.5px; color: #0284C7; font-weight: 500; }
+
+  /* VERCEL AI CHAT CONSOLE */
+  .chat-console {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card); display: flex; flex-direction: column;
+    overflow: hidden; height: 560px; box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+  }
+  .chat-header {
+    padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); background: #FAFAF9;
+    display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600;
+  }
+  .chat-messages {
+    flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px;
+    background: #FFFFFF;
+  }
+  .msg {
+    max-width: 85%; padding: 12px 16px; border-radius: 14px; font-size: 13.5px; line-height: 1.5;
+  }
+  .msg.agent {
+    align-self: flex-start; background: #F8FAFC; border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+  }
+  .msg.user {
+    align-self: flex-end; background: var(--text-primary); color: #FFFFFF; font-weight: 500;
+  }
+  .chat-input-box {
+    padding: 14px 16px; border-top: 1px solid var(--border-subtle); background: #FFFFFF;
+    display: flex; gap: 10px;
+  }
+  .chat-input {
+    flex-grow: 1; background: #F8FAFC; border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill); padding: 10px 18px; color: var(--text-primary); font-size: 13.5px;
+  }
+  .chat-input:focus { outline: none; border-color: #0284C7; background: #FFFFFF; }
+  .btn-chat-send {
+    background: var(--text-primary); color: #FFFFFF; border: none; border-radius: var(--radius-pill);
+    padding: 0 20px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-chat-send:hover { background: #1E293B; }
+
+  /* LIVE OUTBOUND STREAM */
+  .live-stream-box {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card); padding: 20px; display: flex; flex-direction: column;
+    height: 560px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+  }
+  .stream-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+    font-size: 14px; font-weight: 600;
+  }
+  .stream-logs {
+    flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;
+  }
+  .log-item {
+    background: #F8FAFC; border: 1px solid var(--border-subtle); border-radius: 10px;
+    padding: 12px 14px; font-size: 12.5px; display: flex; flex-direction: column; gap: 4px;
+  }
+  .log-top { display: flex; align-items: center; justify-content: space-between; }
+  .log-title { font-weight: 700; color: var(--text-primary); }
+  .log-tag { font-size: 10.5px; padding: 2px 8px; border-radius: 4px; font-family: 'Geist Mono', monospace; font-weight: 600; }
+  .log-tag.shield { background: #DCFCE7; color: #16A34A; }
+  .log-tag.copy { background: rgba(0, 194, 255, 0.12); color: #0284C7; }
+  .log-desc { color: var(--text-secondary); font-size: 12px; }
+
+  @media (max-width: 1024px) {
+    .dash-content { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="dash-sidebar">
+  <div class="sidebar-top">
+    <!-- SalesGency Wordmark -->
+    <a href="index.html" class="brand-logo">SalesGency<span class="brand-dot"></span></a>
+
+    <div class="workspace-selector">
+      <div class="ws-info">
+        <div class="ws-avatar">SG</div>
+        <div class="ws-title">Acme Robotics</div>
+      </div>
+      <span style="font-size: 11px; color: var(--text-muted);">▾</span>
+    </div>
+
+    <ul class="side-menu">
+      <li><a href="#" class="active"><span>🤖</span> Agent Console</a></li>
+      <li><a href="#"><span>⚡</span> Live Lead Stream</a></li>
+      <li><a href="#"><span>🛡️</span> CRM Shield Rules</a></li>
+      <li><a href="#"><span>✍️</span> PAS Prompt Harness</a></li>
+      <li><a href="#"><span>🚀</span> Sequencer Sync</a></li>
+      <li><a href="#"><span>⚙️</span> Workspace Settings</a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="user-profile">
+      <div class="user-avatar">SC</div>
+      <div class="user-details">
+        <strong>Sarah Connor</strong>
+        <span>VP of Growth</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN APP -->
+<main class="dash-main">
+
+  <header class="dash-header">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <h2 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">Prospect Automation Engine</h2>
+      <div class="agent-status-badge">
+        <span class="status-pulse"></span> Autonomous Execution Active
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <a href="index.html" class="btn-header">Exit to Marketing Site</a>
+      <button class="btn-header" style="background:var(--text-primary); color:#FFFFFF; font-weight:600;" onclick="toggleAgentState(this)">Pause Agent ⏸</button>
+    </div>
+  </header>
+
+  <div class="dash-content">
+
+    <!-- METRICS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="lbl">Monthly Contact Quota</span>
+        <strong>3,418 <span style="font-size:16px; color:var(--text-muted);">/ 5,000</span></strong>
+        <span class="sub">68% Quota Utilized</span>
+      </div>
+      <div class="stat-card">
+        <span class="lbl">CRM Collisions Shielded</span>
+        <strong>142 Deals</strong>
+        <span class="sub" style="color:#16A34A;">100% Zero Collision</span>
+      </div>
+      <div class="stat-card">
+        <span class="lbl">Outbound Positive Reply Rate</span>
+        <strong>18.6%</strong>
+        <span class="sub">↑ 3.2% vs Last Week</span>
+      </div>
+      <div class="stat-card">
+        <span class="lbl">Meetings Booked (30d)</span>
+        <strong>34 Demos</strong>
+        <span class="sub">$185k Pipeline Added</span>
+      </div>
+    </div>
+
+    <!-- VERCEL AI CHAT CONSOLE -->
+    <div class="chat-console">
+      <div class="chat-header">
+        <span>💬 Vercel AI ChatUI (Claude 3.5 Sonnet Harness)</span>
+        <span style="font-size: 11px; color: #0284C7; font-family: 'Geist Mono', monospace; font-weight:600;">Model: claude-3-5-sonnet-20241022</span>
+      </div>
+
+      <div class="chat-messages" id="chatMsgs">
+        <div class="msg agent">
+          👋 Hello Sarah! I am your <strong>Prospect Automation Engine</strong>. I just scanned 120 target accounts in industrial automation and verified 18 C-level contacts. How can I assist your pipeline today?
+        </div>
+        <div class="msg user">
+          What is the primary objection we are seeing from VP of Operations this week?
+        </div>
+        <div class="msg agent">
+          Based on the last 42 replies parsed by our sentiment classifier: <strong>64% of replies cited implementation timeline concerns</strong>. I have adjusted the PAS Variant B prompt to emphasize our "14-day zero-downtime deployment guarantee."
+        </div>
+      </div>
+
+      <form class="chat-input-box" onsubmit="sendUserMsg(event)">
+        <input type="text" id="chatInput" class="chat-input" placeholder="Instruct agent: 'Draft PAS sequence for Series B SaaS', 'Check CRM dedupe'..." required>
+        <button type="submit" class="btn-chat-send">Send ↵</button>
+      </form>
+    </div>
+
+    <!-- LIVE STREAM -->
+    <div class="live-stream-box">
+      <div class="stream-header">
+        <span>⚡ Live Execution Stream</span>
+        <span style="font-size: 12px; color: #16A34A; font-family: 'Geist Mono', monospace; font-weight:600;">● Active Stream</span>
+      </div>
+
+      <div class="stream-logs" id="streamLogs">
+        <div class="log-item">
+          <div class="log-top">
+            <span class="log-title">Marcus Vance · VP Operations</span>
+            <span class="log-tag shield">CRM SHIELD PASS</span>
+          </div>
+          <p class="log-desc">Zero match in HubSpot active deals. Passed waterfall email verification (SMTP 250 OK).</p>
+        </div>
+
+        <div class="log-item">
+          <div class="log-top">
+            <span class="log-title">PAS Variant A Generated</span>
+            <span class="log-tag copy">AI PAS DRAFT</span>
+          </div>
+          <p class="log-desc">"Noticed your recent expansion into Dallas facility. Solving warehouse throughput bottlenecks..."</p>
+        </div>
+
+        <div class="log-item">
+          <div class="log-top">
+            <span class="log-title">Sequencer Enrollment</span>
+            <span class="log-tag copy">SMARTLEAD</span>
+          </div>
+          <p class="log-desc">Scheduled send via inbox <code>marcus@outreach-acme.com</code> for tomorrow 9:15 AM CST.</p>
+        </div>
+
+        <div class="log-item">
+          <div class="log-top">
+            <span class="log-title">Elena Rostova · CTO at Apex</span>
+            <span class="log-tag shield" style="background:#FEE2E2; color:#DC2626;">COLLISION BLOCKED</span>
+          </div>
+          <p class="log-desc">HubSpot deal already in "Negotiation" stage with AE John Miller. Suppressed automatically.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  function toggleAgentState(btn) {
+    if (btn.innerText.includes('Pause')) {
+      btn.innerText = 'Resume Agent ▶';
+      btn.style.background = '#16A34A';
+      btn.style.color = '#FFFFFF';
+      document.querySelector('.agent-status-badge').innerHTML = '<span style="width:6px; height:6px; border-radius:50%; background:#F59E0B; display:inline-block;"></span> Autonomous Execution Paused';
+      document.querySelector('.agent-status-badge').style.color = '#D97706';
+    } else {
+      btn.innerText = 'Pause Agent ⏸';
+      btn.style.background = 'var(--text-primary)';
+      btn.style.color = '#FFFFFF';
+      document.querySelector('.agent-status-badge').innerHTML = '<span class="status-pulse"></span> Autonomous Execution Active';
+      document.querySelector('.agent-status-badge').style.color = '#16A34A';
+    }
+  }
+
+  function sendUserMsg(e) {
+    e.preventDefault();
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const msgs = document.getElementById('chatMsgs');
+    
+    // User message
+    const uDiv = document.createElement('div');
+    uDiv.className = 'msg user';
+    uDiv.innerText = text;
+    msgs.appendChild(uDiv);
+    input.value = '';
+    msgs.scrollTop = msgs.scrollHeight;
+
+    // Simulated streaming response from Claude 3.5 Sonnet
+    setTimeout(() => {
+      const aDiv = document.createElement('div');
+      aDiv.className = 'msg agent';
+      aDiv.innerHTML = `<strong>Claude 3.5 Agent:</strong> Executed request for <em>"${text}"</em>. Synthesized 4 target prospects and queued PAS Variant C for review.`;
+      msgs.appendChild(aDiv);
+      msgs.scrollTop = msgs.scrollHeight;
+    }, 700);
+  }
+</script>
+
+</body>
+</html>

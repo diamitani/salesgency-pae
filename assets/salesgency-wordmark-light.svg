@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 44" width="240" height="44" fill="none" role="img" aria-label="SalesGency.">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;family=Inter:wght@700;800&amp;display=swap');
+      .sg-text {
+        font-family: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 30px;
+        font-weight: 750;
+        letter-spacing: -0.028em;
+        fill: #0F172A;
+      }
+      .sg-dot {
+        fill: #00C2FF;
+      }
+    </style>
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2.5" flood-color="#00C2FF" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- SalesGency Wordmark for Light Backgrounds -->
+  <g transform="translate(4, 32)">
+    <text class="sg-text">SalesGency<tspan class="sg-dot" filter="url(#cyanGlow)" dx="1.5">.</tspan></text>
+  </g>
+</svg>

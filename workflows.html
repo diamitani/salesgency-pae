@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workflows Library — SalesGency.</title>
+<meta name="description" content="Production-ready n8n workflow blueprints for automated prospecting, CRM enrichment, and outbound deliverability. Download JSONs or deploy instantly.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/salesgency-theme.css">
+
+<style>
+  :root {
+    --bg-main: #F5F5F7;
+    --bg-surface: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #FAFAFB;
+    --bg-subtle: #F0F2F5;
+
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.14);
+    --border-glow: rgba(0, 194, 255, 0.4);
+
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --text-dim: #94A3B8;
+
+    --cyan: #00C2FF;
+    --cyan-dim: rgba(0, 194, 255, 0.08);
+    --cyan-glow: rgba(0, 194, 255, 0.4);
+    --purple: #7C3AED;
+    --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --radius-pill: 9999px;
+    --radius-card: 22px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-main); color: var(--text-primary); font-family: var(--font-body);
+    font-size: 15px; line-height: 1.6; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  /* NAV (AGERO LIGHT) */
+  nav.agero-nav {
+    position: fixed; top: 20px; left: 0; right: 0; z-index: 999;
+    padding: 0 24px; pointer-events: none;
+  }
+  .nav-inner {
+    max-width: 1180px; margin: 0 auto;
+    background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle); border-radius: var(--radius-pill);
+    padding: 10px 18px 10px 24px; display: flex; align-items: center; justify-content: space-between;
+    pointer-events: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .nav-inner:hover {
+    border-color: var(--border-light);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
+  }
+
+  /* SalesGency Wordmark */
+  .brand-logo {
+    display: inline-flex; align-items: baseline; font-family: var(--font-display);
+    font-weight: 750; font-size: 21px; letter-spacing: -0.028em; color: var(--text-primary); text-decoration: none;
+  }
+  .brand-dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--cyan); margin-left: 2px; box-shadow: 0 0 10px var(--cyan-glow);
+    animation: cyanPulse 2.8s infinite ease-in-out;
+  }
+  @keyframes cyanPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(0.9); }
+  }
+
+  .nav-menu { display: flex; align-items: center; gap: 28px; list-style: none; }
+  .nav-menu a { color: var(--text-secondary); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: color 0.2s; }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--text-primary); font-weight: 600; }
+  
+  .btn-nav {
+    background: var(--text-primary); color: #FFFFFF; text-decoration: none; font-size: 13px;
+    font-weight: 600; padding: 8px 18px; border-radius: var(--radius-pill);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-nav:hover { background: #1E293B; transform: translateY(-1px); }
+
+  /* HEADER */
+  header.page-header {
+    padding: 160px 0 60px; text-align: center; border-bottom: 1px solid var(--border-subtle);
+  }
+  .badge-tag {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--radius-pill);
+    background: #FFFFFF; border: 1px solid var(--border-subtle);
+    color: #0284C7; font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  h1 {
+    font-family: var(--font-display); font-size: clamp(38px, 6vw, 64px);
+    font-weight: 750; letter-spacing: -0.035em; line-height: 1.1; margin-bottom: 18px;
+    color: var(--text-primary);
+  }
+  h1 span.grad {
+    background: linear-gradient(135deg, #0284C7 0%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.header-sub {
+    color: var(--text-secondary); font-size: 18px; max-width: 680px; margin: 0 auto;
+  }
+
+  /* WORKFLOWS LIST */
+  .wf-list {
+    display: flex; flex-direction: column; gap: 36px; padding: 60px 0 100px;
+  }
+  .wf-card {
+    background: var(--bg-card); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card); padding: 40px; display: grid;
+    grid-template-columns: 1.35fr 1fr; gap: 40px; transition: border-color 0.25s, box-shadow 0.25s;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+  }
+  .wf-card:hover {
+    border-color: var(--border-light);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+  }
+  .wf-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .wf-title { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--text-primary); }
+  .wf-version {
+    font-size: 11px; padding: 4px 10px; border-radius: var(--radius-pill);
+    background: rgba(2, 132, 199, 0.08); color: #0284C7; font-family: 'Geist Mono', monospace;
+    font-weight: 600; border: 1px solid rgba(2, 132, 199, 0.2);
+  }
+  .wf-desc { color: var(--text-secondary); font-size: 14.5px; margin-bottom: 24px; line-height: 1.6; }
+
+  /* Visual Node Pipeline */
+  .nodes-pipeline {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px;
+    background: #F8FAFC; border: 1px solid var(--border-subtle); border-radius: 14px;
+    padding: 16px 20px;
+  }
+  .node-step {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+    background: #FFFFFF; padding: 6px 12px; border-radius: 8px;
+    border: 1px solid var(--border-subtle); color: var(--text-primary); font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  }
+  .node-arrow { color: #0284C7; font-weight: bold; }
+
+  .wf-actions { display: flex; align-items: center; gap: 14px; }
+  .btn-download-json {
+    background: var(--text-primary); color: #FFFFFF; padding: 10px 20px; border-radius: var(--radius-pill);
+    font-size: 13.5px; font-weight: 600; text-decoration: none; display: inline-flex;
+    align-items: center; gap: 8px; transition: background 0.2s, transform 0.2s;
+  }
+  .btn-download-json:hover { background: #1E293B; transform: translateY(-1px); }
+
+  .wf-code-box {
+    background: #0F172A; border: 1px solid #1E293B; border-radius: 16px;
+    padding: 22px; font-family: 'Geist Mono', monospace; font-size: 12px; color: #94A3B8;
+    overflow-x: auto; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  }
+  .wf-code-box pre { line-height: 1.55; }
+
+  footer {
+    padding: 50px 0; border-top: 1px solid var(--border-subtle); background: #EAECEF;
+    text-align: center; color: var(--text-secondary); font-size: 13.5px;
+  }
+  .footer-logo {
+    display: inline-flex; align-items: baseline; font-family: var(--font-display);
+    font-weight: 750; font-size: 18px; letter-spacing: -0.028em; color: var(--text-primary); text-decoration: none;
+    margin-bottom: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .wf-card { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="agero-nav">
+  <div class="nav-inner">
+    <!-- SalesGency Wordmark -->
+    <a href="index.html" class="brand-logo">SalesGency<span class="brand-dot"></span></a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="agents.html">Agents</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="workflows.html" class="active">Workflows</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="index.html#roi-calculator">ROI Engine</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+    </ul>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <div class="nav-controls">
+        <button class="ctrl-btn theme-toggle-btn" aria-label="Toggle theme"><span>🌙</span> Dark</button>
+        <button class="ctrl-btn sound-toggle-btn" aria-label="Toggle sound"><span>🔊</span> Sound</button>
+      </div>
+      <a href="auth.html" style="color:var(--text-secondary); text-decoration:none; font-size:13.5px; font-weight:500;">Sign In</a>
+      <button class="btn-nav" onclick="SalesGency.BookingModal.open('Custom Workflow Architecture')">Book Workflow Audit →</button>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <span class="badge-tag">Automation Blueprints</span>
+    <h1>Production <span class="grad">n8n Workflows</span></h1>
+    <p class="header-sub">Production-tested JSON workflows for automated prospecting, CRM synchronization, and multi-domain sequencing. Import directly into your n8n instance.</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="wf-list">
+
+    <!-- Workflow 1 -->
+    <div class="wf-card">
+      <div>
+        <div class="wf-header">
+          <h2 class="wf-title">PAE Master Outbound Orchestrator</h2>
+          <span class="wf-version">v2.4.0 · JSON</span>
+        </div>
+        <p class="wf-desc">
+          The complete end-to-end Prospect Automation Engine. Orchestrates webhook ingest, HubSpot dedupe filtering, multi-source waterfall enrichment, Claude 3.5 Sonnet copywriting, and direct Smartlead campaign enrollment.
+        </p>
+        <div class="nodes-pipeline">
+          <div class="node-step">Webhook Ingest</div>
+          <span class="node-arrow">→</span>
+          <div class="node-step">HubSpot CRM Shield</div>
+          <span class="node-arrow">→</span>
+          <div class="node-step">Clay Waterfall</div>
+          <span class="node-arrow">→</span>
+          <div class="node-step">Claude 3.5 PAS</div>
+          <span class="node-arrow">→</span>
+          <div class="node-step">Smartlead Enroll</div>
+        </div>
+        <div class="wf-actions">
+          <a href="app-order-dashboard.html" class="btn-download-json">Download Workflow JSON (240 KB)</a>
+          <button class="btn-secondary" style="padding:10px 18px; font-size:13px; border-radius:999px; cursor:pointer;" onclick="navigator.clipboard.writeText(document.querySelector('.wf-code-box pre').innerText); SalesGency.AudioEngine.playSuccess(); SalesGency.ToastManager.show('n8n Master Blueprint copied to clipboard!', '📋');">📋 Copy Raw JSON</button>
+          <span style="font-size:12.5px; color:var(--text-muted);">Nodes: 38 · Runs: Unlimited</span>
+        </div>
+      </div>
+
+      <div class="wf-code-box">
+        <pre>{
+  "name": "PAE_Master_Orchestrator_v2.4",
+  "nodes": [
+    {
+      "name": "Webhook_Trigger_Ingest",
+      "type": "n8n-nodes-base.webhook",
+      "position": [240, 300]
+    },
+    {
+      "name": "HubSpot_CRM_Dedupe_Check",
+      "type": "n8n-nodes-base.hubspot",
+      "position": [480, 300]
+    },
+    {
+      "name": "Anthropic_Claude_PAS_Copy",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "model": "claude-3-5-sonnet-20241022",
+      "position": [720, 300]
+    },
+    {
+      "name": "Smartlead_Sequencer_Push",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [960, 300]
+    }
+  ]
+}</pre>
+      </div>
+    </div>
+
+    <!-- Workflow 2 -->
+    <div class="wf-card">
+      <div>
+        <div class="wf-header">
+          <h2 class="wf-title">Inbound Speed-to-Lead Lightning Router</h2>
+          <span class="wf-version">v1.8.2 · JSON</span>
+        </div>
+        <p class="wf-desc">
+          Processes inbound website demo requests in sub-30 seconds. Scrapes corporate domain data, scores the account against your ICP rubric, and pushes calendar invites directly to the appropriate Account Executive.
+        </p>
+        <div class="nodes-pipeline">
+          <div class="node-step">Typeform / Form Webhook</div>
+          <span class="node-arrow">→</span>
+          <div class="node-step">Apollo Domain Reveal</div>
+          <span class="node-arrow">→</span>
+          <div class="node-step">ICP Scoring Algorithm</div>
+          <span class="node-arrow">→</span>
+          <div class="node-step">AE Calendar Dispatch</div>
+        </div>
+        <div class="wf-actions">
+          <a href="app-order-dashboard.html" class="btn-download-json">Download Workflow JSON (180 KB)</a>
+          <button class="btn-secondary" style="padding:10px 18px; font-size:13px; border-radius:999px; cursor:pointer;" onclick="navigator.clipboard.writeText(document.querySelectorAll('.wf-code-box pre')[1].innerText); SalesGency.AudioEngine.playSuccess(); SalesGency.ToastManager.show('Speed-to-Lead Blueprint copied!', '📋');">📋 Copy Raw JSON</button>
+          <span style="font-size:12.5px; color:var(--text-muted);">Nodes: 24 · Latency: &lt;28s</span>
+        </div>
+      </div>
+
+      <div class="wf-code-box">
+        <pre>{
+  "name": "Inbound_Lightning_Router_v1.8",
+  "trigger": "http_form_post",
+  "enrichment_sources": ["Apollo", "Prospeo"],
+  "qualification_gate": "revenue > 5M || employees > 50",
+  "routing_method": "round_robin_calendar_assign",
+  "notification_channel": "Slack_AE_War_Room"
+}</pre>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <a href="index.html" class="footer-logo">SalesGency<span class="brand-dot"></span></a>
+    <p>© 2026 SalesGency. All rights reserved. Built on the Vercel AI Stack & Anthropic Claude.</p>
+  </div>
+</footer>
+
+<!-- BOOKING & ARCHITECTURE AUDIT MODAL -->
+<div class="modal-backdrop" id="bookingModalBackdrop" onclick="if(event.target===this)SalesGency.BookingModal.close()">
+  <div class="booking-modal">
+    <button class="drawer-close-btn" onclick="SalesGency.BookingModal.close()" aria-label="Close modal">✕</button>
+    <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--cyan); font-weight:700; margin-bottom:6px;">Direct Engineering Consultation</div>
+    <h2 style="font-family:var(--font-display); font-size:26px; margin-bottom:8px; color:var(--text-primary);">Book Workflow Architecture Audit</h2>
+    <p style="color:var(--text-secondary); font-size:13.5px; margin-bottom:24px;">
+      Direct 1-on-1 strategy call with Alex Chen, Principal GTM Architect. We will inspect your current CRM, diagnose deliverability risks, and map your custom n8n blueprint.
+    </p>
+
+    <form id="bookingForm" onsubmit="SalesGency.BookingModal.submit(event)">
+      <input type="hidden" id="bookPlanInput" value="Custom Workflow Blueprint">
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Your Name & Role</label>
+        <input type="text" class="form-input" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);" placeholder="e.g. Jordan Lee, Head of Growth" required>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Work Email</label>
+        <input type="email" class="form-input" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);" placeholder="jordan@company.com" required>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+        <div class="form-group">
+          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Primary CRM</label>
+          <select class="form-select" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);">
+            <option>Salesforce</option>
+            <option>HubSpot</option>
+            <option>Pipedrive</option>
+            <option>Other / None</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-primary);">Preferred Window</label>
+          <select class="form-select" style="width:100%; padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--bg-subtle); color:var(--text-primary);">
+            <option>This Week (Tue / Thu)</option>
+            <option>Next Week</option>
+            <option>Urgent (Within 48h)</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" id="bookSubmitBtn" style="width:100%; justify-content:center; padding:12px; font-size:14px; margin-top:8px;">
+        Confirm Technical Audit Slot →
+      </button>
+    </form>
+
+    <div id="bookingSuccess" style="display:none; text-align:center; padding:24px 10px;">
+      <div style="font-size:36px; margin-bottom:10px;">📅</div>
+      <h3 style="font-size:18px; margin-bottom:8px; color:var(--text-primary);">Architecture Audit Requested!</h3>
+      <p style="color:var(--text-secondary); font-size:13.5px; line-height:1.5;">
+        We have reserved your consultation window. Check your inbox for a calendar invite with the Zoom architecture room link.
+      </p>
+      <button class="btn-secondary" style="margin-top:16px;" onclick="SalesGency.BookingModal.close()">Close Window</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/salesgency-interactive.js"></script>
+
+</body>
+</html>

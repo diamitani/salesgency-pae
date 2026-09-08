@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 50" width="100%" height="100%" role="img" aria-label="SalesGency Gradient Wordmark Logo">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Geist:wght@700;800&amp;family=Outfit:wght@700;800&amp;display=swap');
+      .sg-base {
+        font-family: 'Geist', 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: -0.028em;
+      }
+      .sg-white { fill: #FFFFFF; }
+      .sg-grad-text { fill: url(#sg-brand-grad); }
+      .sg-dot-grad {
+        fill: #00C2FF;
+        filter: url(#glow-grad);
+      }
+    </style>
+    <linearGradient id="sg-brand-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00C2FF" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <filter id="glow-grad" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- SalesGency Wordmark (Two-Tone Gradient on Dark) -->
+  <g transform="translate(6, 36)">
+    <text class="sg-base">
+      <tspan class="sg-white">Sales</tspan><tspan class="sg-grad-text">Gency</tspan><tspan class="sg-dot-grad" dx="2">.</tspan>
+    </text>
+  </g>
+</svg>
